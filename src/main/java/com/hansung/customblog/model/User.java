@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
@@ -30,8 +29,8 @@ public class User {
     @Column(nullable = false, length = 50)
     private String email;
 
-    @ColumnDefault("'user'") // ' '으로 감싸 문자라는걸 인식
-    private String role;
+    @Enumerated(EnumType.STRING) // 해당 필드를 String 타입이라고 명시
+    private RoleType role;
 
     @CreationTimestamp // 시간 자동 입력
     private Timestamp createDate;
