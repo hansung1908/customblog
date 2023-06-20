@@ -28,3 +28,6 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+
+  mustache:
+    cache: false
