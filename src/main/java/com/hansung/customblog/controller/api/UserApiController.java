@@ -17,7 +17,7 @@ public class UserApiController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/api/user/save")
+    @PostMapping("/api/user")
     public ResponseDto<Integer> save(@RequestBody User user) {
         System.out.println("save 호출");
         user.setRole(RoleType.USER);
