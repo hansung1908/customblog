@@ -29,6 +29,5 @@ spring:
     serialization:
       fail-on-empty-beans: false
 
-  mustache:
-    expose-session-attributes: true
+  thymeleaf:
     cache: false

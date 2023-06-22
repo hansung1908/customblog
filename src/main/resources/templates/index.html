@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    {{>layout/header}}
+    <div th:insert="layout/header"></div>
 </head>
 <body>
-    {{>layout/navbar}}
+    <div th:insert="layout/navbar"></div>
 
     <div class="album py-5 bg-body-tertiary">
         <div class="container">
@@ -25,5 +26,5 @@
         </div>
     </div>
 
-    {{>layout/footer}}
+    <div th:insert="layout/footer"></div>
 </body>
