@@ -4,42 +4,42 @@
     <div th:insert="layout/header"></div>
 </head>
 <body>
-<div th:insert="layout/navbar"></div>
+    <div th:insert="layout/navbar"></div>
 
-<div class="container py-5">
-    <h4 class="mb-3">로그인</h4>
-    <form class="needs-validation">
-        <div class="row g-3">
-            <div class="col-12">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Username" autocomplete="on">
-                <div class="invalid-feedback">
-                    Your username is required.
+    <div class="container py-5">
+        <h4 class="mb-3">로그인</h4>
+        <form action="#" method="post">
+            <div class="row g-3">
+                <div class="form-group col-12">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control" id="username" placeholder="Username" autocomplete="on">
+                    <div class="invalid-feedback">
+                        Your username is required.
+                    </div>
+                </div>
+
+                <div class="form-group col-12">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" id="password" placeholder="password" autocomplete="on">
+                    <div class="invalid-feedback">
+                        Please enter your password.
+                    </div>
                 </div>
             </div>
 
-            <div class="col-12">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="password" autocomplete="on">
-                <div class="invalid-feedback">
-                    Please enter your password.
-                </div>
+            <br>
+
+            <div class="form-group form-check">
+                <input type="checkbox" name="remember" class="form-check-input" id="remember">
+                <label class="form-check-label" for="remember">Save this information for next time</label>
             </div>
-        </div>
 
-        <br>
+            <hr class="my-4">
 
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="save-info">
-            <label class="form-check-label" for="save-info">Save this information for next time</label>
-        </div>
+            <button class="w-100 btn btn-primary btn-lg" id="btn-login">완료</button>
+        </form>
+    </div>
 
-        <hr class="my-4">
-
-    </form>
-    <button class="w-100 btn btn-primary btn-lg" id="btn-login">완료</button>
-</div>
-
-<div th:insert="layout/footer"></div>
-<script src="/js/user.js"></script>
+    <div th:insert="layout/footer"></div>
+    <script src="/js/user.js"></script>
 </body>

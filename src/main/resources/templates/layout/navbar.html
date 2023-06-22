@@ -1,4 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" value="principal"/>
+</sec:authorize>
+
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="navbar">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Home</a>
@@ -8,26 +14,26 @@
 
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
 
-            <div th:if="${session.principal} == null">
+            <div th:if="${principal} == null">
                 <ul class="navbar-nav me-auto mb-2 mb-sm-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="/user/loginForm">로그인</a>
+                        <a class="nav-link" href="/auth/loginForm">로그인</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/user/joinForm">회원가입</a>
+                        <a class="nav-link" href="/auth/joinForm">회원가입</a>
                     </li>
                 </ul>
             </div>
-            <div th:if="${session.principal} != null">
+            <div th:if="${principal} != null">
                 <ul class="navbar-nav me-auto mb-2 mb-sm-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="/board/writeForm">글쓰기</a>
+                        <a class="nav-link" href="/board/form">글쓰기</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/user/userForm">회원정보</a>
+                        <a class="nav-link" href="/user/form">회원정보</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/user/logout">로그아웃</a>
+                        <a class="nav-link" href="/logout">로그아웃</a>
                     </li>
                 </ul>
             </div>

@@ -4,43 +4,43 @@
     <div th:insert="layout/header"></div>
 </head>
 <body>
-<div th:insert="layout/navbar"></div>
+    <div th:insert="layout/navbar"></div>
 
-<div class="container py-5">
-    <h4 class="mb-3">회원가입</h4>
-    <form class="needs-validation">
-        <div class="row g-3">
-            <div class="col-12">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Username" autocomplete="on">
-                <div class="invalid-feedback">
-                    Your username is required.
+    <div class="container py-5">
+        <h4 class="mb-3">회원가입</h4>
+        <form class="needs-validation">
+            <div class="row g-3">
+                <div class="form-group col-12">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" placeholder="Username" autocomplete="on">
+                    <div class="invalid-feedback">
+                        Your username is required.
+                    </div>
+                </div>
+
+                <div class="form-group col-12">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="password" autocomplete="on">
+                    <div class="invalid-feedback">
+                        Please enter your password.
+                    </div>
+                </div>
+
+                <div class="form-group col-12">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="you@example.com" autocomplete="on">
+                    <div class="invalid-feedback">
+                        Please enter a valid email address for shipping updates.
+                    </div>
                 </div>
             </div>
 
-            <div class="col-12">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="password" autocomplete="on">
-                <div class="invalid-feedback">
-                    Please enter your password.
-                </div>
-            </div>
+            <hr class="my-4">
 
-            <div class="col-12">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="you@example.com" autocomplete="on">
-                <div class="invalid-feedback">
-                    Please enter a valid email address for shipping updates.
-                </div>
-            </div>
-        </div>
+        </form>
+        <button class="w-100 btn btn-primary btn-lg" id="btn-save">완료</button>
+    </div>
 
-        <hr class="my-4">
-
-    </form>
-    <button class="w-100 btn btn-primary btn-lg" id="btn-save">완료</button>
-</div>
-
-<div th:insert="layout/footer"></div>
-<script src="/js/user.js"></script>
+    <div th:insert="layout/footer"></div>
+    <script src="/js/user.js"></script>
 </body>
