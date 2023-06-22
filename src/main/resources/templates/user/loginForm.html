@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    {{>layout/header}}
+    <div th:insert="layout/header"></div>
 </head>
 <body>
-{{>layout/navbar}}
+<div th:insert="layout/navbar"></div>
 
 <div class="container py-5">
     <h4 class="mb-3">로그인</h4>
@@ -39,6 +40,6 @@
     <button class="w-100 btn btn-primary btn-lg" id="btn-login">완료</button>
 </div>
 
-{{>layout/footer}}
+<div th:insert="layout/footer"></div>
 <script src="/js/user.js"></script>
 </body>
