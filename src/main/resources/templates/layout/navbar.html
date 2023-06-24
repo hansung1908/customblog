@@ -1,10 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<sec:authorize access="isAuthenticated()">
-    <sec:authentication property="principal" value="principal"/>
-</sec:authorize>
-
+<div th:text="${principal}"></div>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="navbar">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Home</a>
@@ -13,8 +10,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
-
-            <div th:if="${principal} == null">
+            <div sec:authorize="isAnonymous()">
                 <ul class="navbar-nav me-auto mb-2 mb-sm-0">
                     <li class="nav-item">
                         <a class="nav-link" href="/auth/loginForm">로그인</a>
@@ -24,7 +20,8 @@
                     </li>
                 </ul>
             </div>
-            <div th:if="${principal} != null">
+
+            <div sec:authorize="isAuthenticated()">
                 <ul class="navbar-nav me-auto mb-2 mb-sm-0">
                     <li class="nav-item">
                         <a class="nav-link" href="/board/form">글쓰기</a>

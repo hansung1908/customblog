@@ -1,5 +1,7 @@
 package com.hansung.customblog.controller;
 
+import com.hansung.customblog.config.auth.PrincipalDetail;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -7,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class BoardController {
 
     @GetMapping("/")
-    public String index() {
+    public String index(@AuthenticationPrincipal PrincipalDetail principalDetail) {
         return "index";
     }
 }
