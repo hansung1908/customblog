@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <div th:insert="layout/header"></div>
+    <div th:insert="~{layout/header}"></div>
 </head>
 <body>
-    <div th:insert="layout/navbar"></div>
+    <div th:insert="~{layout/navbar}"></div>
 
     <div class="container py-5">
         <h4 class="mb-3">로그인</h4>
-        <form action="#" method="post">
+        <form action="/auth/loginProc" method="post">
             <div class="row g-3">
                 <div class="form-group col-12">
                     <label for="username" class="form-label">Username</label>
@@ -40,6 +40,6 @@
         </form>
     </div>
 
-    <div th:insert="layout/footer"></div>
+    <div th:insert="~{layout/footer}"></div>
     <script src="/js/user.js"></script>
 </body>
