@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
@@ -25,10 +24,9 @@ public class Board {
     @Column(nullable = false, length = 100)
     private String title;
 
-    @Lob // 대용향 데이터
+    @Column(columnDefinition = "longtext") // 대용향 데이터
     private String Content; // 섬머노트 라이브러리 사용
 
-    @ColumnDefault("0")
     private int count;
 
     @CreationTimestamp

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:insert="~{layout/header}"></div>
+</head>
+<body>
+    <div th:insert="~{layout/navbar}"></div>
+
+    <div class="container py-5">
+        <h4 class="mb-3">글쓰기</h4>
+        <form>
+            <div class="row g-3">
+                <div class="form-group col-12">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" name="title" class="form-control" id="title" placeholder="title">
+                    <div class="invalid-feedback">
+                        Please enter your title.
+                    </div>
+                </div>
+
+                <div class="form-group col-12">
+                    <label for="content" class="form-label">Content</label>
+                    <textarea name="content" class="form-control summernote" id="content" placeholder="content" rows="5"></textarea>
+                    <div class="invalid-feedback">
+                        Please enter your content.
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+        </form>
+        <button class="w-100 btn btn-primary btn-lg" id="btn-save">완료</button>
+    </div>
+
+    <div th:insert="~{layout/footer}"></div>
+
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            $('.summernote').summernote({
+                placeholder: 'content',
+                tabsize: 2,
+                height: 300
+            });
+        });
+    </script>
+
+    <script src="/js/board.js"></script>
+</body>
