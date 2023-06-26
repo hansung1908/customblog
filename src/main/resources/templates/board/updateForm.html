@@ -10,9 +10,11 @@
         <h4 class="mb-3">Write</h4>
         <form>
             <div class="row g-3">
+                <input type="hidden" id="id" th:value="${boardDetail.id}"/>
+
                 <div class="form-group col-12">
                     <label for="title" class="form-label">Title</label>
-                    <input type="text" name="title" class="form-control" id="title" placeholder="title">
+                    <input type="text" name="title" class="form-control" id="title" placeholder="title" th:value="${boardDetail.title}">
                     <div class="invalid-feedback">
                         Please enter your title.
                     </div>
@@ -20,7 +22,7 @@
 
                 <div class="form-group col-12">
                     <label for="content" class="form-label">Content</label>
-                    <textarea name="content" class="form-control summernote" id="content" placeholder="content" rows="5"></textarea>
+                    <textarea name="content" class="form-control summernote" id="content" placeholder="content" rows="5" th:utext="${boardDetail.content}"></textarea>
                     <div class="invalid-feedback">
                         Please enter your content.
                     </div>
@@ -30,7 +32,7 @@
             <hr class="my-4">
 
         </form>
-        <button class="w-100 btn btn-primary btn-lg" id="btn-save">Confirm</button>
+        <button class="w-100 btn btn-primary btn-lg" id="btn-update">Confirm</button>
     </div>
 
     <div th:insert="~{layout/footer}"></div>
