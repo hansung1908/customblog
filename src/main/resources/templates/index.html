@@ -9,14 +9,13 @@
     <div class="album py-5">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
-                <div th:each="board:${boards.content}">
+                <div th:each="board:${boardList.content}">
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <h4 class="card-title" th:utext="${board.title}"></h4>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                    <a class="btn btn-sm btn-outline-secondary" th:href="@{|/board/${board.id}|}">View</a>
                                 </div>
                                 <small class="text-body-secondary" th:utext="${board.user.username}"></small>
                             </div>
@@ -29,11 +28,18 @@
 
     <div>
         <ul class="pagination justify-content-center">
-            <li class="page-item"><a class="page-link" th:href="@{/(page=${boards.number-1})}">Previous</a></li>
-            <li class="page-item"><a class="page-link" th:href="@{/(page=${boards.number+1})}">Next</a></li>
+            <li class="page-item" th:class="${boardList.first} ? 'disabled'">
+                <a class="page-link" th:href="@{/(page=${boardList.number-1})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" th:class="${boardList.last} ? 'disabled'">
+                <a class="page-link" th:href="@{/(page=${boardList.number+1})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
         </ul>
     </div>
-
 
     <div th:insert="~{layout/footer}"></div>
 </body>

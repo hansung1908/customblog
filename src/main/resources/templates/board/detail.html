@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:insert="~{layout/header}"></div>
+</head>
+<body>
+    <div th:insert="~{layout/navbar}"></div>
+
+    <div class="container py-5">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <small class="text-body-secondary">no.<span id="id" th:utext="${boardDetail.id}"/></small>
+
+                    <hr class="my-2"><br/>
+
+                    <h4 class="card-title" th:utext="${boardDetail.title}"></h4>
+
+                    <hr class="my-4">
+
+                    <div class="form-group col-12">
+                        <div th:utext="${boardDetail.content}"></div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-outline-secondary" onclick="history.back()">Back</button>
+                            <a class="btn btn-sm btn-outline-secondary" th:href="@{|/board/${boardDetail.id}/updateForm|}" th:if="${boardDetail.user.id} == ${#authentication.principal.user.id}">Edit</a>
+                            <button class="btn btn-sm btn-outline-secondary" id="btn-delete" th:if="${boardDetail.user.id} == ${#authentication.principal.user.id}">Delete</button>
+                        </div>
+                        <small class="text-body-secondary" th:utext="${boardDetail.user.username}"></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:insert="~{layout/footer}"></div>
+    <script src="/js/board.js"></script>
+</body>
