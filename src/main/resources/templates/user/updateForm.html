@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:insert="~{layout/header}"></div>
+</head>
+<body>
+    <div th:insert="~{layout/navbar}"></div>
+
+    <div class="container py-5">
+        <h4 class="mb-3">Profile</h4>
+        <form class="needs-validation">
+            <div class="row g-3">
+                <input type="hidden" id="id" th:value="${#authentication.principal.user.id}"/>
+
+                <div class="form-group col-12">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" placeholder="Username" th:value="${#authentication.principal.user.username}" readonly>
+                    <div class="invalid-feedback">
+                        Your username is required.
+                    </div>
+                </div>
+
+                <div class="form-group col-12">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="password">
+                    <div class="invalid-feedback">
+                        Please enter your password.
+                    </div>
+                </div>
+
+                <div class="form-group col-12">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="you@example.com" th:value="${#authentication.principal.user.email}">
+                    <div class="invalid-feedback">
+                        Please enter a valid email address for shipping updates.
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+        </form>
+        <button class="w-100 btn btn-primary btn-lg" id="btn-update">Confirm</button>
+    </div>
+
+    <div th:insert="~{layout/footer}"></div>
+    <script src="/js/user.js"></script>
+</body>
