@@ -6,8 +6,11 @@ import com.hansung.customblog.model.KakaoProfile;
 import com.hansung.customblog.model.OAuthToken;
 import com.hansung.customblog.model.User;
 import com.hansung.customblog.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -15,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,8 +40,12 @@ public class OAuthService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private HttpServletRequest request;
+
+
     @Transactional
-    public ResponseEntity<String> token(ResponseEntity<String> response) throws JsonProcessingException {
+    public void token(ResponseEntity<String> response) throws JsonProcessingException {
         ObjectMapper ob = new ObjectMapper();
         OAuthToken oauthToken = ob.readValue(response.getBody(), OAuthToken.class);
 
@@ -54,15 +62,14 @@ public class OAuthService {
         KakaoProfile kakaoProfile = ob.readValue(profileResponse.getBody(), KakaoProfile.class);
 
         User kakaoUser = User.builder()
-                .username(kakaoProfile.getKakao_account().getEmail() + " " + kakaoProfile.getId())
+                .username(kakaoProfile.getKakao_account().getEmail() + "_" + kakaoProfile.getId())
                 .password(key)
                 .email(kakaoProfile.getKakao_account().getEmail())
+                .oauth("kakao")
                 .build();
 
         // 가입자 혹은 비가입자 체크
-        User originUser = userRepository.findByUsername(kakaoUser.getUsername()).orElseGet(() -> {
-            return new User();
-        });
+        User originUser = userRepository.findByUsername(kakaoUser.getUsername()).orElseGet(() -> new User());
 
         // 비가입자면 회원가입
         if(originUser.getUsername() == null) {
@@ -71,9 +78,11 @@ public class OAuthService {
         }
 
         // 로그인 처리
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUser.getUsername(), key));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(kakaoUser.getUsername(), kakaoUser.getPassword()));
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        securityContext.setAuthentication(authentication);
 
-        return profileResponse;
+        HttpSession session = request.getSession(true);
+        session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
     }
 }

@@ -1,17 +1,21 @@
 package com.hansung.customblog.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.hansung.customblog.model.User;
 import com.hansung.customblog.service.OAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 @Controller
@@ -47,7 +51,7 @@ public class UserController {
         // 1. 토큰 발급 주소, 2. 요청 메소드 타입, 3. http 데이터, 4. 응답 타입
         ResponseEntity<String> response = rt.exchange("https://kauth.kakao.com/oauth/token", HttpMethod.POST, kakaoTokenRequest, String.class);
 
-        ResponseEntity<String> profileResponse = oAuthService.token(response);
+        oAuthService.token(response);
 
         return "redirect:/";
     }

@@ -31,9 +31,13 @@ public class UserService {
         User persistance = userRepository.findById(user.getId()).orElseThrow(() -> {
             return new IllegalArgumentException("회원 찾기 실패");
         });
-        String rawPassword = user.getPassword();
-        String encPassword = passwordEncoder.encode(rawPassword);
-        persistance.setPassword(encPassword);
+
+        if(persistance.getOauth() == null || persistance.getOauth().equals("")) {
+            String rawPassword = user.getPassword();
+            String encPassword = passwordEncoder.encode(rawPassword);
+            persistance.setPassword(encPassword);
+        }
+
         persistance.setEmail(user.getEmail());
     }
 }
