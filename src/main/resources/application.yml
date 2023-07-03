@@ -31,3 +31,6 @@ spring:
 
   thymeleaf:
     cache: false
+
+hansung:
+  key: 1234

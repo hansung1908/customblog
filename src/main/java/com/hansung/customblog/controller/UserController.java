@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @GetMapping("/auth/kakao/callback")
-    public @ResponseBody String kakaoCallback(String code) throws JsonProcessingException {
+    public String kakaoCallback(String code) throws JsonProcessingException {
         // post방식으로 key=value 데이터를 요청 (카카오쪽으로)
         RestTemplate rt = new RestTemplate();
 
@@ -49,7 +49,7 @@ public class UserController {
 
         ResponseEntity<String> profileResponse = oAuthService.token(response);
 
-        return profileResponse.getBody();
+        return "redirect:/";
     }
 
     @GetMapping("/auth/joinForm")
