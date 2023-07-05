@@ -17,7 +17,7 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false
@@ -31,6 +31,17 @@ spring:
 
   thymeleaf:
     cache: false
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 246041431328-h8fjur6vhr0v8ce05mcutd0dv0m1kupa.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
 
 hansung:
   key: 1234

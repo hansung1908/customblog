@@ -32,7 +32,7 @@ public class UserService {
             return new IllegalArgumentException("회원 찾기 실패");
         });
 
-        if(persistance.getOauth() == null || persistance.getOauth().equals("")) {
+        if(persistance.getProvider() == null || persistance.getProvider().equals("")) {
             String rawPassword = user.getPassword();
             String encPassword = passwordEncoder.encode(rawPassword);
             persistance.setPassword(encPassword);

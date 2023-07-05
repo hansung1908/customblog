@@ -65,7 +65,7 @@ public class OAuthService {
                 .username(kakaoProfile.getKakao_account().getEmail() + "_" + kakaoProfile.getId())
                 .password(key)
                 .email(kakaoProfile.getKakao_account().getEmail())
-                .oauth("kakao")
+                .provider("kakao")
                 .build();
 
         // 가입자 혹은 비가입자 체크

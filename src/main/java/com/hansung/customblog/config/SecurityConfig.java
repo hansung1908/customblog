@@ -1,6 +1,7 @@
 package com.hansung.customblog.config;
 
 import com.hansung.customblog.config.auth.PrincipalDetailService;
+import com.hansung.customblog.config.oauth.PrincipalOauth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,9 @@ public class SecurityConfig{
     @Autowired
     private PrincipalDetailService principalDetailService;
 
+    @Autowired
+    private PrincipalOauth2UserService principalOauth2UserService;
+
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
@@ -40,7 +44,9 @@ public class SecurityConfig{
                         .authenticated())
                 .formLogin(formlogin -> formlogin.loginPage("/auth/loginForm")
                         .loginProcessingUrl("/auth/loginProc")
-                        .defaultSuccessUrl("/"));
+                        .defaultSuccessUrl("/"))
+                .oauth2Login(oauth2login -> oauth2login.loginPage("/auth/loginForm")
+                        .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(principalOauth2UserService)));
 
         return http.build();
     }

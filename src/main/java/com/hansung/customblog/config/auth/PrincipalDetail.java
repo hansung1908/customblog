@@ -4,17 +4,27 @@ import com.hansung.customblog.model.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 @Data
-public class PrincipalDetail implements UserDetails {
+public class PrincipalDetail implements UserDetails, OAuth2User {
 
     private User user;
+    private Map<String, Object> attributes;
 
+    // 일반 로그인
     public PrincipalDetail(User user) {
         this.user = user;
+    }
+
+    // OAuth 로그인
+    public PrincipalDetail(User user, Map<String, Object> attributes) {
+        this.user = user;
+        this.attributes = attributes;
     }
 
     @Override
@@ -51,6 +61,11 @@ public class PrincipalDetail implements UserDetails {
         return true;
     }
 
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
+
     // 권한 등록
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -58,5 +73,10 @@ public class PrincipalDetail implements UserDetails {
         collection.add(() -> "ROLE_" + user.getRole());
 
         return collection;
+    }
+
+    @Override
+    public String getName() {
+        return null;
     }
 }
