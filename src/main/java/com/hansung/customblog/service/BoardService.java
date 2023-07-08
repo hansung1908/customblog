@@ -1,8 +1,12 @@
 package com.hansung.customblog.service;
 
+import com.hansung.customblog.dto.ReplySaveRequestDto;
 import com.hansung.customblog.model.Board;
+import com.hansung.customblog.model.Reply;
 import com.hansung.customblog.model.User;
 import com.hansung.customblog.repository.BoardRepository;
+import com.hansung.customblog.repository.ReplyRepository;
+import com.hansung.customblog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class BoardService {
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private ReplyRepository replyRepository;
 
     @Transactional
     public void save(Board board, User user) {
@@ -45,5 +55,15 @@ public class BoardService {
 
         tmpBoard.setTitle(board.getTitle());
         tmpBoard.setContent(board.getContent());
+    }
+
+    @Transactional
+    public void replySave(ReplySaveRequestDto replySaveRequestDto) {
+        replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
+    }
+
+    @Transactional
+    public void replyDelete(int replyId) {
+        replyRepository.deleteById(replyId);
     }
 }
