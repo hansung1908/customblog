@@ -1,5 +1,6 @@
 package com.hansung.customblog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,6 +38,8 @@ public class Board {
     private User user; // foreign key
 
     // fk 아님, 컬럼 생성 x, select 시 join을 통해 값만 얻어옴, mappedby에 fk이름 넣음, FetchType.LAZY로 필요시에만 가져온다는 뜻
-    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties({"board"})
+    @OrderBy("id desc")
     private List<Reply> reply;
 }
