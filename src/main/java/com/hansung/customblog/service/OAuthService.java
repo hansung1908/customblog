@@ -66,6 +66,7 @@ public class OAuthService {
                 .password(key)
                 .email(kakaoProfile.getKakao_account().getEmail())
                 .provider("kakao")
+                .providerId(kakaoProfile.getId() + "")
                 .build();
 
         // 가입자 혹은 비가입자 체크
