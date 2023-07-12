@@ -12,3 +12,4 @@
 - 리다이렉션 uri 작성시 ./login/oauth2/code/.로 고정, 앞은 도메인 주소이며 뒤는 로그인하는 사이트(google, kakao 등)
 - spring에 기본적으로 탑재된 jackson 라이브러리는 오브젝트를 json으로 바꿔주는데 이때 model에 저장된 내용을 getter를 통해 가져옴
 - board 호출시 참조하고 있는 reply가 board를 참조하여 무한 참조 발생시 @jsonignoreproperties({"board"})를 board에 참조하는 reply에 설정하여 reply에서 참조하는 board가 다시 참조되는 것을 막아줌
+- 각 사이트별로 제공되는 attribute가 다르므로 oauth2userinfo 인터페이스를 만들어 각 사이트의 userinfo가 implements하여 각 사이트가 제공하는 attribute에 맞게 정보를 넣어 저장
