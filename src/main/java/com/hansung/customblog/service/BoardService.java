@@ -2,7 +2,6 @@ package com.hansung.customblog.service;
 
 import com.hansung.customblog.dto.ReplySaveRequestDto;
 import com.hansung.customblog.model.Board;
-import com.hansung.customblog.model.Reply;
 import com.hansung.customblog.model.User;
 import com.hansung.customblog.repository.BoardRepository;
 import com.hansung.customblog.repository.ReplyRepository;

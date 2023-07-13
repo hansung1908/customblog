@@ -1,6 +1,9 @@
 package com.hansung.customblog.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,12 +24,17 @@ public class User {
     private int id;
 
     @Column(nullable = false, length = 100, unique = true)
+    @NotNull(message = "유저네임 키값이 없습니다.")
+    @NotBlank(message = "유저네임을 입력하세요.")
+    @Size(max = 100, message = "유저네임 길이를 초과하였습니다.")
     private String username;
 
     @Column(nullable = false, length = 100)
+    @NotBlank(message = "비밀번호가 없습니다.")
     private String password;
 
     @Column(nullable = false, length = 50)
+    @NotBlank(message = "이메일이 없습니다.")
     private String email;
 
     @Enumerated(EnumType.STRING) // 해당 필드를 String 타입이라고 명시
