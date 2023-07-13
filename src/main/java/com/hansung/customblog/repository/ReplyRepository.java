@@ -1,6 +1,5 @@
 package com.hansung.customblog.repository;
 
-import com.hansung.customblog.dto.ReplySaveRequestDto;
 import com.hansung.customblog.model.Reply;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

@@ -3,16 +3,23 @@ package com.hansung.customblog.controller.api;
 import com.hansung.customblog.dto.ResponseDto;
 import com.hansung.customblog.model.User;
 import com.hansung.customblog.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class UserApiController {
@@ -23,13 +30,13 @@ public class UserApiController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/auth/joinProc")
-    public ResponseDto<Integer> save(@RequestBody User user) {
+    public ResponseDto<?> save(@Valid @RequestBody User user, BindingResult bindingResult) {
         userService.save(user);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 
     @PutMapping("/user")
-    public ResponseDto<Integer> update(@RequestBody User user) {
+    public ResponseDto<?> update(@Valid @RequestBody User user, BindingResult bindingResult) {
         userService.update(user);
 
         // 세션 등록
