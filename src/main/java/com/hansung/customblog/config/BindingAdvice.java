@@ -1,6 +1,6 @@
 package com.hansung.customblog.config;
 
-import com.hansung.customblog.dto.ResponseDto;
+import com.hansung.customblog.dto.response.ResponseDto;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

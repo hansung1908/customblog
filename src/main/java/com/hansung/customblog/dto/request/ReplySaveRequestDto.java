@@ -1,4 +1,4 @@
-package com.hansung.customblog.dto;
+package com.hansung.customblog.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
