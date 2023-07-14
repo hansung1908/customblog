@@ -1,8 +1,8 @@
 package com.hansung.customblog.controller.api;
 
 import com.hansung.customblog.config.auth.PrincipalDetail;
-import com.hansung.customblog.dto.ReplySaveRequestDto;
-import com.hansung.customblog.dto.ResponseDto;
+import com.hansung.customblog.dto.request.ReplySaveRequestDto;
+import com.hansung.customblog.dto.response.ResponseDto;
 import com.hansung.customblog.model.Board;
 import com.hansung.customblog.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;

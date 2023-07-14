@@ -1,6 +1,6 @@
 package com.hansung.customblog.handler;
 
-import com.hansung.customblog.dto.ResponseDto;
+import com.hansung.customblog.dto.response.ResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
