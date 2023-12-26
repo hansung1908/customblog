@@ -26,13 +26,13 @@ public class UserApiController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/auth/joinProc")
-    public ResponseDto<?> save(@Valid @RequestBody User user, BindingResult bindingResult) {
+    public ResponseDto<Integer> save(@Valid @RequestBody User user, BindingResult bindingResult) {
         userService.save(user);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 
     @PutMapping("/user")
-    public ResponseDto<?> update(@Valid @RequestBody User user, BindingResult bindingResult) {
+    public ResponseDto<Integer> update(@Valid @RequestBody User user, BindingResult bindingResult) {
         userService.update(user);
 
         // 세션 등록
