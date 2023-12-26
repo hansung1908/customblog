@@ -34,4 +34,4 @@
 - domain에 @notnull, @notblank, @size와 같은 어노테이션을 걸고 만약 해당 조건에 만족하지 못하면 controller에 설정한 @valid bindingresult에 그 정보가 담김
 - @configuration은 시작 전 설정과 관련된 정보를 담을 쓰고, 그 외에는 @component를 사용
 - BindingAdvice는 validation체크를 할 메소드를 aop를 통해 가로채서 ProceedingJoinPoint를 통해 해당 메소드의 정보를 가져와 처리
-- 로그 처리 또한 aop를 사용하여 처리할 예정
+- 로그 처리는 aop를 통해 controller에서 발생하는 모든 error를 logback을 사용하여 파일에 저장
