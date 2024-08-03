@@ -2,10 +2,8 @@ package com.hansung.customblog.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
@@ -13,10 +11,21 @@ import java.util.List;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
 public class Board {
+
+    protected Board() {
+    }
+
+    public Board(int id, String title, String content, int count, Timestamp createDate, User user, List<Reply> reply) {
+        this.id = id;
+        this.title = title;
+        Content = content;
+        this.count = count;
+        this.createDate = createDate;
+        this.user = user;
+        this.reply = reply;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

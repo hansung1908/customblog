@@ -43,3 +43,14 @@
 - @configuration은 시작 전 설정과 관련된 정보를 담을 쓰고, 그 외에는 @component를 사용
 - BindingAdvice는 validation체크를 할 메소드를 aop를 통해 가로채서 ProceedingJoinPoint를 통해 해당 메소드의 정보를 가져와 처리
 - 로그 처리는 aop를 통해 controller에서 발생하는 모든 error를 logback을 사용하여 파일에 저장
+
+### 변경 사항
+
+##### lombok 생성자 어노테이션 변경
+- lombok 생성자 어노테이션은 크게 @NoArgsConstructor, @RequiredArgsConstructor, @AllArgsConstructor가 있음
+- 순서대로 파라미터가 없는 생성자, 특정 파라미터만 있는 생성자, 모든 파라미터가 있는 생성자 생성에 사용
+- 코드를 보다 간편하게 만들어 유용하다고 생각했으나 2가지 이유로 직접 선언하기로 결정
+```text
+1. 어노테이션을 사용하여 코드를 간편화하였지만 오히려 유지보수나 재검토시 생략되는 부분이 많아 분석에 어려움이 있음
+2. @RequiredArgsConstructor, @AllArgsConstructor를 사용할 때 파리미터 생성 순서를 변경하면 오류가 발생
+```

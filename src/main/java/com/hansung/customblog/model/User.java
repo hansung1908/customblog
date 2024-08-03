@@ -4,20 +4,30 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
 @Entity // 테이블 생성
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
 public class User {
+
+    public User() {
+    }
+
+    public User(int id, String username, String password, String email, RoleType role, String provider, String providerId, Timestamp createDate) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.provider = provider;
+        this.providerId = providerId;
+        this.createDate = createDate;
+    }
 
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
