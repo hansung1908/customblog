@@ -1,5 +1,5 @@
 # customblog
-- 다양한 기술을 접목한 블로그 기반 프로젝트
+- 다양한 기술을 접목한 게시판 기반 프로젝트
 
 ### java 17, spring boot 3.1.0
 - spring web
@@ -50,7 +50,15 @@
 - lombok 생성자 어노테이션은 크게 @NoArgsConstructor, @RequiredArgsConstructor, @AllArgsConstructor가 있음
 - 순서대로 파라미터가 없는 생성자, 특정 파라미터만 있는 생성자, 모든 파라미터가 있는 생성자 생성에 사용
 - 코드를 보다 간편하게 만들어 유용하다고 생각했으나 2가지 이유로 직접 선언하기로 결정
-```text
+
 1. 어노테이션을 사용하여 코드를 간편화하였지만 오히려 유지보수나 재검토시 생략되는 부분이 많아 분석에 어려움이 있음
 2. @RequiredArgsConstructor, @AllArgsConstructor를 사용할 때 파리미터 생성 순서를 변경하면 오류가 발생
-```
+
+
+##### lombok builder 어노테이션 변경
+- builder 패턴은 복잡한 파라미터에서 보다 쉽게 객체를 생성할 수 있게 해주는 디자인 패턴
+- lombok의 builder 어노테이션을 사용하면 쉽게 구현할 수 있음
+- lombok 특성상 코드를 간편하게 만들 수 있으나 2가지 이유로 직접 선언하기로 결정
+
+1. lombok 생성자 어노테이션과 마찬가지로 유지보수나 재검토시 생략되는 부분이 많아 분석에 어려움이 있음
+2. PrincipalOauth2UserService의 자동가입 파트에서 기존 유저를 못찾으면 빈 객체를 반환하는 코드를 생성자로 접근하지 않고 빌더에서 처리하는 함수를 만들어야 함
