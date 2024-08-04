@@ -2,7 +2,6 @@ package com.hansung.customblog.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -11,21 +10,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Builder
 public class Board {
-
-    protected Board() {
-    }
-
-    public Board(int id, String title, String content, int count, Timestamp createDate, User user, List<Reply> reply) {
-        this.id = id;
-        this.title = title;
-        Content = content;
-        this.count = count;
-        this.createDate = createDate;
-        this.user = user;
-        this.reply = reply;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +20,7 @@ public class Board {
     private String title;
 
     @Column(columnDefinition = "longtext") // 대용향 데이터
-    private String Content; // 섬머노트 라이브러리 사용
+    private String content; // 섬머노트 라이브러리 사용
 
     private int count;
 
@@ -51,4 +36,17 @@ public class Board {
     @JsonIgnoreProperties({"board"})
     @OrderBy("id desc")
     private List<Reply> reply;
+
+    protected Board() {
+    }
+
+    public Board(int id, String title, String content, int count, Timestamp createDate, User user, List<Reply> reply) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.count = count;
+        this.createDate = createDate;
+        this.user = user;
+        this.reply = reply;
+    }
 }

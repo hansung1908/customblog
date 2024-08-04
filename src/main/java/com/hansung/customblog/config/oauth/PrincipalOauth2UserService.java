@@ -58,12 +58,12 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         String password = bCryptPasswordEncoder.encode(key);
         String email = oAuth2UserInfo.getEmail();
 
-        User userEntity = userRepository.findByUsername(username).orElseGet(() -> new User());
+        User userEntity = userRepository.findByUsername(username).orElseGet(() -> new User.Builder().defualt().build());
 
         if(userEntity.getUsername() == null) {
             System.out.println("기존 회원이 아니기에 자동 회원가입을 진행합니다.");
 
-            userEntity = User.builder()
+            userEntity = new User.Builder()
                     .username(username)
                     .password(password)
                     .email(email)
