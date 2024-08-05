@@ -62,3 +62,13 @@
 
 1. lombok 생성자 어노테이션과 마찬가지로 유지보수나 재검토시 생략되는 부분이 많아 분석에 어려움이 있음
 2. PrincipalOauth2UserService의 자동가입 파트에서 기존 유저를 못찾으면 빈 객체를 반환하는 코드를 생성자로 접근하지 않고 빌더에서 처리하는 함수를 만들어야 함
+
+##### lombok data 어노테이션 변경
+- lombok data 어노테이션은 모든 파라미터의 setter / getter를 생성해주는 어노테이션
+- 각각 setter나 getter만 생성할 수 있는 @Setter, @Getter도 있음
+- 아래 4가지 이유로 접근 방식을 builder + @Getter로 바꾸기로 결정
+
+1. @Data를 사용하면 불필요한 setter가 생성되어 보안 문제 발생 우려
+2. setter 자체도 객체 일관성 유지가 어려워 안정성 보장 x
+3. 객체 생성시 가독성이 떨어짐
+4. 제작 과정에서 이미 builder를 사용하여 기존에 있던 setter가 필요 없어짐

@@ -3,13 +3,15 @@ package com.hansung.customblog.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
 public class Board {
 
     @Id
@@ -48,5 +50,80 @@ public class Board {
         this.createDate = createDate;
         this.user = user;
         this.reply = reply;
+    }
+
+    private Board(Builder builder) {
+        this.id = builder.id;
+        this.title = builder.title;
+        this.content = builder.content;
+        this.count = builder.count;
+        this.createDate = builder.createDate;
+        this.user = builder.user;
+        this.reply = builder.reply;
+    }
+
+    public static class Builder {
+        private int id;
+        private String title;
+        private String content;
+        private int count;
+        private Timestamp createDate;
+        private User user;
+        private List<Reply> reply = new ArrayList<>();
+
+
+        public Builder id(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder content(String content) {
+            this.content = content;
+            return this;
+        }
+
+        public Builder count(int count) {
+            this.count = count;
+            return this;
+        }
+
+        public Builder createDate(Timestamp createDate) {
+            this.createDate = createDate;
+            return this;
+        }
+
+        public Builder user(User user) {
+            this.user = user;
+            return this;
+        }
+
+        public Builder reply(List<Reply> reply) {
+            this.reply = reply;
+            return this;
+        }
+
+        // 빌드 메서드
+        public Board build() {
+            return new Board(this);
+        }
+    }
+
+    public Board updateCount(int count) {
+        return new Builder().count(count).build();
+    }
+
+    public Board updateUser(User user) {
+        return new Builder().user(user).build();
+    }
+    public Board updateTitle(String title) {
+        return new Builder().title(title).build();
+    }
+    public Board updateContent(String content) {
+        return new Builder().content(content).build();
     }
 }

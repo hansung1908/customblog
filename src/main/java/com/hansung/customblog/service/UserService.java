@@ -21,9 +21,12 @@ public class UserService {
     public void save(User user) {
         String rawPassword = user.getPassword();
         String encPassword = passwordEncoder.encode(rawPassword);
-        user.setPassword(encPassword);
-        user.setRole(RoleType.USER);
-        userRepository.save(user);
+
+        User newUser = new User.Builder()
+                .password(encPassword)
+                .role(RoleType.USER)
+                .build();
+        userRepository.save(newUser);
     }
 
     @Transactional
@@ -35,9 +38,11 @@ public class UserService {
         if(persistance.getProvider() == null || persistance.getProvider().equals("")) {
             String rawPassword = user.getPassword();
             String encPassword = passwordEncoder.encode(rawPassword);
-            persistance.setPassword(encPassword);
+            persistance = persistance.updatePassword(encPassword);
         }
 
-        persistance.setEmail(user.getEmail());
+        persistance = persistance.updateEmail(user.getEmail());
+
+        userRepository.save(persistance);
     }
 }
