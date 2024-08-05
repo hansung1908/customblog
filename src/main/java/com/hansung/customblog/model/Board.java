@@ -112,18 +112,4 @@ public class Board {
             return new Board(this);
         }
     }
-
-    public Board updateCount(int count) {
-        return new Builder().count(count).build();
-    }
-
-    public Board updateUser(User user) {
-        return new Builder().user(user).build();
-    }
-    public Board updateTitle(String title) {
-        return new Builder().title(title).build();
-    }
-    public Board updateContent(String content) {
-        return new Builder().content(content).build();
-    }
 }

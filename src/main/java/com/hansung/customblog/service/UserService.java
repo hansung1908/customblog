@@ -23,9 +23,16 @@ public class UserService {
         String encPassword = passwordEncoder.encode(rawPassword);
 
         User newUser = new User.Builder()
+                .id(user.getId())
+                .username(user.getUsername())
                 .password(encPassword)
+                .email(user.getEmail())
                 .role(RoleType.USER)
+                .provider(user.getProvider())
+                .providerId(user.getProviderId())
+                .createDate(user.getCreateDate())
                 .build();
+
         userRepository.save(newUser);
     }
 

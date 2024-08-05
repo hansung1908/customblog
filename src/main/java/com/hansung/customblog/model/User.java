@@ -140,12 +140,30 @@ public class User {
     }
 
     // 비밀번호 업데이트 메서드
-    public User updatePassword(String newPassword) {
-        return new Builder().password(newPassword).build();
+    public User updatePassword(String password) {
+        return new Builder()
+                .id(this.id)
+                .username(this.username)
+                .password(password)
+                .email(this.email)
+                .role(this.role)
+                .provider(this.provider)
+                .providerId(this.providerId)
+                .createDate(this.createDate)
+                .build();
     }
 
     // 이메일 업데이트 메서드
-    public User updateEmail(String newEmail) {
-        return new Builder().email(newEmail).build();
+    public User updateEmail(String email) {
+        return new Builder()
+                .id(this.id)
+                .username(this.username)
+                .password(this.password)
+                .email(email)
+                .role(this.role)
+                .provider(this.provider)
+                .providerId(this.providerId)
+                .createDate(this.createDate)
+                .build();
     }
 }

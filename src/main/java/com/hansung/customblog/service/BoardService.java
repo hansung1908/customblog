@@ -26,8 +26,17 @@ public class BoardService {
 
     @Transactional
     public void save(Board board, User user) {
-        board = board.updateCount(0).updateUser(user);
-        boardRepository.save(board);
+        Board newBoard = new Board.Builder()
+                .id(board.getId())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .count(0)
+                .createDate(board.getCreateDate())
+                .user(user)
+                .reply(board.getReply())
+                .build();
+
+        boardRepository.save(newBoard);
     }
 
     @Transactional(readOnly = true)
@@ -51,9 +60,17 @@ public class BoardService {
         Board tmpBoard = boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("글 찾기 실패: 아이디를 찾을 수 없습니다."));
 
-        tmpBoard = tmpBoard.updateTitle(board.getTitle()).updateContent(board.getContent());
+        Board updateBoard = new Board.Builder()
+                .id(tmpBoard.getId())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .count(tmpBoard.getCount())
+                .createDate(tmpBoard.getCreateDate())
+                .user(tmpBoard.getUser())
+                .reply(tmpBoard.getReply())
+                .build();
 
-        boardRepository.save(tmpBoard);
+        boardRepository.save(updateBoard);
     }
 
     @Transactional
