@@ -4,13 +4,13 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
 @Entity // 테이블 생성
-@Data
+@Getter
 public class User {
 
     @Id // primary key
@@ -137,5 +137,15 @@ public class User {
         public User build() {
             return new User(this);
         }
+    }
+
+    // 비밀번호 업데이트 메서드
+    public User updatePassword(String newPassword) {
+        return new Builder().password(newPassword).build();
+    }
+
+    // 이메일 업데이트 메서드
+    public User updateEmail(String newEmail) {
+        return new Builder().email(newEmail).build();
     }
 }

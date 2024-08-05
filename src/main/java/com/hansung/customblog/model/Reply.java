@@ -1,13 +1,13 @@
 package com.hansung.customblog.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
 
 @Entity
-@Data
+@Getter
 public class Reply {
 
     @Id

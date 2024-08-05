@@ -26,8 +26,7 @@ public class BoardService {
 
     @Transactional
     public void save(Board board, User user) {
-        board.setCount(0);
-        board.setUser(user);
+        board = board.updateCount(0).updateUser(user);
         boardRepository.save(board);
     }
 
@@ -52,8 +51,9 @@ public class BoardService {
         Board tmpBoard = boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("글 찾기 실패: 아이디를 찾을 수 없습니다."));
 
-        tmpBoard.setTitle(board.getTitle());
-        tmpBoard.setContent(board.getContent());
+        tmpBoard = tmpBoard.updateTitle(board.getTitle()).updateContent(board.getContent());
+
+        boardRepository.save(tmpBoard);
     }
 
     @Transactional
