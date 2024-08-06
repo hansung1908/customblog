@@ -2,7 +2,6 @@ package com.hansung.customblog.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -21,7 +20,7 @@ public class Board {
     @Column(nullable = false, length = 100)
     private String title;
 
-    @Column(columnDefinition = "longtext") // 대용향 데이터
+    @Column(columnDefinition = "longtext") // 대용량 데이터
     private String content; // 섬머노트 라이브러리 사용
 
     private int count;
@@ -33,10 +32,11 @@ public class Board {
     @JoinColumn(name = "userId")
     private User user; // foreign key
 
-    // fk 아님, 컬럼 생성 x, select 시 join을 통해 값만 얻어옴, mappedby에 fk이름 넣음, FetchType.LAZY로 필요시에만 가져온다는 뜻
+    // fk 아님, 컬럼 생성 x, select 시 join을 통해 값만 얻어옴, mappedby에 fk이름 넣음, FetchType.LAZY로 자식 엔티티를 필요시에만 가져온다는 뜻
+    // CascadeType.REMOVE는 부모 엔티티가 삭제되면 연관된 자식 엔티티도 함께 삭제
     @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JsonIgnoreProperties({"board"})
-    @OrderBy("id desc")
+    @JsonIgnoreProperties({"board"}) // 순환 참조 방지
+    @OrderBy("id desc") // 자식 엔티티의 정렬 방식
     private List<Reply> reply;
 
     protected Board() {
