@@ -39,12 +39,12 @@ public class BoardService {
         boardRepository.save(newBoard);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) // 읽기 전용을 설정해 속도 올림
     public Page<Board> boardList(Pageable pageable) {
         return boardRepository.findAll(pageable);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) // 읽기 전용을 설정해 속도 올림
     public Board boardDetail(int id) {
         return boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("글 상세보기 실패: 아이디를 찾을 수 없습니다."));
