@@ -1,5 +1,6 @@
 package com.hansung.customblog.service;
 
+import com.hansung.customblog.dto.request.BoardSaveRequestDto;
 import com.hansung.customblog.dto.request.ReplySaveRequestDto;
 import com.hansung.customblog.model.Board;
 import com.hansung.customblog.model.User;
@@ -25,15 +26,12 @@ public class BoardService {
     private ReplyRepository replyRepository;
 
     @Transactional
-    public void save(Board board, User user) {
+    public void save(BoardSaveRequestDto boardSaveRequestDto, User user) {
         Board newBoard = new Board.Builder()
-                .id(board.getId())
-                .title(board.getTitle())
-                .content(board.getContent())
+                .title(boardSaveRequestDto.getTitle())
+                .content(boardSaveRequestDto.getContent())
                 .count(0)
-                .createDate(board.getCreateDate())
                 .user(user)
-                .reply(board.getReply())
                 .build();
 
         boardRepository.save(newBoard);

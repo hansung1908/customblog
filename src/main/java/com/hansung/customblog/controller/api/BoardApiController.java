@@ -1,6 +1,7 @@
 package com.hansung.customblog.controller.api;
 
 import com.hansung.customblog.config.auth.PrincipalDetail;
+import com.hansung.customblog.dto.request.BoardSaveRequestDto;
 import com.hansung.customblog.dto.request.ReplySaveRequestDto;
 import com.hansung.customblog.dto.response.ResponseDto;
 import com.hansung.customblog.model.Board;
@@ -17,8 +18,8 @@ public class BoardApiController {
     private BoardService boardService;
 
     @PostMapping("/api/board")
-    public ResponseDto<Integer> save(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail principalDetail) {
-        boardService.save(board, principalDetail.getUser());
+    public ResponseDto<Integer> save(@RequestBody BoardSaveRequestDto boardSaveRequestDto, @AuthenticationPrincipal PrincipalDetail principalDetail) {
+        boardService.save(boardSaveRequestDto, principalDetail.getUser());
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 
