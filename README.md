@@ -72,3 +72,11 @@
 2. setter 자체도 객체 일관성 유지가 어려워 안정성 보장 x
 3. 객체 생성시 가독성이 떨어짐
 4. 제작 과정에서 이미 builder를 사용하여 기존에 있던 setter가 필요 없어짐
+
+##### BoardSaveRequestDto 생성
+- dto는 데이터 전송 객체 (data transfer object)로 client(html)에서 controller로 데이터를 넘길 때 사용
+- 주로 필요한 데이터만 가져오고 (보안성) 수정하기 용이한 이유로 (유연성) 많이 사용
+- 위 장점들을 바탕으로 2가지 이유로 제작을 결정
+
+1. controller부분에서 board 제목과 내용을 받을때 '@RequestBody Board board'로 객체를 생성해서 받아 불필요한 데이터가 노출될 수 있음
+2. controller는 그저 요청을 올바른 서비스에 전달해야 하는 입장으로 객체 생성으로 데이터를 다루는 것을 막아 의존성 관리
