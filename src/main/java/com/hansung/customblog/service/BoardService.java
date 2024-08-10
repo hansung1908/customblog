@@ -1,6 +1,7 @@
 package com.hansung.customblog.service;
 
 import com.hansung.customblog.dto.request.BoardSaveRequestDto;
+import com.hansung.customblog.dto.request.BoardUpdateRequestDto;
 import com.hansung.customblog.dto.request.ReplySaveRequestDto;
 import com.hansung.customblog.model.Board;
 import com.hansung.customblog.model.User;
@@ -54,14 +55,14 @@ public class BoardService {
     }
 
     @Transactional
-    public void update(int id, Board board) {
+    public void update(int id, BoardUpdateRequestDto boardUpdateRequestDto) {
         Board tmpBoard = boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("글 찾기 실패: 아이디를 찾을 수 없습니다."));
 
         Board updateBoard = new Board.Builder()
                 .id(tmpBoard.getId())
-                .title(board.getTitle())
-                .content(board.getContent())
+                .title(boardUpdateRequestDto.getTitle())
+                .content(boardUpdateRequestDto.getContent())
                 .count(tmpBoard.getCount())
                 .createDate(tmpBoard.getCreateDate())
                 .user(tmpBoard.getUser())

@@ -1,5 +1,7 @@
 package com.hansung.customblog.controller.api;
 
+import com.hansung.customblog.dto.request.UserSaveRequestDto;
+import com.hansung.customblog.dto.request.UserUpdateRequestDto;
 import com.hansung.customblog.dto.response.ResponseDto;
 import com.hansung.customblog.model.User;
 import com.hansung.customblog.service.UserService;
@@ -11,10 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserApiController {
@@ -25,17 +24,17 @@ public class UserApiController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/auth/joinProc")
-    public ResponseDto<Integer> save(@Valid @RequestBody User user, BindingResult bindingResult) {
-        userService.save(user);
+    public ResponseDto<Integer> save(@Valid @RequestBody UserSaveRequestDto userSaveRequestDto, BindingResult bindingResult) {
+        userService.save(userSaveRequestDto);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 
     @PutMapping("/user")
-    public ResponseDto<Integer> update(@Valid @RequestBody User user, BindingResult bindingResult) {
-        userService.update(user);
+    public ResponseDto<Integer> update(@Valid @RequestBody UserUpdateRequestDto userUpdateRequestDto, BindingResult bindingResult) {
+        userService.update(userUpdateRequestDto);
 
         // 세션 등록
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userUpdateRequestDto.getUsername(), userUpdateRequestDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);

@@ -14,7 +14,7 @@ import java.util.List;
 public class Board {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // db의 auto_increment 기능, 객체 생성시 자동으로 값 저장
     private int id;
 
     @Column(nullable = false, length = 100)
@@ -25,7 +25,7 @@ public class Board {
 
     private int count;
 
-    @CreationTimestamp
+    @CreationTimestamp // 현재 시간, 객체 생성시 자동으로 값 저장
     private Timestamp createDate;
 
     @ManyToOne // many = board, one = user

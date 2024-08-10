@@ -73,10 +73,14 @@
 3. 객체 생성시 가독성이 떨어짐
 4. 제작 과정에서 이미 builder를 사용하여 기존에 있던 setter가 필요 없어짐
 
-##### BoardSaveRequestDto 생성
+##### BoardSaveRequestDto 생성 + 추가 dto 생성
 - dto는 데이터 전송 객체 (data transfer object)로 client(html)에서 controller로 데이터를 넘길 때 사용
 - 주로 필요한 데이터만 가져오고 (보안성) 수정하기 용이한 이유로 (유연성) 많이 사용
 - 위 장점들을 바탕으로 2가지 이유로 제작을 결정
 
 1. controller부분에서 board 제목과 내용을 받을때 '@RequestBody Board board'로 객체를 생성해서 받아 불필요한 데이터가 노출될 수 있음
 2. controller는 그저 요청을 올바른 서비스에 전달해야 하는 입장으로 객체 생성으로 데이터를 다루는 것을 막아 의존성 관리
+
+- BoardUpdateRequestDto, UserSaveRequestDto, UserUpdateRequestDto 추가 생성
+- @GeneratedValue, @CreationTimestamp와 같이 자동으로 값을 설정하는 어노테이션은 추가적인 초기화가 필요없어서 빌더를 만들때도 생략 가능
+- @PathVariable는 url에 담긴 경로 변수 (예, /api/board/{id})를 변수로 받아오게 하는 어노테이션으로 userId와 같은 민감한 정보를 url에 노출시킬 우려가 있어 dto를 통해 받아옴
