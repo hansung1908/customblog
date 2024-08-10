@@ -1,5 +1,7 @@
 package com.hansung.customblog.service;
 
+import com.hansung.customblog.dto.request.UserSaveRequestDto;
+import com.hansung.customblog.dto.request.UserUpdateRequestDto;
 import com.hansung.customblog.model.RoleType;
 import com.hansung.customblog.model.User;
 import com.hansung.customblog.repository.UserRepository;
@@ -18,38 +20,32 @@ public class UserService {
     private BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
-    public void save(User user) {
-        String rawPassword = user.getPassword();
+        public void save(UserSaveRequestDto userSaveRequestDto) {
+        String rawPassword = userSaveRequestDto.getPassword();
         String encPassword = passwordEncoder.encode(rawPassword);
 
         User newUser = new User.Builder()
-                .id(user.getId())
-                .username(user.getUsername())
+                .username(userSaveRequestDto.getUsername())
                 .password(encPassword)
-                .email(user.getEmail())
+                .email(userSaveRequestDto.getEmail())
                 .role(RoleType.USER)
-                .provider(user.getProvider())
-                .providerId(user.getProviderId())
-                .createDate(user.getCreateDate())
                 .build();
 
         userRepository.save(newUser);
     }
 
     @Transactional
-    public void update(User user) {
-        User persistance = userRepository.findById(user.getId()).orElseThrow(() -> {
-            return new IllegalArgumentException("회원 찾기 실패");
-        });
+    public void update(UserUpdateRequestDto userUpdateRequestDto) {
+        User updateUser = userRepository.findById(userUpdateRequestDto.getId()).orElseThrow(() -> new IllegalArgumentException("회원 찾기 실패"));
 
-        if(persistance.getProvider() == null || persistance.getProvider().equals("")) {
-            String rawPassword = user.getPassword();
+        if(updateUser.getProvider() == null || updateUser.getProvider().equals("")) {
+            String rawPassword = userUpdateRequestDto.getPassword();
             String encPassword = passwordEncoder.encode(rawPassword);
-            persistance = persistance.updatePassword(encPassword);
+            updateUser = updateUser.updatePassword(encPassword);
         }
 
-        persistance = persistance.updateEmail(user.getEmail());
+        updateUser = updateUser.updateEmail(userUpdateRequestDto.getEmail());
 
-        userRepository.save(persistance);
+        userRepository.save(updateUser);
     }
 }
