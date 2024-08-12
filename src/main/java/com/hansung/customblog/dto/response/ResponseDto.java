@@ -1,8 +1,11 @@
 package com.hansung.customblog.dto.response;
 
+import lombok.Data;
+
+@Data
 public class ResponseDto<T> {
-    int status;
-    T data;
+    private int status;
+    private T data;
 
     protected ResponseDto() {
     }

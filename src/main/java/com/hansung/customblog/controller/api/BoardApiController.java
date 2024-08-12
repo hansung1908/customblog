@@ -5,7 +5,6 @@ import com.hansung.customblog.dto.request.BoardSaveRequestDto;
 import com.hansung.customblog.dto.request.BoardUpdateRequestDto;
 import com.hansung.customblog.dto.request.ReplySaveRequestDto;
 import com.hansung.customblog.dto.response.ResponseDto;
-import com.hansung.customblog.model.Board;
 import com.hansung.customblog.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

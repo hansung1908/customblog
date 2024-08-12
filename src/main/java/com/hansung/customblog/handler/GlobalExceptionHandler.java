@@ -12,6 +12,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public ResponseDto<String> handleException(Exception e) {
-        return new ResponseDto<String>(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+        return new ResponseDto<String>(HttpStatus.INTERNAL_SERVER_ERROR.value(), "서버에 문제가 발생하였습니다.");
     }
 }

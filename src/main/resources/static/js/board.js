@@ -27,14 +27,20 @@ let index = {
         $.ajax({
             type: "POST",
             url: "/api/board",
-            data: JSON.stringify(data), // http body 데이터
+            data: JSON.stringify(data), // HTTP body 데이터
             contentType: "application/json; charset=utf-8", // 요청 타입
             dataType: "json" // 응답 타입
-        }).done(function(resp){
-            alert("글쓰기가 완료되었습니다.");
-            location.href = "/";
-        }).fail(function(error){
-            alert(JSON.stringify(error));
+        }).always(function(resp) {  // 요청이 성공하든 실패하든 항상 호출
+            console.log("HTTP Status Code: " + resp.status);
+            console.log("Response Text: ", resp.data);
+
+            // 응답 코드에 따라 다르게 호출
+            if (resp.status === 200) {
+                alert("글쓰기가 완료되었습니다.");
+                location.href = "/";
+            } else {
+                alert(JSON.stringify(resp.data));
+            }
         });
     },
 
@@ -45,11 +51,16 @@ let index = {
             type: "DELETE",
             url: "/api/board/"+id,
             dataType: "json"
-        }).done(function(resp){
-            alert("삭제가 완료되었습니다.");
-            location.href = "/";
-        }).fail(function(error){
-            alert(JSON.stringify(error));
+        }).always(function(resp) {
+            console.log("HTTP Status Code: " + resp.status);
+            console.log("Response Text: ", resp.data);
+
+            if (resp.status === 200) {
+                alert("글 삭제가 완료되었습니다.");
+                location.href = "/";
+            } else {
+                alert(JSON.stringify(resp.data));
+            }
         });
     },
 
@@ -61,18 +72,22 @@ let index = {
         content: $("#content").val()
         }
 
-       // ajax를 이용한 비동기 호출 활용
         $.ajax({
             type: "PUT",
             url: "/api/board/"+id,
-            data: JSON.stringify(data), // http body 데이터
-            contentType: "application/json; charset=utf-8", // 요청 타입
-            dataType: "json" // 응답 타입
-        }).done(function(resp){
-            alert("글수정이 완료되었습니다.");
-            location.href = "/";
-        }).fail(function(error){
-            alert(JSON.stringify(error));
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).always(function(resp) {
+            console.log("HTTP Status Code: " + resp.status);
+            console.log("Response Text: ", resp.data);
+
+            if (resp.status === 200) {
+                alert("글 수정이 완료되었습니다.");
+                location.href = "/";
+            } else {
+                alert(JSON.stringify(resp.data));
+            }
         });
     },
 
@@ -86,14 +101,19 @@ let index = {
         $.ajax({
             type: "POST",
             url: `/api/board/${data.boardId}/reply`,
-            data: JSON.stringify(data), // http body 데이터
-            contentType: "application/json; charset=utf-8", // 요청 타입
-            dataType: "json" // 응답 타입
-        }).done(function(resp){
-            alert("댓글 쓰기가 완료되었습니다.");
-            location.href = `/board/${data.boardId}`;
-        }).fail(function(error){
-            alert(JSON.stringify(error));
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).always(function(resp) {
+            console.log("HTTP Status Code: " + resp.status);
+            console.log("Response Text: ", resp.data);
+
+            if (resp.status === 200) {
+                alert("댓글 쓰기가 완료되었습니다.");
+                location.href = "/";
+            } else {
+                alert(JSON.stringify(resp.data));
+            }
         });
     },
 
@@ -103,11 +123,16 @@ let index = {
             url: `/api/board/${boardId}/reply/${replyId}`,
             contentType: "application/json; charset=utf-8",
             dataType: "json"
-        }).done(function(resp) {
-            alert("댓글 삭제가 완료되었습니다.");
-            location.href = `/board/${boardId}`;
-        }).fail(function(error) {
-            alert(JSON.stringify(error));
+        }).always(function(resp) {
+            console.log("HTTP Status Code: " + resp.status);
+            console.log("Response Text: ", resp.data);
+
+            if (resp.status === 200) {
+                alert("댓글 삭제가 완료되었습니다.");
+                location.href = "/";
+            } else {
+                alert(JSON.stringify(resp.data));
+            }
         });
     }
 }
