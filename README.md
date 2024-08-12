@@ -84,3 +84,14 @@
 - BoardUpdateRequestDto, UserSaveRequestDto, UserUpdateRequestDto 추가 생성
 - @GeneratedValue, @CreationTimestamp와 같이 자동으로 값을 설정하는 어노테이션은 추가적인 초기화가 필요없어서 빌더를 만들때도 생략 가능
 - @PathVariable는 url에 담긴 경로 변수 (예, /api/board/{id})를 변수로 받아오게 하는 어노테이션으로 userId와 같은 민감한 정보를 url에 노출시킬 우려가 있어 dto를 통해 받아옴
+
+##### validation 어노테이션 수정
+- jakarta.validation.constraints 어노테이션은 클라이언트로부터 받은 데이터의 유효성을 검사하기 위한 어노테이션
+- @Email, @NotNull, @NotBlank, @Size 등 다양한 조건들을 원하는 필드에 붙혀서 사용
+- 생성한 객체에 @Vaild를 붙혀서 유효성 검사 객체로 설정
+- 원래 객체를 생성해 그대로 받아서 domain에 검증 어노테이션을 설정했지만 dto로 교체하면서 dto로 재설정
+
+##### 예외 메세지 수정
+- 데이터 처리 과정에서 exception이 발생하면 GlobalExceptionHandler으로 오게 설정 (@ControllerAdvice를 설정)
+- 예외 처리에서 500번 상태 코드(http 상태 코드)를 보내 오류 메세지를 발신해야 하는데 완료 메세지와 함께 그냥 넘어가는 걸 확인
+- js 코드를 수정하여 모든 응답 메세지를 받은 후 상태 코드를 if문으로 분류하여 처리하도록 재작업
