@@ -1,5 +1,6 @@
 package com.hansung.customblog.config;
 
+import com.hansung.customblog.config.auth.CustomAuthenticationFailureHandler;
 import com.hansung.customblog.config.auth.PrincipalDetailService;
 import com.hansung.customblog.config.oauth.PrincipalOauth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -29,12 +31,17 @@ public class SecurityConfig{
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
+    }
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authroize -> authroize.requestMatchers("/", "/auth/**", "/js/**", "/css/**", "/image/**")
                         .permitAll()
@@ -42,7 +49,8 @@ public class SecurityConfig{
                         .authenticated())
                 .formLogin(formlogin -> formlogin.loginPage("/auth/loginForm")
                         .loginProcessingUrl("/auth/loginProc")
-                        .defaultSuccessUrl("/"))
+                        .defaultSuccessUrl("/")
+                        .failureHandler(authenticationFailureHandler())) // 로그인 실패 핸들러 설정
                 .oauth2Login(oauth2login -> oauth2login.loginPage("/auth/loginForm")
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(principalOauth2UserService)));
 

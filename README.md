@@ -95,3 +95,9 @@
 - 데이터 처리 과정에서 exception이 발생하면 GlobalExceptionHandler으로 오게 설정 (@ControllerAdvice를 설정)
 - 예외 처리에서 500번 상태 코드(http 상태 코드)를 보내 오류 메세지를 발신해야 하는데 완료 메세지와 함께 그냥 넘어가는 걸 확인
 - js 코드를 수정하여 모든 응답 메세지를 받은 후 상태 코드를 if문으로 분류하여 처리하도록 재작업
+
+##### 로그인 실패 메세지 추가
+- 로그인 과정에서 아이디나 비밀번호가 틀릴 경우 경고 메시지 없이 로그인 페이지로 돌아온다는 점을 확인
+- AuthenticationFailureHandler를 상속받은 커스텀 핸들러로 실패시 session에 실패했다는 메세지가 담긴 errorMessage를 설정
+- SecurityConfig의 formLogin 파트에 커스텀한 핸들러가 설정된 failureHandler를 추가
+- loginForm.html에 로그인 실패시 세션에 추가된 errorMessage를 보여주는 오류 메세지 알림 파트 추가
