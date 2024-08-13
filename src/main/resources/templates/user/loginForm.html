@@ -43,6 +43,10 @@
         </form>
     </div>
 
+    <div th:if="${session.errorMessage}" class="alert alert-danger mt-3" role="alert">
+        <p th:text="${session.errorMessage}"></p>
+    </div>
+
     <div th:insert="~{layout/footer}"></div>
     <script src="/js/user.js"></script>
 </body>
