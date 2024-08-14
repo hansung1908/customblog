@@ -26,19 +26,19 @@ public class UserApiController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/auth/joinProc")
-    public ResponseDto<Integer> save(@Valid @RequestBody UserSaveRequestDto userSaveRequestDto, BindingResult bindingResult) {
+    public ResponseDto<String> save(@Valid @RequestBody UserSaveRequestDto userSaveRequestDto, BindingResult bindingResult) {
         userService.save(userSaveRequestDto);
-        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+        return new ResponseDto<String>(HttpStatus.OK.value(), "회원가입이 완료되었습니다.");
     }
 
     @PutMapping("/user")
-    public ResponseDto<Integer> update(@Valid @RequestBody UserUpdateRequestDto userUpdateRequestDto, BindingResult bindingResult) {
+    public ResponseDto<String> update(@Valid @RequestBody UserUpdateRequestDto userUpdateRequestDto, BindingResult bindingResult) {
         userService.update(userUpdateRequestDto);
 
         // 세션 등록
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userUpdateRequestDto.getUsername(), userUpdateRequestDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+        return new ResponseDto<String>(HttpStatus.OK.value(), "회원수정이 완료되었습니다.");
     }
 }
