@@ -104,4 +104,5 @@
 
 ##### 응답 메세지 수정 + 예외 분리
 - 동작에 성공하여 응답 메세지를 보낼때 해당 동작에 대한 구체적인 성공 내용으로 변경
+- 성공 내용을 받아 js alert로 출력
 - Exception의 하위 클래스인 SQLException, RuntimeException, IOException로 분리하여 어떤 문제가 생겼는지 바로 파악

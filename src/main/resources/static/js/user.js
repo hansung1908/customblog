@@ -28,7 +28,7 @@ let index = {
             console.log("Response Text: ", resp.data);
 
             if (resp.status === 200) {
-                alert("회원 가입이 완료되었습니다.");
+                alert(JSON.stringify(resp.data));
                 location.href = "/";
             } else {
                 alert(JSON.stringify(resp.data));
@@ -55,7 +55,7 @@ let index = {
             console.log("Response Text: ", resp.data);
 
             if (resp.status === 200) {
-                alert("회원 수정이 완료되었습니다.");
+                alert(JSON.stringify(resp.data));
                 location.href = "/";
             } else {
                 alert(JSON.stringify(resp.data));
