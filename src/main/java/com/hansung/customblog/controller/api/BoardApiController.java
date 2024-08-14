@@ -18,32 +18,32 @@ public class BoardApiController {
     private BoardService boardService;
 
     @PostMapping("/api/board")
-    public ResponseDto<Integer> save(@RequestBody BoardSaveRequestDto boardSaveRequestDto, @AuthenticationPrincipal PrincipalDetail principalDetail) {
+    public ResponseDto<String> save(@RequestBody BoardSaveRequestDto boardSaveRequestDto, @AuthenticationPrincipal PrincipalDetail principalDetail) {
         boardService.save(boardSaveRequestDto, principalDetail.getUser());
-        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+        return new ResponseDto<String>(HttpStatus.OK.value(), "게시글 저장이 완료되었습니다.");
     }
 
     @DeleteMapping("/api/board/{id}")
-    public ResponseDto<Integer> deleteById(@PathVariable int id) {
+    public ResponseDto<String> deleteById(@PathVariable int id) {
         boardService.delete(id);
-        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+        return new ResponseDto<String>(HttpStatus.OK.value(), "게시글 삭제가 완료되었습니다.");
     }
 
     @PutMapping("/api/board/{id}")
-    public ResponseDto<Integer> update(@PathVariable int id, @RequestBody BoardUpdateRequestDto boardUpdateRequestDto) {
+    public ResponseDto<String> update(@PathVariable int id, @RequestBody BoardUpdateRequestDto boardUpdateRequestDto) {
         boardService.update(id, boardUpdateRequestDto);
-        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+        return new ResponseDto<String>(HttpStatus.OK.value(), "게시글 수정이 완료되었습니다.");
     }
 
     @PostMapping("/api/board/{boardId}/reply")
-    public ResponseDto<Integer> replySave(@RequestBody ReplySaveRequestDto replySaveRequestDto) {
+    public ResponseDto<String> replySave(@RequestBody ReplySaveRequestDto replySaveRequestDto) {
         boardService.replySave(replySaveRequestDto);
-        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+        return new ResponseDto<String>(HttpStatus.OK.value(), "댓글 쓰기가 완료되었습니다.");
     }
 
     @DeleteMapping("/api/board/{boardId}/reply/{replyId}")
-    public ResponseDto<Integer> replyDelete(@PathVariable int replyId) {
+    public ResponseDto<String> replyDelete(@PathVariable int replyId) {
         boardService.replyDelete(replyId);
-        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+        return new ResponseDto<String>(HttpStatus.OK.value(), "댓글 삭제가 완료되었습니다.");
     }
 }
