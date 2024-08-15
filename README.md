@@ -44,6 +44,15 @@
 - BindingAdvice는 validation체크를 할 메소드를 aop를 통해 가로채서 ProceedingJoinPoint를 통해 해당 메소드의 정보를 가져와 처리
 - 로그 처리는 aop를 통해 controller에서 발생하는 모든 error를 logback을 사용하여 파일에 저장
 
+### 기능 추가
+
+##### 조회수 기능 추가
+- 게시글에 들어갈 경우 조회수가 증가하는 기능
+- 기존에 board 테이블에 있던 count 칼럼을 활용하여 repository에 해당 게시물의 count를 1씩 올리는 countUpById 메소드 제작
+- 서비스 레이어에서 게시물 id를 받아 countUpBy 메소드를 호출하는 countUp 메소드 제작, @Transactional을 통해 데이터 무결성 보장
+- 게시물을 자세히 보기 위해 get 요청에 id를 보내 게시물 내용을 받아오던 findById 메소드에 countUp을 추가하여 findByIdAndCountUp 메소드로 변경
+- 올려진 게시물들을 보는 index.html과 게시물의 자세한 내용을 보는 detail.html에서 board의 count값을 받아와 보여줌
+
 ### 변경 사항
 
 ##### lombok 생성자 어노테이션 변경
@@ -106,3 +115,4 @@
 - 동작에 성공하여 응답 메세지를 보낼때 해당 동작에 대한 구체적인 성공 내용으로 변경
 - 성공 내용을 받아 js alert로 출력
 - Exception의 하위 클래스인 SQLException, RuntimeException, IOException로 분리하여 어떤 문제가 생겼는지 바로 파악
+

@@ -28,7 +28,8 @@ public class BoardController {
     }
 
     @GetMapping("/board/{id}")
-    public String findById(@PathVariable int id, Model model) {
+    public String findByIdAndCountUp(@PathVariable int id, Model model) {
+        boardService.countUp(id);
         model.addAttribute("boardDetail", boardService.boardDetail(id));
         return "board/detail";
     }
