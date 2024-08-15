@@ -73,6 +73,11 @@ public class BoardService {
     }
 
     @Transactional
+    public void countUp(int id) {
+        boardRepository.countUpById(id);
+    }
+
+    @Transactional
     public void replySave(ReplySaveRequestDto replySaveRequestDto) {
         replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
     }
