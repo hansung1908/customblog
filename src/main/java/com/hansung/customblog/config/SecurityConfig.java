@@ -16,6 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
@@ -29,6 +31,9 @@ public class SecurityConfig{
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private TokenRepository tokenRepository;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
@@ -52,7 +57,10 @@ public class SecurityConfig{
                         .defaultSuccessUrl("/")
                         .failureHandler(authenticationFailureHandler())) // 로그인 실패 핸들러 설정
                 .oauth2Login(oauth2login -> oauth2login.loginPage("/auth/loginForm")
-                        .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(principalOauth2UserService)));
+                        .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(principalOauth2UserService)))
+                .rememberMe(me -> me.key("hansung")
+                        .tokenRepository(tokenRepository.createTokenRepository())
+                        .tokenValiditySeconds(60 * 60 * 24 * 7));
 
         return http.build();
     }
