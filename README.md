@@ -53,6 +53,28 @@
 - 게시물을 자세히 보기 위해 get 요청에 id를 보내 게시물 내용을 받아오던 findById 메소드에 countUp을 추가하여 findByIdAndCountUp 메소드로 변경
 - 올려진 게시물들을 보는 index.html과 게시물의 자세한 내용을 보는 detail.html에서 board의 count값을 받아와 보여줌
 
+##### 자동 로그인 기능 추가
+- 로그인 페이지에서 'Remeber me'라는 버튼을 체크하고 로그인하면 다음에 접속할 때 별도의 로그인 없이 바로 로그인된 상태로 접속되는 기능
+- loginForm.html에서 나중에 이 기능을 만들기 위해 만들어 놓았던 라디오 버튼의 name, id, for 속성 값을 표준값인 remember-me로 수정
+- 토큰에 대한 정보를 저장하는 tokenRepository를 만들어 db 테이블 생성 및 연결
+- SecurityConfig의 http 설정 파트에 rememberMe 필터를 추가해 식별키, 토큰을 저장할 repository (tokenRepository), 토큰 유효 기간을 설정
+- 로그인시 'Remeber me' 버튼을 누르고 로그인하면 토큰 정보를 저장할 테이블이 만들어지고 해당 로그인에 대한 토큰 정보를 저장
+- remember-me라는 이름의 쿠키가 브라우저에 설정
+- 재접속을 위해 다시 접속하면 자동 로그인이 됨
+---
+
+- 자동 로그인이 되는 과정
+
+1. 접속시 브라우저에 저장된 쿠키를 http 헤더에 담아 서버로 전송
+2. SpringSecurity에서 RememberMeAuthenticationFilter가 동작하여 해당 쿠키값를 분석
+3. 설정되어 있는 tokenRepository에 데이터와 일치하는 데이터가 있는지 + 유효 기간을 검증
+4. 일치하면 authentication 객체를 받아 SecurityContext에 인증된 사용자 정보 저장
+5. AuthenticationManager를 통해 인증처리되어 해당 정보로 로그인 실행
+---
+
+- 브라우저 설정에서 쿠키를 자동으로 삭제하는지 확인하여 삭제되지 않도록 설정
+- 토큰 정보 테이블이 생성되어 있다면 jdbcTokenRepository.setCreateTableOnStartup(false)로 설정해 테이블 중복 생성을 차단
+
 ### 변경 사항
 
 ##### lombok 생성자 어노테이션 변경
@@ -115,4 +137,3 @@
 - 동작에 성공하여 응답 메세지를 보낼때 해당 동작에 대한 구체적인 성공 내용으로 변경
 - 성공 내용을 받아 js alert로 출력
 - Exception의 하위 클래스인 SQLException, RuntimeException, IOException로 분리하여 어떤 문제가 생겼는지 바로 파악
-
