@@ -18,17 +18,28 @@ let index = {
     },
 
     save: function(){
-        let data = {
+        // FormData 객체 생성
+        let formData = new FormData();
+
+        // 게시판 데이터 추가
+        formData.append('board', JSON.stringify({
             title: $("#title").val(),
             content: $("#content").val()
+        }));
+
+        // 파일 데이터 추가
+        let fileInput = $('#file')[0];
+        if (fileInput.files.length > 0) {
+            formData.append('file', fileInput.files[0]);
         }
 
         // ajax를 이용한 비동기 호출 활용
         $.ajax({
             type: "POST",
             url: "/api/board",
-            data: JSON.stringify(data), // HTTP body 데이터
-            contentType: "application/json; charset=utf-8", // 요청 타입
+            data: formData, // HTTP body 데이터
+            contentType: 'multipart/form-data', // 브라우저가 자동으로 'multipart/form-data'를 설정, 요청 타입
+            processData: false, // jQuery가 데이터를 문자열로 변환하지 않도록 설정
             dataType: "json" // 응답 타입
         }).always(function(resp) {  // 요청이 성공하든 실패하든 항상 호출
             console.log("HTTP Status Code: " + resp.status);
@@ -68,8 +79,8 @@ let index = {
         let id = $("#id").val();
 
         let data = {
-        title: $("#title").val(),
-        content: $("#content").val()
+            title: $("#title").val(),
+            content: $("#content").val()
         }
 
         $.ajax({

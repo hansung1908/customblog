@@ -18,7 +18,7 @@ public class BoardApiController {
     private BoardService boardService;
 
     @PostMapping("/api/board")
-    public ResponseDto<String> save(@RequestBody BoardSaveRequestDto boardSaveRequestDto, @AuthenticationPrincipal PrincipalDetail principalDetail) {
+    public ResponseDto<String> save(@RequestPart("board") BoardSaveRequestDto boardSaveRequestDto, @AuthenticationPrincipal PrincipalDetail principalDetail) {
         boardService.save(boardSaveRequestDto, principalDetail.getUser());
         return new ResponseDto<String>(HttpStatus.OK.value(), "게시글 저장이 완료되었습니다.");
     }
