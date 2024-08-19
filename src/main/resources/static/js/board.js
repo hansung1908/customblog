@@ -38,7 +38,7 @@ let index = {
             type: "POST",
             url: "/api/board",
             data: formData, // HTTP body 데이터
-            contentType: 'multipart/form-data', // 브라우저가 자동으로 'multipart/form-data'를 설정, 요청 타입
+            contentType: false, // 브라우저가 자동으로 'multipart/form-data'를 설정, 요청 타입
             processData: false, // jQuery가 데이터를 문자열로 변환하지 않도록 설정
             dataType: "json" // 응답 타입
         }).always(function(resp) {  // 요청이 성공하든 실패하든 항상 호출
