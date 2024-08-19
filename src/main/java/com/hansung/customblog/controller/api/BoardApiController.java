@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 public class BoardApiController {
@@ -18,7 +19,10 @@ public class BoardApiController {
     private BoardService boardService;
 
     @PostMapping("/api/board")
-    public ResponseDto<String> save(@RequestPart("board") BoardSaveRequestDto boardSaveRequestDto, @AuthenticationPrincipal PrincipalDetail principalDetail) {
+    public ResponseDto<String> save(@RequestPart("board") BoardSaveRequestDto boardSaveRequestDto,
+                                    @RequestPart(value = "file", required = false) MultipartFile file,
+                                    @AuthenticationPrincipal PrincipalDetail principalDetail) {
+        System.out.println(file.getName());
         boardService.save(boardSaveRequestDto, principalDetail.getUser());
         return new ResponseDto<String>(HttpStatus.OK.value(), "게시글 저장이 완료되었습니다.");
     }
