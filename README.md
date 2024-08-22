@@ -75,6 +75,21 @@
 - 브라우저 설정에서 쿠키를 자동으로 삭제하는지 확인하여 삭제되지 않도록 설정
 - 토큰 정보 테이블이 생성되어 있다면 jdbcTokenRepository.setCreateTableOnStartup(false)로 설정해 테이블 중복 생성을 차단
 
+##### 파일 업로드 기능 추가
+- 게시글 업로드시 게시글과 같이 파일을 업로드하는 기능
+- saveForm.html에 파일을 업로드하기 위한 file 타입의 input 버튼 추가
+---
+
+- board.js에서 ajax를 통해 입력 데이터를 보낼때 파일도 같이 보내기 위해 content-type을 수정 (multipart/form-data로 설정)
+- content type 변경할 때 dto로 받으면 적절한 컨버터를 찾지 못해 'content-type 'application/octet-stream' is not supported'라는 예외를 발생
+- application/octet-stream은 특별히 표현할 수 있는 프로그램이 존재하지 않는 데이터의 경우 기본값으로 설정되는 mime 타입
+- 해결책으로는 httpmessageconverter에 application/octet-stream 추가하여 일단 역직렬화를 거쳐 서버로 가져와 처리하도록 설정
+---
+
+- 파일 정보를 데이터베이스에 저장하기 위해 File (dao) + FileRepository를 만들어 jpa를 통한 테이블 생성
+- FileService를 만들어 해당 파일의 복사본을 서버에 저장하고 파일 정보는 db에 저장하는 UploadAndSave 메소드 생성
+- BoardService의 게시판 저장 메소드에 파일 관련 데이터를 추가로 받아 UploadAndSave로 넘겨주는 코드 추가
+
 ### 변경 사항
 
 ##### lombok 생성자 어노테이션 변경

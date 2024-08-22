@@ -9,7 +9,7 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 import javax.sql.DataSource;
 
 @Configuration
-public class TokenRepository {
+public class TokenConfig {
 
     @Autowired
     private DataSource dataSource; // application.yml의 datasource를 객체로 가져옴

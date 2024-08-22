@@ -13,6 +13,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Service
 public class BoardService {
@@ -26,8 +29,11 @@ public class BoardService {
     @Autowired
     private ReplyRepository replyRepository;
 
+    @Autowired
+    private FileService fileService;
+
     @Transactional
-    public void save(BoardSaveRequestDto boardSaveRequestDto, User user) {
+    public void save(BoardSaveRequestDto boardSaveRequestDto, MultipartFile file, User user) throws IOException {
         Board newBoard = new Board.Builder()
                 .title(boardSaveRequestDto.getTitle())
                 .content(boardSaveRequestDto.getContent())
@@ -36,6 +42,10 @@ public class BoardService {
                 .build();
 
         boardRepository.save(newBoard);
+
+        if(file != null) {
+            fileService.FileUploadAndSave(file, newBoard.getId());
+        }
     }
 
     @Transactional(readOnly = true) // 읽기 전용을 설정해 속도 올림
