@@ -16,8 +16,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
-import javax.sql.DataSource;
-
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
@@ -33,7 +31,7 @@ public class SecurityConfig{
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private TokenRepository tokenRepository;
+    private TokenConfig tokenConfig;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
@@ -59,7 +57,7 @@ public class SecurityConfig{
                 .oauth2Login(oauth2login -> oauth2login.loginPage("/auth/loginForm")
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(principalOauth2UserService)))
                 .rememberMe(me -> me.key("hansung") // 자동 로그인에서 토큰 생성 / 검증에 사용되는 식별키
-                        .tokenRepository(tokenRepository.setupTokenRepositoryConnection()) // 토큰을 저장할 repository 설정
+                        .tokenRepository(tokenConfig.setupTokenRepositoryConnection()) // 토큰을 저장할 repository 설정
                         .tokenValiditySeconds(60 * 60 * 24 * 7)); // 토큰 유효시간 (7일, 초로 계산)
 
         return http.build();

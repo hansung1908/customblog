@@ -83,3 +83,6 @@ spring:
 
 hansung:
   key: 1234
+
+upload:
+  path: C:/upload

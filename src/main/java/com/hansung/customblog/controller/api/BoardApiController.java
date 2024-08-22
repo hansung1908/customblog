@@ -12,6 +12,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @RestController
 public class BoardApiController {
 
@@ -21,9 +23,8 @@ public class BoardApiController {
     @PostMapping("/api/board")
     public ResponseDto<String> save(@RequestPart("board") BoardSaveRequestDto boardSaveRequestDto,
                                     @RequestPart(value = "file", required = false) MultipartFile file,
-                                    @AuthenticationPrincipal PrincipalDetail principalDetail) {
-        System.out.println(file.getName());
-        boardService.save(boardSaveRequestDto, principalDetail.getUser());
+                                    @AuthenticationPrincipal PrincipalDetail principalDetail) throws IOException {
+        boardService.save(boardSaveRequestDto, file, principalDetail.getUser());
         return new ResponseDto<String>(HttpStatus.OK.value(), "게시글 저장이 완료되었습니다.");
     }
 
