@@ -1,6 +1,7 @@
 package com.hansung.customblog.service;
 
 import com.hansung.customblog.model.File;
+import com.hansung.customblog.model.User;
 import com.hansung.customblog.repository.BoardRepository;
 import com.hansung.customblog.repository.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -43,5 +45,11 @@ public class FileService {
                 .build();
 
         fileRepository.save(newFile);
+    }
+
+    @Transactional
+    public File FileDetail(int id) {
+        File fileDetail = fileRepository.findByBoardId(id).orElseGet(() -> new File.Builder().build());
+        return fileDetail;
     }
 }
