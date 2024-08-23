@@ -1,6 +1,7 @@
 package com.hansung.customblog.controller;
 
 import com.hansung.customblog.service.BoardService;
+import com.hansung.customblog.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -15,6 +16,9 @@ public class BoardController {
 
     @Autowired
     private BoardService boardService;
+
+    @Autowired
+    private FileService fileService;
 
     @GetMapping("/")
     public String index(Model model, @PageableDefault(size = 3, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
@@ -31,6 +35,7 @@ public class BoardController {
     public String findByIdAndCountUp(@PathVariable int id, Model model) {
         boardService.countUp(id);
         model.addAttribute("boardDetail", boardService.boardDetail(id));
+        model.addAttribute("fileDetail", fileService.FileDetail(id));
         return "board/detail";
     }
 

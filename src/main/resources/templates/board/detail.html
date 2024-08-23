@@ -37,6 +37,16 @@
             </div>
         </div>
 
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3" th:if="${fileDetail.fileName != null}">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="form-group col-12">
+                        <a href="" th:utext="${fileDetail.fileName}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <br/>
 
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
