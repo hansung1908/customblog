@@ -2,6 +2,7 @@ package com.hansung.customblog.controller;
 
 import com.hansung.customblog.service.BoardService;
 import com.hansung.customblog.service.FileService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.io.IOException;
 
 @Controller
 public class BoardController {
@@ -32,10 +35,10 @@ public class BoardController {
     }
 
     @GetMapping("/board/{id}")
-    public String findByIdAndCountUp(@PathVariable int id, Model model) {
+    public String findByIdAndCountUp(@PathVariable int id, Model model, HttpServletResponse response) throws IOException {
         boardService.countUp(id);
         model.addAttribute("boardDetail", boardService.boardDetail(id));
-        model.addAttribute("fileDetail", fileService.FileDetail(id));
+        model.addAttribute("fileDetail", fileService.fileDetail(id));
         return "board/detail";
     }
 

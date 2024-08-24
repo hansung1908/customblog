@@ -41,7 +41,7 @@
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="form-group col-12">
-                        <a href="" th:utext="${fileDetail.fileName}"></a>
+                        <a th:href="|/file/${boardDetail.id}|" th:utext="${fileDetail.fileName}"></a>
                     </div>
                 </div>
             </div>
