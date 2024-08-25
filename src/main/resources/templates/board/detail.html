@@ -37,11 +37,11 @@
             </div>
         </div>
 
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3" th:if="${fileDetail.fileName != null}">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3" th:if="${fileName != null}">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <div class="form-group col-12">
-                        <a th:href="|/file/${boardDetail.id}|" th:utext="${fileDetail.fileName}"></a>
+                        <a th:href="|/file/${boardDetail.id}|" th:utext="${fileName}"></a>
                     </div>
                 </div>
             </div>

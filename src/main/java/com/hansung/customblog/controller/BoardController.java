@@ -12,8 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.io.IOException;
-
 @Controller
 public class BoardController {
 
@@ -35,10 +33,10 @@ public class BoardController {
     }
 
     @GetMapping("/board/{id}")
-    public String findByIdAndCountUp(@PathVariable int id, Model model, HttpServletResponse response) throws IOException {
+    public String findByIdAndCountUp(@PathVariable int id, Model model, HttpServletResponse response) {
         boardService.countUp(id);
         model.addAttribute("boardDetail", boardService.boardDetail(id));
-        model.addAttribute("fileDetail", fileService.fileDetail(id));
+        model.addAttribute("fileName", fileService.findFileName(id));
         return "board/detail";
     }
 
