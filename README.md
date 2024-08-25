@@ -90,6 +90,20 @@
 - FileService를 만들어 해당 파일의 복사본을 서버에 저장하고 파일 정보는 db에 저장하는 UploadAndSave 메소드 생성
 - BoardService의 게시판 저장 메소드에 파일 관련 데이터를 추가로 받아 UploadAndSave로 넘겨주는 코드 추가
 
+##### 파일 다운로드 기능 추가
+- 게시글에 첨부된 파일을 클릭하면 다운로드 되도록하는 기능
+- 먼저 게시글에 포함된 파일을 표시하기 위해 detail.html에 a 타입의 링크를 설정
+- 파일명은 FileService의 findFileName 메소드를 만들어 게시글 id에 맞는 파일을 db에서 가져와 이름만 추출하여 string으로 반환 (없는 경우 null 반환)
+- BoardController의 findByIdAndCountUp 메소드에 attribute로 파일명을 추가하여 프론트로 전달
+- th:if를 통해 null이 아닐 경우에만 파일 부분이 보이도록 설정
+---
+
+- html에 링크 주소는 /file/${boardDetail.id}로 설정하여 게시물에 id값을 첨부
+- FileController에서 해당 주소를 받아 다운로드 기능을 처리하기 위해 만든 FileService의 fileDownload 메소드로 id 값 전송
+- 이때 다운로드 헤더 설정을 위한 HttpServletResponse도 받아 같이 전송
+- 해당 값들을 받은 fileDownload 메소드에서 id 값을 통해 db에서 파일 정보를 가져옴
+- 이를 바탕으로 다운로드를 위한 응답 헤더 세팅 + 서버에서 가지고 있던 파일 복사 후 전달 (다운로드)
+
 ### 변경 사항
 
 ##### lombok 생성자 어노테이션 변경
@@ -152,3 +166,8 @@
 - 동작에 성공하여 응답 메세지를 보낼때 해당 동작에 대한 구체적인 성공 내용으로 변경
 - 성공 내용을 받아 js alert로 출력
 - Exception의 하위 클래스인 SQLException, RuntimeException, IOException로 분리하여 어떤 문제가 생겼는지 바로 파악
+
+##### 파일 이름 관련 기능 유틸리티 클래스로 분리
+- 파일 이름을 조작하는 기능들을 유틸리티 클래스로 분리하여 메소드로 제작
+- 파일 관련 기능을 만들면서 중복 코드와 직관적이지 못한 코드들로 분리 결정
+- 각 기능마다 알맞는 메소드명을 부여하여 직관성과 사용성을 높임
