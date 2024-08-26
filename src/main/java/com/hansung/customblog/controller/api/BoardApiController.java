@@ -6,6 +6,7 @@ import com.hansung.customblog.dto.request.BoardUpdateRequestDto;
 import com.hansung.customblog.dto.request.ReplySaveRequestDto;
 import com.hansung.customblog.dto.response.ResponseDto;
 import com.hansung.customblog.service.BoardService;
+import com.hansung.customblog.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,6 +21,9 @@ public class BoardApiController {
     @Autowired
     private BoardService boardService;
 
+    @Autowired
+    private FileService fileService;
+
     @PostMapping("/api/board")
     public ResponseDto<String> save(@RequestPart("board") BoardSaveRequestDto boardSaveRequestDto,
                                     @RequestPart(value = "file", required = false) MultipartFile file,
@@ -30,6 +34,7 @@ public class BoardApiController {
 
     @DeleteMapping("/api/board/{id}")
     public ResponseDto<String> deleteById(@PathVariable int id) {
+        fileService.fileDelete(id); // 외래키 참조로 파일 먼저 삭제
         boardService.delete(id);
         return new ResponseDto<String>(HttpStatus.OK.value(), "게시글 삭제가 완료되었습니다.");
     }

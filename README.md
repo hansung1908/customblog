@@ -104,6 +104,13 @@
 - 해당 값들을 받은 fileDownload 메소드에서 id 값을 통해 db에서 파일 정보를 가져옴
 - 이를 바탕으로 다운로드를 위한 응답 헤더 세팅 + 서버에서 가지고 있던 파일 복사 후 전달 (다운로드)
 
+##### 파일 삭제 기능 추가
+- 게시글 삭제시 첨부된 파일도 같이 삭제되는 기능
+- 같은 게시판 id를 가진 파일 정보 삭제를 위해 FileRepository의 deleteByBoardId 메소드 생성
+- 이를 이용해 업로드 해놓은 파일도 삭제하고 파일에 관한 db 데이터도 삭제하는 fileDelete 메소드 제작
+- 게시판 삭제를 위해 만들어 놓은 BoardApiController의 deleteById에 fileDelete 메소드 추가
+- 이때 File 테이블은 Board를 외래키로 참조하고 있으므로 먼저 삭제
+
 ### 변경 사항
 
 ##### lombok 생성자 어노테이션 변경
