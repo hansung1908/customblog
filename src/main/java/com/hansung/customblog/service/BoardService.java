@@ -44,7 +44,7 @@ public class BoardService {
         boardRepository.save(newBoard);
 
         if(file != null) {
-            fileService.fileUploadAndSave(file, newBoard.getId());
+            fileService.fileUpload(file, newBoard.getId());
         }
     }
 

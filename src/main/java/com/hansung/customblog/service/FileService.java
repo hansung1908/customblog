@@ -33,7 +33,7 @@ public class FileService {
     private FileNameUtils fileNameUtils;
 
     @Transactional
-    public void fileUploadAndSave(MultipartFile file, int boardId) throws IOException {
+    public void fileUpload(MultipartFile file, int boardId) throws IOException {
         String fileName = fileNameUtils.generateUniqueFileName(file.getOriginalFilename());
         String filePath = fileNameUtils.generateFilePath(uploadPath, fileName);
 
@@ -92,5 +92,18 @@ public class FileService {
             fis.close();
             sos.close();
         }
+    }
+
+    @Transactional
+    public void fileDelete(int id) {
+        File fileDetail = fileRepository.findByBoardId(id).orElseThrow(() -> new IllegalArgumentException("파일 찾기 실패: 파일을 찾을 수 없습니다."));
+        String filePath = fileDetail.getFilePath();
+
+        // 파일 삭제
+        java.io.File file = new java.io.File(filePath);
+        file.delete();
+
+        // 파일 정보 삭제
+        fileRepository.deleteByBoardId(id);
     }
 }
