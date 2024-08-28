@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class BoardController {
@@ -22,8 +23,11 @@ public class BoardController {
     private FileService fileService;
 
     @GetMapping("/")
-    public String index(Model model, @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String index(Model model,
+                        @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                        @RequestParam(name = "keyword", required = false, defaultValue = "") String keyword) {
         model.addAttribute("boardList", boardService.boardList(pageable));
+        System.out.println(keyword);
         return "index";
     }
 
