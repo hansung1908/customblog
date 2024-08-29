@@ -111,6 +111,18 @@
 - 게시판 삭제를 위해 만들어 놓은 BoardApiController의 deleteById에 fileDelete 메소드 추가
 - 이때 File 테이블은 Board를 외래키로 참조하고 있으므로 먼저 삭제
 
+##### 검색 기능 추가
+- 검색창에 키워드를 입력하면 해당 키워드를 가진 제목이나 작성자와 일치하는 게시물만 따로 가져와 목록으로 보여주는 기능
+- 먼저 게시물 전체를 보여주는 index.html에 검색 입력 부분과 게시물의 작성자 표시를 추가
+- 작성자는 키워드 검색할 때 작성자도 포함하기에 확인을 위해 표시
+- search.js를 만들어 keyword 값을 url에 파리미터로 추가해 ajax로 넘겨줌
+---
+
+- BoardRepository에서 제목이나 작성자에 키워드가 포함된 게시물들을 찾는 findBoardByKeyword 메소드 작성
+- pageable을 사용하기 위해 jpql을 사용하여 쿼리 생성 + 페이징을 이용하기 위한 page 타입 반환
+- BoardService의 boardListByKeyword 메소드를 만들어 keyword와 pageable을 받아 repository로 넘겨줌
+- BoardController의 index 메소드에 keyword 값을 추가로 받아 service로 넘기는 코드 추가
+
 ### 변경 사항
 
 ##### lombok 생성자 어노테이션 변경

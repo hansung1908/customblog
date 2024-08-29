@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class BoardService {
@@ -51,6 +52,11 @@ public class BoardService {
     @Transactional(readOnly = true) // 읽기 전용을 설정해 속도 올림
     public Page<Board> boardList(Pageable pageable) {
         return boardRepository.findAll(pageable);
+    }
+
+    @Transactional(readOnly = true) // 읽기 전용을 설정해 속도 올림
+    public Page<Board> boardListByKeyword(String keyword, Pageable pageable) {
+        return boardRepository.findBoardByKeyword(keyword, pageable);
     }
 
     @Transactional(readOnly = true) // 읽기 전용을 설정해 속도 올림
