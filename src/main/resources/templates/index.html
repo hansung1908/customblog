@@ -9,7 +9,7 @@
     <div class="container py-5">
         <div class="form-group col-3">
             <form class="form-inline d-flex">
-                <input type="text" name="keyword" class="form-control" id="keyword" placeholder="keyword">
+                <input type="text" name="keyword" class="form-control" id="keyword" placeholder="keyword" th:value="${keyword}">
                 <button class="btn btn-primary btn-lg" id="btn-search">Search</button>
             </form>
         </div>
@@ -26,7 +26,11 @@
                                 <div class="btn-group">
                                     <a class="btn btn-sm btn-outline-secondary" th:href="@{|/board/${board.id}|}">View</a>
                                 </div>
-                                <small class="text-body-secondary">view : <span th:utext="${board.count}"/></small>
+                                <div class="d-flex align-items-center">
+                                    <small class="text-body-secondary" th:utext="${board.user.username}"></small>
+                                    <span class="text-body-secondary mx-2">|</span> <!-- 구분 기호 추가 -->
+                                    <small class="text-body-secondary">view : <span th:utext="${board.count}"/></small>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -38,12 +42,12 @@
     <div>
         <ul class="pagination justify-content-center">
             <li class="page-item" th:class="${boardList.first} ? 'disabled'">
-                <a class="page-link" th:href="@{/(page=${boardList.number-1})}" aria-label="Previous">
+                <a class="page-link" th:href="@{/(page=${boardList.number - 1}, keyword=${keyword})}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
             <li class="page-item" th:class="${boardList.last} ? 'disabled'">
-                <a class="page-link" th:href="@{/(page=${boardList.number+1})}" aria-label="Next">
+                <a class="page-link" th:href="@{/(page=${boardList.number + 1}, keyword=${keyword})}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>

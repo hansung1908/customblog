@@ -26,8 +26,13 @@ public class BoardController {
     public String index(Model model,
                         @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                         @RequestParam(name = "keyword", required = false, defaultValue = "") String keyword) {
-        model.addAttribute("boardList", boardService.boardList(pageable));
-        System.out.println(keyword);
+        if(keyword.equals("")) { // 키워드가 없으면 모든 게시물 반환
+            model.addAttribute("boardList", boardService.boardList(pageable));
+        } else { // 키워드가 포함된 게시물 반환
+            model.addAttribute("boardList", boardService.boardListByKeyword(keyword, pageable));
+            model.addAttribute("keyword", keyword); // 키워드 값을 유지하여 페이징 처리하기 위한 keyword 값 설정
+        }
+
         return "index";
     }
 
