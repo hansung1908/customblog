@@ -12,10 +12,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserApiController {
@@ -40,5 +37,12 @@ public class UserApiController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return new ResponseDto<String>(HttpStatus.OK.value(), "회원수정이 완료되었습니다.");
+    }
+
+    @PostMapping("/auth/joinProc/checkName")
+    public ResponseDto<String> checkName(@RequestBody String name) {
+        System.out.println(name);
+
+        return new ResponseDto<String>(HttpStatus.OK.value(), "사용 가능한 이름입니다.");
     }
 }

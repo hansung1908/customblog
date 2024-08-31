@@ -1,0 +1,8 @@
+[2024-08-14 21:50:40:126590][http-nio-8080-exec-7] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.UserApiController.save() -> 필드: email, 메세지: 이메일이 없습니다.
+[2024-08-14 21:50:44:130397][http-nio-8080-exec-4] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.UserApiController.save() -> 필드: email, 메세지: 이메일이 없습니다.
+[2024-08-14 21:50:44:130398][http-nio-8080-exec-4] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.UserApiController.save() -> 필드: password, 메세지: 비밀번호가 없습니다.
+[2024-08-14 21:50:58:144047][http-nio-8080-exec-6] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.UserApiController.save() -> 필드: password, 메세지: 비밀번호가 없습니다.
+[2024-08-14 21:50:58:144049][http-nio-8080-exec-6] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.UserApiController.save() -> 필드: username, 메세지: 유저네임 길이를 초과하였습니다.
+[2024-08-14 21:50:58:144049][http-nio-8080-exec-6] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.UserApiController.save() -> 필드: email, 메세지: 이메일이 없습니다.
+[2024-08-14 21:51:02:148953][http-nio-8080-exec-5] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.UserApiController.save() -> 필드: email, 메세지: 유효한 이메일 주소를 입력해 주세요.
+[2024-08-14 21:51:02:148953][http-nio-8080-exec-5] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.UserApiController.save() -> 필드: username, 메세지: 유저네임 길이를 초과하였습니다.
