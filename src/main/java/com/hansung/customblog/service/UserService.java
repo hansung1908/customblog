@@ -48,4 +48,9 @@ public class UserService {
 
         userRepository.save(updateUser);
     }
+
+    @Transactional
+    public long checkName(String username) {
+        return userRepository.existsByName(username);
+    }
 }
