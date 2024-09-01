@@ -123,6 +123,26 @@
 - BoardService의 boardListByKeyword 메소드를 만들어 keyword와 pageable을 받아 repository로 넘겨줌
 - BoardController의 index 메소드에 keyword 값을 추가로 받아 service로 넘기는 코드 추가
 
+##### 유저네임 중복 체크 기능 추가
+- 유저네임 중복 체크를 위한 button 추가
+- user.js에 ajax를 통한 유저네임 전달
+- 유저 이름을 받기 위한 UserCheckNameRequestDto 생성
+---
+
+- 유저 네임을 전달할 checkName 메소드를 UserApiController에 생성
+- 이때, 주소는 /auth/joinProc/checkName로 지정하여 spring security에서 정한 주소 내에서 다루도록 설정
+- 중복 확인을 안눌렀거나 중복이 존재할 경우 회원가입을 막을 필요가 있음
+- 그래서 중복 유무를 판단하는 usernameCheckStatus를 세션에 추가
+- 기존에 회원가입을 당담하던 UserApiController의 save 메소드에 세션 판별 코드 추가
+- 회원가입시 null이거나 false면 400번 오류를 띄우고, true면 회원가입 통과
+---
+
+- UserRepository에 유저네임과 기존 db에 있는 유저네임과 비교하여 유무를 판별하는 existsByName 메소드 생성
+- 중복 체크는 db에 같은 유저네임이 하나라도 있다면 성립 불가
+- 단순히 where절에 유저네임을 넣어 유무를 판별하거나 count를 사용하여 갯수를 세는 방식은 모든 데이터와 비교하여 비효율
+- 그래서 EXISTS를 사용하여 같은 유저네임이 나오면 바로 0을 반환하여 sql 성능 최적화
+- controller로부터 유저네임을 받아 0과 1로 중복여부를 반환하는 checkName 메소드를 UserService에 추가
+
 ### 변경 사항
 
 ##### lombok 생성자 어노테이션 변경
