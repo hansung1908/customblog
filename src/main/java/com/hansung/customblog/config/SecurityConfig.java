@@ -1,6 +1,7 @@
 package com.hansung.customblog.config;
 
 import com.hansung.customblog.config.auth.CustomAuthenticationFailureHandler;
+import com.hansung.customblog.config.auth.CustomAuthenticationSuccessHandler;
 import com.hansung.customblog.config.auth.PrincipalDetailService;
 import com.hansung.customblog.config.oauth.PrincipalOauth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -44,15 +46,21 @@ public class SecurityConfig{
     }
 
     @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new CustomAuthenticationSuccessHandler();
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authroize -> authroize.requestMatchers("/", "/auth/**", "/js/**", "/css/**", "/image/**")
                         .permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN") // '/admin/**' 경로는 'ADMIN' 역할을 가진 사용자만 접근 가능
                         .anyRequest()
                         .authenticated())
                 .formLogin(formlogin -> formlogin.loginPage("/auth/loginForm")
                         .loginProcessingUrl("/auth/loginProc")
-                        .defaultSuccessUrl("/")
+                        .successHandler(authenticationSuccessHandler()) // 로그인 성공 핸들러 설정
                         .failureHandler(authenticationFailureHandler())) // 로그인 실패 핸들러 설정
                 .oauth2Login(oauth2login -> oauth2login.loginPage("/auth/loginForm")
                         .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(principalOauth2UserService)))
