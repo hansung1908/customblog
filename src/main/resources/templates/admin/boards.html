@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:insert="~{layout/header}"></div>
+</head>
+<body>
+    <div th:insert="~{layout/navbar}"></div>
+
+    <div class="container py-5">
+        <div class="form-group col-3">
+            <form class="form-inline d-flex">
+                <input type="text" name="keyword" class="form-control" id="keyword" placeholder="keyword" th:value="${keyword}">
+                <button class="btn btn-primary btn-lg" id="btn-search">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="album py-5">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
+                <div th:each="board:${boardList.content}">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h4 class="card-title" th:utext="${board.title}"></h4>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a class="btn btn-sm btn-outline-secondary" th:href="@{|/admin/boards/${board.id}|}">View</a>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <small class="text-body-secondary" th:utext="${board.user.username}"></small>
+                                    <span class="text-body-secondary mx-2">|</span> <!-- 구분 기호 추가 -->
+                                    <small class="text-body-secondary">view : <span th:utext="${board.count}"/></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:class="${boardList.first} ? 'disabled'">
+                <a class="page-link" th:href="@{/(page=${boardList.number - 1}, keyword=${keyword})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" th:class="${boardList.last} ? 'disabled'">
+                <a class="page-link" th:href="@{/(page=${boardList.number + 1}, keyword=${keyword})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div th:insert="~{layout/footer}"></div>
+</body>

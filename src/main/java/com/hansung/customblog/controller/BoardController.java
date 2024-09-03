@@ -42,7 +42,7 @@ public class BoardController {
     }
 
     @GetMapping("/board/{id}")
-    public String findByIdAndCountUp(@PathVariable int id, Model model, HttpServletResponse response) {
+    public String findByIdAndCountUp(@PathVariable int id, Model model) {
         boardService.countUp(id);
         model.addAttribute("boardDetail", boardService.boardDetail(id));
         model.addAttribute("fileName", fileService.findFileName(id));
