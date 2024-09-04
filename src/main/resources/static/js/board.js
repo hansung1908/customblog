@@ -56,11 +56,11 @@ let index = {
     },
 
     deleteById: function(){
-        let id = $("#id").text();
+        let boardId = $("#boardId").val();
 
         $.ajax({
             type: "DELETE",
-            url: "/api/board/"+id,
+            url: "/api/board/"+boardId,
             dataType: "json"
         }).always(function(resp) {
             console.log("HTTP Status Code: " + resp.status);
@@ -76,7 +76,7 @@ let index = {
     },
 
     update: function(){
-        let id = $("#id").val();
+        let boardId = $("#boardId").val();
 
         let data = {
             title: $("#title").val(),
@@ -85,7 +85,7 @@ let index = {
 
         $.ajax({
             type: "PUT",
-            url: "/api/board/"+id,
+            url: "/api/board/"+boardId,
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json"
@@ -95,7 +95,7 @@ let index = {
 
             if (resp.status === 200) {
                 alert(JSON.stringify(resp.data));
-                location.href = "/";
+                location.href = "/board/"+boardId;
             } else {
                 alert(JSON.stringify(resp.data));
             }
@@ -121,7 +121,7 @@ let index = {
 
             if (resp.status === 200) {
                 alert(JSON.stringify(resp.data));
-                location.href = "/";
+                location.href = "/board/"+data.boardId;
             } else {
                 alert(JSON.stringify(resp.data));
             }
@@ -140,7 +140,7 @@ let index = {
 
             if (resp.status === 200) {
                 alert(JSON.stringify(resp.data));
-                location.href = "/";
+                location.href = "/board/"+boardId;
             } else {
                 alert(JSON.stringify(resp.data));
             }

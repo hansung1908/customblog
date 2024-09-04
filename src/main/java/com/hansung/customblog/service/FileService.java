@@ -96,14 +96,17 @@ public class FileService {
 
     @Transactional
     public void fileDelete(int id) {
-        File fileDetail = fileRepository.findByBoardId(id).orElseThrow(() -> new IllegalArgumentException("파일 찾기 실패: 파일을 찾을 수 없습니다."));
-        String filePath = fileDetail.getFilePath();
+        File fileDetail = fileRepository.findByBoardId(id).orElseGet(() -> new File.Builder().build());
 
-        // 파일 삭제
-        java.io.File file = new java.io.File(filePath);
-        file.delete();
+        if(fileDetail.getFileName() != null) { // 파일이 있으면 동작, 없으면 생략
+            String filePath = fileDetail.getFilePath();
 
-        // 파일 정보 삭제
-        fileRepository.deleteByBoardId(id);
+            // 파일 삭제
+            java.io.File file = new java.io.File(filePath);
+            file.delete();
+
+            // 파일 정보 삭제
+            fileRepository.deleteByBoardId(id);
+        }
     }
 }
