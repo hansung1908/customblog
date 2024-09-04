@@ -44,6 +44,11 @@
 - BindingAdvice는 validation체크를 할 메소드를 aop를 통해 가로채서 ProceedingJoinPoint를 통해 해당 메소드의 정보를 가져와 처리
 - 로그 처리는 aop를 통해 controller에서 발생하는 모든 error를 logback을 사용하여 파일에 저장
 
+### @Controller vs @RestController
+- 두 차이점은 크게 응답에 대한 반환값의 차이
+- html 뷰 렌더링 vs rest api 생성 + 데이터(보통 json) 반환
+- @Controller에서도 데이터를 반환하고 싶으면 메소드에 @ResponseBody 추가
+
 ### 기능 추가
 
 ##### 조회수 기능 추가

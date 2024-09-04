@@ -5,7 +5,7 @@ let index = {
         });
     },
 
-    search: function(keyword) {
+    search: function() {
         let keyword = $("#keyword").text();
 
         $.ajax({

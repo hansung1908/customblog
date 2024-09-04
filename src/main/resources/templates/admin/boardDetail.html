@@ -11,7 +11,7 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <small class="text-body-secondary">no.<span id="id" th:utext="${boardDetail.id}"/></small>
+                    <small class="text-body-secondary">no.<span id="boardId" th:utext="${boardDetail.id}"/></small>
                     <small class="text-body-secondary">view : <span th:utext="${boardDetail.count}"/></small>
 
                     <hr class="my-2"><br/>
@@ -62,7 +62,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <small class="text-body-secondary" th:utext="${reply.user.username}"></small>
                                 &nbsp;
-                                <button th:onclick="index.adminreplyDelete([[${boardDetail.id}]], [[${reply.id}]])"
+                                <button th:onclick="index.replyDelete([[${boardDetail.id}]], [[${reply.id}]])"
                                         sec:authorize="isAuthenticated() and hasRole('ROLE_ADMIN')" class="btn btn-sm btn-outline-secondary">Delete</button>
                             </div>
                         </li>
