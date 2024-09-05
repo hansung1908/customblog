@@ -2,10 +2,13 @@ package com.hansung.customblog.service;
 
 import com.hansung.customblog.dto.request.UserSaveRequestDto;
 import com.hansung.customblog.dto.request.UserUpdateRequestDto;
+import com.hansung.customblog.model.Board;
 import com.hansung.customblog.model.RoleType;
 import com.hansung.customblog.model.User;
 import com.hansung.customblog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,5 +55,10 @@ public class UserService {
     @Transactional
     public long checkName(String username) {
         return userRepository.existsByName(username);
+    }
+
+    @Transactional(readOnly = true) // 읽기 전용을 설정해 속도 올림
+    public Page<User> userList(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 }

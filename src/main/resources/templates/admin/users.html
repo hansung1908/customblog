@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:insert="~{layout/header}"></div>
+</head>
+<body>
+    <div th:insert="~{layout/navbar}"></div>
+
+    <div class="container py-5">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
+            <div class="bd-example-snippet bd-code-snippet">
+                <div class="bd-example m-0 border-0">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">id</th>
+                                <th scope="col">username</th>
+                                <th scope="col">email</th>
+                                <th scope="col">createDate</th>
+                                <th scope="col">delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="user:${userList.content}">
+                                <td th:utext="${user.id}"></td>
+                                <td th:utext="${user.username}"></td>
+                                <td th:utext="${user.email}"></td>
+                                <td th:utext="${user.createDate}"></td>
+                                <td>delete</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:insert="~{layout/footer}"></div>
+</body>
