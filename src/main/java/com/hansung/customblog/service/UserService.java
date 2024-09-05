@@ -61,4 +61,9 @@ public class UserService {
     public Page<User> userList(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
+
+    @Transactional
+    public void delete(int id) {
+        userRepository.deleteById(id);
+    }
 }

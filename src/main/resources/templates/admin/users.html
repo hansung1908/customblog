@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <div th:insert="~{layout/header}"></div>
 </head>
@@ -17,6 +18,7 @@
                                 <th scope="col">username</th>
                                 <th scope="col">email</th>
                                 <th scope="col">createDate</th>
+                                <th scope="col">role</th>
                                 <th scope="col">delete</th>
                             </tr>
                         </thead>
@@ -26,7 +28,9 @@
                                 <td th:utext="${user.username}"></td>
                                 <td th:utext="${user.email}"></td>
                                 <td th:utext="${user.createDate}"></td>
-                                <td>delete</td>
+                                <td th:utext="${user.role}"></td>
+                                <td><button class="btn btn-sm btn-outline-secondary" th:data-user-id="${user.id}"
+                                            sec:authorize="isAuthenticated() and hasRole('ROLE_ADMIN')">Delete</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -36,4 +40,5 @@
     </div>
 
     <div th:insert="~{layout/footer}"></div>
+    <script src="/js/admin.js"></script>
 </body>
