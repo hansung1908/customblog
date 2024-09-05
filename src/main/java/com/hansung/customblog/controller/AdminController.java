@@ -1,7 +1,9 @@
 package com.hansung.customblog.controller;
 
+import com.hansung.customblog.model.User;
 import com.hansung.customblog.service.BoardService;
 import com.hansung.customblog.service.FileService;
+import com.hansung.customblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -20,6 +22,9 @@ public class AdminController {
 
     @Autowired
     private FileService fileService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/admin/dashboard")
     public String dashboard() {
@@ -45,5 +50,12 @@ public class AdminController {
         model.addAttribute("boardDetail", boardService.boardDetail(id));
         model.addAttribute("fileName", fileService.findFileName(id));
         return "admin/boardDetail";
+    }
+
+    @GetMapping("/admin/users")
+    public String userList(Model model,
+                           @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        model.addAttribute("userList", userService.userList(pageable));
+        return "admin/users";
     }
 }
