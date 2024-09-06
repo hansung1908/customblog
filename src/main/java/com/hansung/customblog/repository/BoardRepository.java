@@ -15,6 +15,6 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     void countUpById(int id);
 
     // 작성자와 키워드 값 비교는 서브 쿼리를 사용하여 일치하는 작성자 id와 게시물 작성자 id를 비교
-    @Query("SELECT b FROM Board b WHERE b.title LIKE %:keyword% OR b.user.id IN (SELECT u.id FROM User u WHERE u.username LIKE %:keyword%)")
-    Page<Board> findBoardByKeyword(@Param("keyword") String keyword, Pageable pageable);
+    @Query("SELECT b FROM Board b WHERE b.title LIKE %:boardKeyword% OR b.user.id IN (SELECT u.id FROM User u WHERE u.username LIKE %:boardKeyword%)")
+    Page<Board> findBoardByKeyword(@Param("boardKeyword") String boardKeyword, Pageable pageable);
 }

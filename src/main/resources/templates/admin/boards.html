@@ -9,8 +9,8 @@
     <div class="container py-5">
         <div class="form-group col-3">
             <form class="form-inline d-flex">
-                <input type="text" name="keyword" class="form-control" id="keyword" placeholder="keyword" th:value="${keyword}">
-                <button class="btn btn-primary btn-lg" id="btn-search">Search</button>
+                <input type="text" name="boardKeyword" class="form-control" id="boardKeyword" placeholder="keyword" th:value="${boardKeyword}">
+                <button class="btn btn-primary btn-lg" id="btn-admin-board-search">Search</button>
             </form>
         </div>
     </div>
@@ -42,12 +42,12 @@
     <div>
         <ul class="pagination justify-content-center">
             <li class="page-item" th:class="${boardList.first} ? 'disabled'">
-                <a class="page-link" th:href="@{/admin/boards(page=${boardList.number - 1}, keyword=${keyword})}" aria-label="Previous">
+                <a class="page-link" th:href="@{/admin/boards(page=${boardList.number - 1}, boardKeyword=${boardKeyword})}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
             <li class="page-item" th:class="${boardList.last} ? 'disabled'">
-                <a class="page-link" th:href="@{/admin/boards(page=${boardList.number + 1}, keyword=${keyword})}" aria-label="Next">
+                <a class="page-link" th:href="@{/admin/boards(page=${boardList.number + 1}, boardKeyword=${boardKeyword})}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>

@@ -1,6 +1,5 @@
 package com.hansung.customblog.controller;
 
-import com.hansung.customblog.model.User;
 import com.hansung.customblog.service.BoardService;
 import com.hansung.customblog.service.FileService;
 import com.hansung.customblog.service.UserService;
@@ -34,12 +33,12 @@ public class AdminController {
     @GetMapping("/admin/boards")
     public String boardList(Model model,
                         @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
-                        @RequestParam(name = "keyword", required = false, defaultValue = "") String keyword) {
-        if(keyword.equals("")) { // 키워드가 없으면 모든 게시물 반환
+                        @RequestParam(name = "boardKeyword", required = false, defaultValue = "") String boardKeyword) {
+        if(boardKeyword.equals("")) { // 키워드가 없으면 모든 게시물 반환
             model.addAttribute("boardList", boardService.boardList(pageable));
         } else { // 키워드가 포함된 게시물 반환
-            model.addAttribute("boardList", boardService.boardListByKeyword(keyword, pageable));
-            model.addAttribute("keyword", keyword); // 키워드 값을 유지하여 페이징 처리하기 위한 keyword 값 설정
+            model.addAttribute("boardList", boardService.boardListByKeyword(boardKeyword, pageable));
+            model.addAttribute("boardKeyword", boardKeyword); // 키워드 값을 유지하여 페이징 처리하기 위한 keyword 값 설정
         }
 
         return "admin/boards";
@@ -54,8 +53,15 @@ public class AdminController {
 
     @GetMapping("/admin/users")
     public String userList(Model model,
-                           @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        model.addAttribute("userList", userService.userList(pageable));
+                           @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                           @RequestParam(name = "userKeyword", required = false, defaultValue = "") String userKeyword) {
+        if(userKeyword.equals("")) { // 키워드가 없으면 모든 게시물 반환
+            model.addAttribute("userList", userService.userList(pageable));
+        } else { // 키워드가 포함된 게시물 반환
+            model.addAttribute("userList", userService.userListByKeyword(userKeyword, pageable));
+            model.addAttribute("userKeyword", userKeyword); // 키워드 값을 유지하여 페이징 처리하기 위한 keyword 값 설정
+        }
+
         return "admin/users";
     }
 }

@@ -1,7 +1,6 @@
 package com.hansung.customblog.controller.api;
 
 import com.hansung.customblog.dto.response.ResponseDto;
-import com.hansung.customblog.model.User;
 import com.hansung.customblog.service.BoardService;
 import com.hansung.customblog.service.FileService;
 import com.hansung.customblog.service.UserService;
