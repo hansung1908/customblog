@@ -4,8 +4,8 @@ let index = {
             this.boardDeleteById();
         });
 
-        $("#btn-admin-search").on("click", ()=>{
-            this.search();
+        $("#btn-admin-board-search").on("click", ()=>{
+            this.boardSearch();
         });
 
         $(document).on("click", "button[data-user-id]", function() {
@@ -18,6 +18,10 @@ let index = {
             if (confirm(message)) {
                 index.userDeleteById(userId);
             }
+        });
+
+        $("#btn-admin-user-search").on("click", ()=>{
+            this.userSearch();
         });
     },
 
@@ -60,12 +64,12 @@ let index = {
         });
     },
 
-    search: function() {
-        let keyword = $("#keyword").text();
+    boardSearch: function() {
+        let boardKeyword = $("#boardKeyword").text();
 
         $.ajax({
             type: "GET",
-            url: `/admin/boards?keyword=${keyword}`,
+            url: `/admin/boards?keyword=${boardKeyword}`,
             contentType: "application/json; charset=utf-8",
             dataType: "json"
         }).always(function(resp) {
@@ -95,6 +99,27 @@ let index = {
                 location.href = "/admin/users";
             } else {
                  alert(JSON.stringify(resp.data));
+            }
+        });
+    }
+
+    userSearch: function() {
+        let userKeyword = $("#userKeyword").text();
+
+        $.ajax({
+            type: "GET",
+            url: `/admin/users?keyword=${userKeyword}`,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).always(function(resp) {
+            console.log("HTTP Status Code: " + resp.status);
+            console.log("Response Text: ", resp.data);
+
+            if (resp.status === 200) {
+                alert(JSON.stringify(resp.data));
+                location.href = "/admin/users";
+            } else {
+                alert(JSON.stringify(resp.data));
             }
         });
     }

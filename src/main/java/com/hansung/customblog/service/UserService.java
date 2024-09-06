@@ -62,6 +62,11 @@ public class UserService {
         return userRepository.findAll(pageable);
     }
 
+    @Transactional(readOnly = true) // 읽기 전용을 설정해 속도 올림
+    public Page<User> userListByKeyword(String userKeyword, Pageable pageable) {
+        return userRepository.findUserByKeyword(userKeyword, pageable);
+    }
+
     @Transactional
     public void delete(int id) {
         userRepository.deleteById(id);

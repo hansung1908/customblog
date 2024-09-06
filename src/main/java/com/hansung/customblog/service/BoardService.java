@@ -54,8 +54,8 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true) // 읽기 전용을 설정해 속도 올림
-    public Page<Board> boardListByKeyword(String keyword, Pageable pageable) {
-        return boardRepository.findBoardByKeyword(keyword, pageable);
+    public Page<Board> boardListByKeyword(String boardKeyword, Pageable pageable) {
+        return boardRepository.findBoardByKeyword(boardKeyword, pageable);
     }
 
     @Transactional(readOnly = true) // 읽기 전용을 설정해 속도 올림
