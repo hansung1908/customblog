@@ -23,6 +23,10 @@ let index = {
         $("#btn-admin-user-search").on("click", ()=>{
             this.userSearch();
         });
+
+        $("#btn-notice-save").on("click", ()=>{
+            this.noticeSave();
+        });
     },
 
     boardDeleteById: function(){
@@ -101,7 +105,7 @@ let index = {
                  alert(JSON.stringify(resp.data));
             }
         });
-    }
+    },
 
     userSearch: function() {
         let userKeyword = $("#userKeyword").text();
@@ -118,6 +122,31 @@ let index = {
             if (resp.status === 200) {
                 alert(JSON.stringify(resp.data));
                 location.href = "/admin/users";
+            } else {
+                alert(JSON.stringify(resp.data));
+            }
+        });
+    },
+
+    noticeSave: function(){
+        let data = {
+            title: $("#title").val(),
+            content: $("#content").val()
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/api/admin/notice",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).always(function(resp) {
+            console.log("HTTP Status Code: " + resp.status);
+            console.log("Response Text: ", resp.data);
+
+            if (resp.status === 200) {
+                alert(JSON.stringify(resp.data));
+                location.href = "/admin/dashboard";
             } else {
                 alert(JSON.stringify(resp.data));
             }

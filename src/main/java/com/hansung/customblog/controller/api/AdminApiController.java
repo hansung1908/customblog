@@ -1,14 +1,13 @@
 package com.hansung.customblog.controller.api;
 
+import com.hansung.customblog.dto.request.NoticeSaveRequestDto;
 import com.hansung.customblog.dto.response.ResponseDto;
 import com.hansung.customblog.service.BoardService;
 import com.hansung.customblog.service.FileService;
 import com.hansung.customblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AdminApiController {
@@ -39,5 +38,12 @@ public class AdminApiController {
     public ResponseDto<String> userDeleteById(@PathVariable int userId) {
         userService.delete(userId);
         return new ResponseDto<String>(HttpStatus.OK.value(), "유저 삭제가 완료되었습니다.");
+    }
+
+    @PostMapping("api/admin/notice")
+    public ResponseDto<String> noticeSave(@RequestBody NoticeSaveRequestDto noticeSaveRequestDto) {
+        System.out.println(noticeSaveRequestDto.getTitle());
+        System.out.println(noticeSaveRequestDto.getContent());
+        return new ResponseDto<String>(HttpStatus.OK.value(), "공지사항 저장이 완료되었습니다.");
     }
 }
