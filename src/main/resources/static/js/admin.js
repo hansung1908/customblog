@@ -130,6 +130,7 @@ let index = {
 
     noticeSave: function(){
         let data = {
+            noticeType: $("#noticeType").val().toUpperCase(),
             title: $("#title").val(),
             content: $("#content").val()
         }
