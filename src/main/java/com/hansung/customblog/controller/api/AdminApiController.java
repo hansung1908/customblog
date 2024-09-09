@@ -4,6 +4,7 @@ import com.hansung.customblog.dto.request.NoticeSaveRequestDto;
 import com.hansung.customblog.dto.response.ResponseDto;
 import com.hansung.customblog.service.BoardService;
 import com.hansung.customblog.service.FileService;
+import com.hansung.customblog.service.NoticeService;
 import com.hansung.customblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,9 @@ public class AdminApiController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private NoticeService noticeService;
 
     @DeleteMapping("/api/admin/board/{boardId}")
     public ResponseDto<String> deleteById(@PathVariable int boardId) {
@@ -42,8 +46,7 @@ public class AdminApiController {
 
     @PostMapping("api/admin/notice")
     public ResponseDto<String> noticeSave(@RequestBody NoticeSaveRequestDto noticeSaveRequestDto) {
-        System.out.println(noticeSaveRequestDto.getTitle());
-        System.out.println(noticeSaveRequestDto.getContent());
+        noticeService.save(noticeSaveRequestDto);
         return new ResponseDto<String>(HttpStatus.OK.value(), "공지사항 저장이 완료되었습니다.");
     }
 }
