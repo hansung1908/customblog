@@ -1,7 +1,9 @@
 package com.hansung.customblog.controller;
 
+import com.hansung.customblog.model.Notice;
 import com.hansung.customblog.service.BoardService;
 import com.hansung.customblog.service.FileService;
+import com.hansung.customblog.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -21,6 +23,9 @@ public class BoardController {
     @Autowired
     private FileService fileService;
 
+    @Autowired
+    private NoticeService noticeService;
+
     @GetMapping("/")
     public String index(Model model,
                         @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
@@ -31,6 +36,21 @@ public class BoardController {
             model.addAttribute("boardList", boardService.boardListByKeyword(keyword, pageable));
             model.addAttribute("keyword", keyword); // 키워드 값을 유지하여 페이징 처리하기 위한 keyword 값 설정
         }
+
+        Notice notice = noticeService.findLatestNotice();
+
+        String noticeType = null;
+        if(notice != null) {
+            if(notice.getNoticeType().toString().equals("IMPORTANT")) {
+                noticeType = "중요";
+            } else {
+                noticeType = "일반";
+            }
+
+            model.addAttribute("notice", notice);
+        }
+
+        model.addAttribute("noticeType", noticeType);
 
         return "index";
     }

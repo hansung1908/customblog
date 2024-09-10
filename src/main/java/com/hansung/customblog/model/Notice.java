@@ -2,6 +2,9 @@ package com.hansung.customblog.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.sql.Timestamp;
 
 @Entity
 @Getter
@@ -20,14 +23,18 @@ public class Notice {
     @Column(columnDefinition = "longtext")
     private String content;
 
+    @CreationTimestamp
+    private Timestamp createDate;
+
     protected Notice() {
     }
 
-    public Notice(int id, NoticeType noticeType, String title, String content) {
+    public Notice(int id, NoticeType noticeType, String title, String content, Timestamp createDate) {
         this.id = id;
         this.noticeType = noticeType;
         this.title = title;
         this.content = content;
+        this.createDate = createDate;
     }
 
     private Notice(Builder builder) {
@@ -35,6 +42,7 @@ public class Notice {
         this.noticeType = builder.noticeType;
         this.title = builder.title;
         this.content = builder.content;
+        this.createDate = builder.createDate;
     }
 
     public static class Builder {
@@ -42,6 +50,7 @@ public class Notice {
         private NoticeType noticeType;
         private String title;
         private String content;
+        private Timestamp createDate;
 
         public Builder id(int id) {
             this.id = id;
@@ -60,6 +69,11 @@ public class Notice {
 
         public Builder content(String content) {
             this.content = content;
+            return this;
+        }
+
+        public Builder createDate(Timestamp createDate) {
+            this.createDate = createDate;
             return this;
         }
 
