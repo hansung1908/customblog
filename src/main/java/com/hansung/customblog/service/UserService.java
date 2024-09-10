@@ -2,7 +2,6 @@ package com.hansung.customblog.service;
 
 import com.hansung.customblog.dto.request.UserSaveRequestDto;
 import com.hansung.customblog.dto.request.UserUpdateRequestDto;
-import com.hansung.customblog.model.Board;
 import com.hansung.customblog.model.RoleType;
 import com.hansung.customblog.model.User;
 import com.hansung.customblog.repository.UserRepository;
