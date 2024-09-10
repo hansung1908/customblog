@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class NoticeService {
 
@@ -27,5 +29,10 @@ public class NoticeService {
     @Transactional
     public Notice findLatestNotice() {
         return noticeRepository.findLatestNotice();
+    }
+
+    @Transactional
+    public List<Notice> findAll() {
+        return noticeRepository.findAll();
     }
 }

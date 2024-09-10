@@ -2,6 +2,7 @@ package com.hansung.customblog.controller;
 
 import com.hansung.customblog.service.BoardService;
 import com.hansung.customblog.service.FileService;
+import com.hansung.customblog.service.NoticeService;
 import com.hansung.customblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -25,8 +26,12 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private NoticeService noticeService;
+
     @GetMapping("/admin/dashboard")
-    public String dashboard() {
+    public String dashboard(Model model) {
+        model.addAttribute("noticeList", noticeService.findAll());
         return "admin/dashboard";
     }
 
