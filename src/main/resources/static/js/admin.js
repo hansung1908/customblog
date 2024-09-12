@@ -31,6 +31,18 @@ let index = {
         $("#btn-admin-notice-search").on("click", ()=>{
             this.noticeSearch();
         });
+
+        $(document).on("click", "button[data-notice-title]", function() {
+            let noticeTitle = $(this).data("notice-title");
+
+            // 문자열 보간을 사용하여 사용자 ID를 메시지에 삽입
+            let message = `Are you sure you want to delete user with ID "${noticeTitle}"?`;
+
+            // confirm 대화상자를 띄우고, 사용자가 확인을 누르면 delete 작업 수행
+            if (confirm(message)) {
+                index.noticeDeleteByTitle(noticeTitle);
+            }
+        });
     },
 
     boardDeleteById: function(){
@@ -159,25 +171,45 @@ let index = {
     },
 
     noticeSearch: function() {
-            let noticeKeyword = $("#noticeKeyword").text();
+        let noticeKeyword = $("#noticeKeyword").text();
 
-            $.ajax({
-                type: "GET",
-                url: `/admin/dashboard?keyword=${noticeKeyword}`,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json"
-            }).always(function(resp) {
-                console.log("HTTP Status Code: " + resp.status);
-                console.log("Response Text: ", resp.data);
+        $.ajax({
+            type: "GET",
+            url: `/admin/dashboard?keyword=${noticeKeyword}`,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).always(function(resp) {
+            console.log("HTTP Status Code: " + resp.status);
+            console.log("Response Text: ", resp.data);
 
-                if (resp.status === 200) {
-                    alert(JSON.stringify(resp.data));
-                    location.href = "/admin/dashboard";
-                } else {
-                    alert(JSON.stringify(resp.data));
-                }
-            });
-        },
+            if (resp.status === 200) {
+                alert(JSON.stringify(resp.data));
+                location.href = "/admin/dashboard";
+            } else {
+                alert(JSON.stringify(resp.data));
+            }
+        });
+    },
+
+    noticeDeleteByTitle: function(noticeTitle){
+        $.ajax({
+            type: "DELETE",
+            url: "/api/admin/notice",
+            data: JSON.stringify(noticeTitle),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).always(function(resp) {
+            console.log("HTTP Status Code: " + resp.status);
+            console.log("Response Text: ", resp.data);
+
+            if (resp.status === 200) {
+                alert(JSON.stringify(resp.data));
+                location.href = "/admin/dashboard";
+            } else {
+                alert(JSON.stringify(resp.data));
+            }
+        });
+    }
  }
 
 index.init();

@@ -8,16 +8,16 @@
     <div th:insert="~{layout/navbar}"></div>
 
     <div class="container py-5">
-        <div class="form-group col-3">
-            <form class="form-inline d-flex">
-                <input type="text" name="userKeyword" class="form-control" id="userKeyword" placeholder="keyword" th:value="${userKeyword}">
-                <button class="btn btn-primary btn-lg" id="btn-admin-user-search">Search</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="container py-5">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
+            <div class="d-flex justify-content-end">
+                <div class="form-group col-3">
+                    <form class="form-inline d-flex">
+                        <input type="text" name="userKeyword" class="form-control" id="userKeyword" placeholder="keyword" th:value="${userKeyword}">
+                        <button class="btn btn-primary btn-lg" id="btn-admin-user-search">Search</button>
+                    </form>
+                </div>
+            </div>
+
             <div class="bd-example-snippet bd-code-snippet">
                 <div class="bd-example m-0 border-0">
                     <table class="table table-striped">

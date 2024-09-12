@@ -148,6 +148,29 @@
 - 그래서 EXISTS를 사용하여 같은 유저네임이 나오면 바로 0을 반환하여 sql 성능 최적화
 - controller로부터 유저네임을 받아 0과 1로 중복여부를 반환하는 checkName 메소드를 UserService에 추가
 
+##### 어드민 페이지 추가
+- 관리자가 직접 유저, 게시물, 공지사항을 관리하는 별도의 페이지 추가
+- admin 역할을 가지고 있는 계정으로 로그인하면 어드민 전용 페이지 (admin/dashboard.html)로 이동
+- 어드민에 맞게 유저, 게시물, 공지사항 생성 페이지로 이동하는 버튼이 있는 전용 네비게이션 바 설정
+- 어드민 페이지를 통해 입력되는 다양한 입력들은 admin.js에서 처리
+- adminController, adminApiController를 만들어 어드민 페이지의 뷰 설정과 관리 기능들을 설정
+---
+
+- 전체 유저 목록을 보여주고 검색, 삭제하는 버튼이 있는 유저 관리 페이지 생성 (admin/users.html)
+- 유저 목록에서 각 유저를 삭제하는 버튼을 만들기 위해 index 파트에 동적 버튼 생성 함수 추가
+- 각 버튼 기능을 ajax 통신으로 controller에 전달 (userSearch, userDeleteById)
+- UserService (userList, userListByKeyword, delete)와 UserRepository (findUserByKeyword)에 해당 기능들을 구현하기 위한 메소드 생성
+- 기존에 유저 페이지에서 구현한 기능을 참고하여 제작
+- 게시물 관리 부분도 이와 유사하게 제작 (admin/boards + 기존 기능 활용)
+---
+
+- 공지사항 관리도 크게 다르지 않으나 조금씩 다른 부분이 있음
+- 어드민 전용 페이지에 공지사항 목록을 구현하고 저장 기능 (admin/noticeSaveForm)은 따로 분리
+- 일반 사용자가 최신 공지사항을 볼 수 있도록 유저 메인 페이지 (index.html)에 최신 공지사항 표시 부분 구현
+- 공지사항 삭제시 공지사항 제목으로 삭제 (noticeDeleteByTitle)
+- 나머지는 유저 관리처럼 기존 기능을 참고하여 제작
+
+
 ### 변경 사항
 
 ##### lombok 생성자 어노테이션 변경

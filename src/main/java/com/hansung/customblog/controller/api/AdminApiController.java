@@ -49,4 +49,10 @@ public class AdminApiController {
         noticeService.save(noticeSaveRequestDto);
         return new ResponseDto<String>(HttpStatus.OK.value(), "공지사항 저장이 완료되었습니다.");
     }
+
+    @DeleteMapping("api/admin/notice")
+    public ResponseDto<String> noticeDeleteByTitle(@RequestBody String noticeTitle) {
+        noticeService.delete(noticeTitle);
+        return new ResponseDto<String>(HttpStatus.OK.value(), "공지사항 삭제가 완료되었습니다.");
+    }
 }

@@ -40,4 +40,9 @@ public class NoticeService {
     public Page<Notice> noticeListByKeyword(String noticeKeyword, Pageable pageable) {
         return noticeRepository.findNoticeByKeyword(noticeKeyword, pageable);
     }
+
+    @Transactional
+    public void delete(String noticeTitle) {
+        noticeRepository.deleteByTitle(noticeTitle);
+    }
 }

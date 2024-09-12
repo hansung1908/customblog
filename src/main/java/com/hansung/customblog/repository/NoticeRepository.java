@@ -14,4 +14,6 @@ public interface NoticeRepository  extends JpaRepository<Notice, Integer> {
 
     @Query("SELECT n FROM Notice n WHERE n.title LIKE %:noticeKeyword%")
     Page<Notice> findNoticeByKeyword(@Param("noticeKeyword") String noticeKeyword, Pageable pageable);
+
+    void deleteByTitle(String noticeTitle);
 }
