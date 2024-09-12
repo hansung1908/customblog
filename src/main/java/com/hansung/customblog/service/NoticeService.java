@@ -4,10 +4,10 @@ import com.hansung.customblog.dto.request.NoticeSaveRequestDto;
 import com.hansung.customblog.model.Notice;
 import com.hansung.customblog.repository.NoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class NoticeService {
@@ -26,13 +26,18 @@ public class NoticeService {
         noticeRepository.save(notice);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Notice findLatestNotice() {
         return noticeRepository.findLatestNotice();
     }
 
-    @Transactional
-    public List<Notice> findAll() {
-        return noticeRepository.findAll();
+    @Transactional(readOnly = true)
+    public Page<Notice> noticeList(Pageable pageable) {
+        return noticeRepository.findAll(pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Notice> noticeListByKeyword(String noticeKeyword, Pageable pageable) {
+        return noticeRepository.findNoticeByKeyword(noticeKeyword, pageable);
     }
 }

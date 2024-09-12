@@ -7,6 +7,15 @@
     <div th:insert="~{layout/navbar}"></div>
 
     <div class="container py-5">
+        <div class="form-group col-3">
+            <form class="form-inline d-flex">
+                <input type="text" name="noticeKeyword" class="form-control" id="noticeKeyword" placeholder="keyword" th:value="${noticeKeyword}">
+                <button class="btn btn-primary btn-lg" id="btn-admin-notice-search">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container py-5">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
             <h1>관리자 대시보드</h1>
             <div class="accordion" id="noticeList">
@@ -26,5 +35,21 @@
         </div>
     </div>
 
+    <div>
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:class="${noticeList.first} ? 'disabled'">
+                <a class="page-link" th:href="@{/admin/dashboard(page=${noticeList.number - 1}, boardKeyword=${noticeKeyword})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" th:class="${noticeList.last} ? 'disabled'">
+                <a class="page-link" th:href="@{/admin/dashboard(page=${noticeList.number + 1}, boardKeyword=${noticeKeyword})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
     <div th:insert="~{layout/footer}"></div>
+    <script src="/js/admin.js"></script>
 </body>

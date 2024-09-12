@@ -30,8 +30,16 @@ public class AdminController {
     private NoticeService noticeService;
 
     @GetMapping("/admin/dashboard")
-    public String dashboard(Model model) {
-        model.addAttribute("noticeList", noticeService.findAll());
+    public String dashboard(Model model,
+                            @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                            @RequestParam(name = "noticeKeyword", required = false, defaultValue = "") String noticeKeyword) {
+        if(noticeKeyword.equals("")) { // 키워드가 없으면 모든 게시물 반환
+            model.addAttribute("noticeList", noticeService.noticeList(pageable));
+        } else { // 키워드가 포함된 게시물 반환
+            model.addAttribute("noticeList", noticeService.noticeListByKeyword(noticeKeyword, pageable));
+            model.addAttribute("noticeKeyword", noticeKeyword); // 키워드 값을 유지하여 페이징 처리하기 위한 keyword 값 설정
+        }
+
         return "admin/dashboard";
     }
 

@@ -27,6 +27,10 @@ let index = {
         $("#btn-notice-save").on("click", ()=>{
             this.noticeSave();
         });
+
+        $("#btn-admin-notice-search").on("click", ()=>{
+            this.noticeSearch();
+        });
     },
 
     boardDeleteById: function(){
@@ -152,7 +156,28 @@ let index = {
                 alert(JSON.stringify(resp.data));
             }
         });
-    }
+    },
+
+    noticeSearch: function() {
+            let noticeKeyword = $("#noticeKeyword").text();
+
+            $.ajax({
+                type: "GET",
+                url: `/admin/dashboard?keyword=${noticeKeyword}`,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            }).always(function(resp) {
+                console.log("HTTP Status Code: " + resp.status);
+                console.log("Response Text: ", resp.data);
+
+                if (resp.status === 200) {
+                    alert(JSON.stringify(resp.data));
+                    location.href = "/admin/dashboard";
+                } else {
+                    alert(JSON.stringify(resp.data));
+                }
+            });
+        },
  }
 
 index.init();
