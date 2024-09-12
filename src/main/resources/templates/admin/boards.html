@@ -6,18 +6,20 @@
 <body>
     <div th:insert="~{layout/navbar}"></div>
 
-    <div class="container py-5">
-        <div class="form-group col-3">
-            <form class="form-inline d-flex">
-                <input type="text" name="boardKeyword" class="form-control" id="boardKeyword" placeholder="keyword" th:value="${boardKeyword}">
-                <button class="btn btn-primary btn-lg" id="btn-admin-board-search">Search</button>
-            </form>
-        </div>
-    </div>
+
 
     <div class="album py-5">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
+                <div class="d-flex justify-content-end">
+                    <div class="form-group col-3">
+                        <form class="form-inline d-flex">
+                            <input type="text" name="boardKeyword" class="form-control" id="boardKeyword" placeholder="keyword" th:value="${boardKeyword}">
+                            <button class="btn btn-primary btn-lg" id="btn-admin-board-search">Search</button>
+                        </form>
+                    </div>
+                </div>
+
                 <div th:each="board:${boardList.content}">
                     <div class="card shadow-sm">
                         <div class="card-body">
