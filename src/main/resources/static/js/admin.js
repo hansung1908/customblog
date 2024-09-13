@@ -35,10 +35,8 @@ let index = {
         $(document).on("click", "button[data-notice-title]", function() {
             let noticeTitle = $(this).data("notice-title");
 
-            // 문자열 보간을 사용하여 사용자 ID를 메시지에 삽입
-            let message = `Are you sure you want to delete user with ID "${noticeTitle}"?`;
+            let message = `Are you sure you want to delete notice with Title "${noticeTitle}"?`;
 
-            // confirm 대화상자를 띄우고, 사용자가 확인을 누르면 delete 작업 수행
             if (confirm(message)) {
                 index.noticeDeleteByTitle(noticeTitle);
             }

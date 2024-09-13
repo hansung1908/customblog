@@ -11,6 +11,16 @@ let index = {
         $("#btn-checkName").on("click", ()=>{
             this.checkName();
         });
+
+        $(document).on("click", "button[data-user-name]", function() {
+            let username = $(this).data("user-name");
+
+            let message = `Are you sure you want to delete user with username "${username}"?`;
+
+            if (confirm(message)) {
+                index.userDeleteByUsername(username);
+            }
+        });
     },
 
     save: function(){
@@ -50,7 +60,7 @@ let index = {
 
         $.ajax({
             type: "PUT",
-            url: "/user",
+            url: "/api/user",
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json"
@@ -82,6 +92,26 @@ let index = {
 
             if (resp.status === 200) {
                 alert(JSON.stringify(resp.data));
+            } else {
+                alert(JSON.stringify(resp.data));
+            }
+        });
+    },
+
+    userDeleteByUsername: function(username){
+        $.ajax({
+            type: "DELETE",
+            url: "/api/user",
+            data: JSON.stringify(username),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).always(function(resp) {
+            console.log("HTTP Status Code: " + resp.status);
+            console.log("Response Text: ", resp.data);
+
+            if (resp.status === 200) {
+                alert(JSON.stringify(resp.data));
+                location.href = "/";
             } else {
                 alert(JSON.stringify(resp.data));
             }

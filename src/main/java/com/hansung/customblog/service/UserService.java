@@ -67,7 +67,12 @@ public class UserService {
     }
 
     @Transactional
-    public void delete(int id) {
+    public void deleteById(int id) {
         userRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void deleteByUsername(String username) {
+        userRepository.deleteByUsername(username);
     }
 }

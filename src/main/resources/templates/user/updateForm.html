@@ -34,6 +34,11 @@
         <button class="w-100 btn btn-primary btn-lg" id="btn-update">Confirm</button>
     </div>
 
+    <div class="container py-5">
+        <h4 class="mb-3">Cancel Account</h4>
+        <button class="w-100 btn btn-danger btn-lg" th:data-user-name="${#authentication.principal.user.username}">Unsubscribe</button>
+    </div>
+
     <div th:insert="~{layout/footer}"></div>
     <script src="/js/user.js"></script>
 </body>

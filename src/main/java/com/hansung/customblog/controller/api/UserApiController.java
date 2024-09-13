@@ -1,11 +1,13 @@
 package com.hansung.customblog.controller.api;
 
 import com.hansung.customblog.dto.request.UserCheckNameRequestDto;
+import com.hansung.customblog.dto.request.UserDeleteRequestDto;
 import com.hansung.customblog.dto.request.UserSaveRequestDto;
 import com.hansung.customblog.dto.request.UserUpdateRequestDto;
 import com.hansung.customblog.dto.response.ResponseDto;
 import com.hansung.customblog.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,11 +15,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserApiController {
@@ -26,6 +26,9 @@ public class UserApiController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private SecurityContextLogoutHandler securityContextLogoutHandler;
 
     @PostMapping("/auth/joinProc")
     public ResponseDto<String> save(@Valid @RequestBody UserSaveRequestDto userSaveRequestDto, BindingResult bindingResult, HttpServletRequest request) {
@@ -44,7 +47,7 @@ public class UserApiController {
         }
     }
 
-    @PutMapping("/user")
+    @PutMapping("api/user")
     public ResponseDto<String> update(@Valid @RequestBody UserUpdateRequestDto userUpdateRequestDto, BindingResult bindingResult) {
         userService.update(userUpdateRequestDto);
 
@@ -64,5 +67,17 @@ public class UserApiController {
             request.getSession().setAttribute("usernameCheckStatus", true); // 중복 확인을 위한 세션 추가
             return new ResponseDto<String>(HttpStatus.OK.value(), "사용 가능한 이름입니다.");
         }
+    }
+
+    @DeleteMapping("/api/user")
+    public ResponseDto<String> delete(@RequestBody UserDeleteRequestDto userDeleteRequestDto, HttpServletRequest request, HttpServletResponse response) {
+        userService.deleteByUsername(userDeleteRequestDto.getUsername());
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            securityContextLogoutHandler.logout(request, response, authentication);
+        }
+
+        return new ResponseDto<String>(HttpStatus.OK.value(), "회원탈퇴가 완료되었습니다.");
     }
 }

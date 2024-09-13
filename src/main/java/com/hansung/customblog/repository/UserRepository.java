@@ -20,4 +20,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("SELECT u FROM User u WHERE u.username LIKE %:userKeyword%")
     Page<User> findUserByKeyword(@Param("userKeyword") String userKeyword, Pageable pageable);
+
+    void deleteByUsername(String username);
 }

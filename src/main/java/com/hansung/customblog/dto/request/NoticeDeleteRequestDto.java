@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class NoticeDeleteRequestDto {
 
-    String title;
+    private String title;
 
     protected NoticeDeleteRequestDto() {
     }

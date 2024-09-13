@@ -40,7 +40,7 @@ public class AdminApiController {
 
     @DeleteMapping("api/admin/user/{userId}")
     public ResponseDto<String> userDeleteById(@PathVariable int userId) {
-        userService.delete(userId);
+        userService.deleteById(userId);
         return new ResponseDto<String>(HttpStatus.OK.value(), "유저 삭제가 완료되었습니다.");
     }
 
