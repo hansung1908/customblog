@@ -9,6 +9,7 @@
     <div class="container py-5">
         <h4 class="mb-3">Write</h4>
         <form>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <div class="row g-3">
                 <div class="form-group col-12">
                     <label for="title" class="form-label">Title</label>

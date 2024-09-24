@@ -29,7 +29,10 @@
                         <div class="btn-group">
                             <button class="btn btn-sm btn-outline-secondary" onclick="history.back()">Back</button>
                             <a class="btn btn-sm btn-outline-secondary" th:href="@{|/board/${boardDetail.id}/updateForm|}" th:if="${boardDetail.user.id} == ${#authentication.principal.user.id}">Edit</a>
-                            <button class="btn btn-sm btn-outline-secondary" id="btn-delete" th:if="${boardDetail.user.id} == ${#authentication.principal.user.id}">Delete</button>
+                            <form>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                <button class="btn btn-sm btn-outline-secondary" id="btn-delete" th:if="${boardDetail.user.id} == ${#authentication.principal.user.id}">Delete</button>
+                            </form>
                         </div>
                         <small class="text-body-secondary" th:utext="${boardDetail.user.username}"></small>
                     </div>
@@ -52,6 +55,7 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-3">
             <div class="card shadow-sm">
                 <form>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <input type="hidden" id="userId" th:value="${#authentication.principal.user.id}"/>
                     <input type="hidden" id="boardId" th:value="${boardDetail.id}"/>
                     <div class="card-body">
@@ -61,7 +65,10 @@
 
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <button type="button" id="btn-reply-save" class="btn btn-sm btn-outline-secondary">summit</button>
+                                <form>
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary" id="btn-reply-save">summit</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -84,8 +91,11 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <small class="text-body-secondary" th:utext="${reply.user.username}"></small>
                                 &nbsp;
-                                <button th:onclick="index.replyDelete([[${boardDetail.id}]], [[${reply.id}]])"
-                                        th:if="${reply.user.id} == ${#authentication.principal.user.id}" class="btn btn-sm btn-outline-secondary">Delete</button>
+                                <form>
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                    <button type="submit" th:onclick="index.replyDelete([[${boardDetail.id}]], [[${reply.id}]])"
+                                            th:if="${reply.user.id} == ${#authentication.principal.user.id}" class="btn btn-sm btn-outline-secondary">Delete</button>
+                                </form>
                             </div>
                         </li>
                     </ul>

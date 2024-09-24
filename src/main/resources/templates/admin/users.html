@@ -38,8 +38,11 @@
                                 <td th:utext="${user.email}"></td>
                                 <td th:utext="${user.createDate}"></td>
                                 <td th:utext="${user.role}"></td>
-                                <td><button class="btn btn-sm btn-outline-secondary" th:data-user-id="${user.id}"
-                                            sec:authorize="isAuthenticated() and hasRole('ROLE_ADMIN')">Delete</button></td>
+                                <td><form>
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                    <button class="btn btn-sm btn-outline-secondary" th:data-user-id="${user.id}"
+                                            sec:authorize="isAuthenticated() and hasRole('ROLE_ADMIN')">Delete</button>
+                                </form></td>
                             </tr>
                         </tbody>
                     </table>
