@@ -33,6 +33,9 @@ let index = {
             formData.append('file', fileInput.files[0]);
         }
 
+        // CSRF 토큰값 가져오기
+        const csrfToken = $('input[name="_csrf"]').val();
+
         // ajax를 이용한 비동기 호출 활용
         $.ajax({
             type: "POST",
@@ -40,7 +43,10 @@ let index = {
             data: formData, // HTTP body 데이터
             contentType: false, // 브라우저가 자동으로 'multipart/form-data'를 설정, 요청 타입
             processData: false, // jQuery가 데이터를 문자열로 변환하지 않도록 설정
-            dataType: "json" // 응답 타입
+            dataType: "json", // 응답 타입
+            headers: {
+                'X-CSRF-TOKEN': csrfToken // CSRF 토큰 추가
+            }
         }).always(function(resp) {  // 요청이 성공하든 실패하든 항상 호출
             console.log("HTTP Status Code: " + resp.status);
             console.log("Response Text: ", resp.data);
@@ -58,10 +64,16 @@ let index = {
     deleteById: function(){
         let boardId = $("#boardId").val();
 
+        // CSRF 토큰값 가져오기
+        const csrfToken = $('input[name="_csrf"]').val();
+
         $.ajax({
             type: "DELETE",
             url: "/api/board/"+boardId,
-            dataType: "json"
+            dataType: "json",
+            headers: {
+                'X-CSRF-TOKEN': csrfToken // CSRF 토큰 추가
+            }
         }).always(function(resp) {
             console.log("HTTP Status Code: " + resp.status);
             console.log("Response Text: ", resp.data);
@@ -83,12 +95,18 @@ let index = {
             content: $("#content").val()
         }
 
+        // CSRF 토큰값 가져오기
+        const csrfToken = $('input[name="_csrf"]').val();
+
         $.ajax({
             type: "PUT",
             url: "/api/board/"+boardId,
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
-            dataType: "json"
+            dataType: "json",
+            headers: {
+                'X-CSRF-TOKEN': csrfToken // CSRF 토큰 추가
+            }
         }).always(function(resp) {
             console.log("HTTP Status Code: " + resp.status);
             console.log("Response Text: ", resp.data);
@@ -109,12 +127,18 @@ let index = {
             content: $("#reply-content").val()
         }
 
+        // CSRF 토큰값 가져오기
+        const csrfToken = $('input[name="_csrf"]').val();
+
         $.ajax({
             type: "POST",
             url: `/api/board/${data.boardId}/reply`,
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
-            dataType: "json"
+            dataType: "json",
+            headers: {
+                'X-CSRF-TOKEN': csrfToken // CSRF 토큰 추가
+            }
         }).always(function(resp) {
             console.log("HTTP Status Code: " + resp.status);
             console.log("Response Text: ", resp.data);
@@ -129,11 +153,17 @@ let index = {
     },
 
     replyDelete: function(boardId, replyId) {
+        // CSRF 토큰값 가져오기
+        const csrfToken = $('input[name="_csrf"]').val();
+
         $.ajax({
             type: "DELETE",
             url: `/api/board/${boardId}/reply/${replyId}`,
             contentType: "application/json; charset=utf-8",
-            dataType: "json"
+            dataType: "json",
+            headers: {
+                'X-CSRF-TOKEN': csrfToken // CSRF 토큰 추가
+            }
         }).always(function(resp) {
             console.log("HTTP Status Code: " + resp.status);
             console.log("Response Text: ", resp.data);

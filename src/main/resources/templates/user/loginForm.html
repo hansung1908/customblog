@@ -8,7 +8,8 @@
 
     <div class="container py-5">
         <h4 class="mb-3">Login</h4>
-        <form action="/auth/loginProc" method="post">
+        <form th:action="@{/auth/loginProc}" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <div class="row g-3">
                 <div class="form-group col-12">
                     <label for="username" class="form-label">Username</label>
@@ -30,7 +31,7 @@
 
             <hr class="my-4">
 
-            <button class="w-100 btn btn-primary btn-lg" id="btn-login">Confirm</button>
+            <button type="submit" class="w-100 btn btn-primary btn-lg" id="btn-login">Confirm</button>
             <a href="/oauth2/authorization/kakao"><img height="48" src="/image/kakao_login_button.png"/></a>
             <a href="/oauth2/authorization/google"><img height="48" src="/image/google_login_button.png"/></a>
             <a href="/oauth2/authorization/naver"><img height="48" src="/image/naver_login_button.png"/></a>

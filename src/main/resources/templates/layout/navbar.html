@@ -1,3 +1,4 @@
+<html xmlns:th="http://www.thymeleaf.org">
 <html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="navbar">
@@ -29,7 +30,10 @@
                         <a class="nav-link" href="/user/updateForm">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
+                        <form th:action="@{/logout}" method="post" id="logoutForm1">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <button type="submit" class="nav-link" id="logout1">Logout</button>
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -46,7 +50,10 @@
                         <a class="nav-link" href="/admin/noticeSaveForm">notice</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
+                        <form th:action="@{/logout}" method="post" id="logoutForm2">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <button type="submit" class="nav-link" id="logout2">Logout</button>
+                        </form>
                     </li>
                 </ul>
             </div>

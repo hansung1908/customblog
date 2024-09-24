@@ -30,8 +30,11 @@
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" th:data-bs-target="'#notice' + ${iterStat.index}" aria-expanded="false" th:aria-controls="'notice' + ${iterStat.index}">
                             <span th:utext="'<' + ${noticeType} + '> ' + ${notice.title}"></span>
                         </button>
-                        <button class="btn btn-sm btn-outline-secondary" th:data-notice-title="${notice.title}"
-                                sec:authorize="isAuthenticated() and hasRole('ROLE_ADMIN')">Delete</button>
+                        <form class="d-flex justify-content-end">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <button class="btn btn-sm btn-outline-secondary " th:data-notice-title="${notice.title}"
+                                    sec:authorize="isAuthenticated() and hasRole('ROLE_ADMIN')">Delete</button>
+                        </form>
                     </h2>
                     <div th:id="'notice' + ${iterStat.index}" class="accordion-collapse collapse" data-bs-parent="#noticeList">
                         <div class="accordion-body">

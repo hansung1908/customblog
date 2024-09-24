@@ -29,7 +29,10 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
                             <button class="btn btn-sm btn-outline-secondary" onclick="history.back()">Back</button>
-                            <button class="btn btn-sm btn-outline-secondary" id="btn-admin-delete" sec:authorize="isAuthenticated() and hasRole('ROLE_ADMIN')">Delete</button>
+                            <form>
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                <button class="btn btn-sm btn-outline-secondary" id="btn-admin-delete" sec:authorize="isAuthenticated() and hasRole('ROLE_ADMIN')">Delete</button>
+                            </form>
                         </div>
                         <small class="text-body-secondary" th:utext="${boardDetail.user.username}"></small>
                     </div>
@@ -62,8 +65,11 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <small class="text-body-secondary" th:utext="${reply.user.username}"></small>
                                 &nbsp;
-                                <button th:onclick="index.replyDelete([[${boardDetail.id}]], [[${reply.id}]])"
-                                        sec:authorize="isAuthenticated() and hasRole('ROLE_ADMIN')" class="btn btn-sm btn-outline-secondary">Delete</button>
+                                <form>
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                    <button th:onclick="index.replyDelete([[${boardDetail.id}]], [[${reply.id}]])"
+                                            sec:authorize="isAuthenticated() and hasRole('ROLE_ADMIN')" class="btn btn-sm btn-outline-secondary">Delete</button>
+                                </form>
                             </div>
                         </li>
                     </ul>

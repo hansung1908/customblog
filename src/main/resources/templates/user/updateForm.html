@@ -9,6 +9,7 @@
     <div class="container py-5">
         <h4 class="mb-3">Profile</h4>
         <form class="needs-validation">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <div class="row g-3">
                 <input type="hidden" id="id" th:value="${#authentication.principal.user.id}"/>
 
@@ -31,7 +32,7 @@
             <hr class="my-4">
 
         </form>
-        <button class="w-100 btn btn-primary btn-lg" id="btn-update">Confirm</button>
+        <button type="submit" class="w-100 btn btn-primary btn-lg" id="btn-update">Confirm</button>
     </div>
 
     <div class="container py-5">

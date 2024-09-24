@@ -9,6 +9,7 @@
     <div class="container py-5">
         <h4 class="mb-3">Join Membership</h4>
         <form class="needs-validation">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <div class="row g-3">
                 <div class="form-group col-12">
                     <label for="username" class="form-label">Username</label>
@@ -32,7 +33,7 @@
             <hr class="my-4">
 
         </form>
-        <button class="w-100 btn btn-primary btn-lg" id="btn-save">Confirm</button>
+        <button type="submit" class="w-100 btn btn-primary btn-lg" id="btn-save">Confirm</button>
     </div>
 
     <div th:insert="~{layout/footer}"></div>
