@@ -1,0 +1,2 @@
+[2024-09-25 23:38:39:21676][http-nio-8080-exec-6] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.UserApiController.update() -> 필드: password, 메세지: 비밀번호가 없습니다.
+[2024-09-25 23:39:04:46746][http-nio-8080-exec-7] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.BoardApiController.replySave() -> 필드: content, 메세지: 댓글 내용을 입력하세요.

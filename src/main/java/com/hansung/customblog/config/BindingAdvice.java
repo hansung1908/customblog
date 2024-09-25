@@ -21,7 +21,8 @@ public class BindingAdvice {
     private static final Logger log = LoggerFactory.getLogger(BindingAdvice.class);
 
     // controller 패키지의 모든 Controller가 붙는 클래스의 인수 갯수는 상관 없이 모든 메소드에 적용
-    @Around("execution(* com.hansung.customblog.controller..*Controller.*(..))")
+    // handler 패키지도 감시 대상에 포함
+    @Around("execution(* com.hansung.customblog.controller..*Controller.*(..)) || execution(* com.hansung.customblog.handler..*(..))")
     public Object vaildCheck(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 
         String type = proceedingJoinPoint.getSignature().getDeclaringTypeName();

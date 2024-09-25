@@ -2,6 +2,7 @@ package com.hansung.customblog.handler;
 
 import com.hansung.customblog.dto.response.ResponseDto;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,14 +31,24 @@ public class GlobalExceptionHandler {
         return new ResponseDto<String>(HttpStatus.BAD_REQUEST.value(), "입출력 오류가 발생하였습니다.");
     }
 
+    // controller에서 처리하지 못하고 오류가 발생하는 유효성 검사를 가져와서 처리
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseDto<String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+    public ResponseDto<String> handleValidationExceptions(MethodArgumentNotValidException ex, BindingResult bindingResult) {
         Map<String, String> errorMap = new HashMap<>();
+
+        // 모든 오류를 errorMap에 추가
         ex.getBindingResult().getAllErrors().forEach(error -> {
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
             errorMap.put(fieldName, errorMessage);
         });
-        return new ResponseDto<String>(HttpStatus.BAD_REQUEST.value(), "입출력 오류가 발생하였습니다.");
+
+        // 모든 오류 메시지를 하나의 문자열로 결합
+        StringBuilder errorMessages = new StringBuilder();
+        errorMap.forEach((field, message) -> {
+            errorMessages.append(field).append(": ").append(message).append("; ");
+        });
+
+        return new ResponseDto<String>(HttpStatus.BAD_REQUEST.value(), errorMessages.toString());
     }
 }

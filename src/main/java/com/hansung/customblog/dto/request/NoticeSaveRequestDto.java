@@ -8,7 +8,6 @@ import lombok.Getter;
 @Getter
 public class NoticeSaveRequestDto {
 
-    @NotBlank(message = "공지사항 종류를 선택하세요.")
     private NoticeType noticeType;
 
     @NotBlank(message = "공지사항 제목을 입력하세요.")
