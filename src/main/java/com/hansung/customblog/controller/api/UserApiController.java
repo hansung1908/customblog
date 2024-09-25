@@ -59,7 +59,7 @@ public class UserApiController {
     }
 
     @PostMapping("/auth/joinProc/checkName")
-    public ResponseDto<String> checkName(@Valid @RequestBody UserCheckNameRequestDto userCheckNameRequestDto, HttpServletRequest request, BindingResult bindingResult) {
+    public ResponseDto<String> checkName(@Valid @RequestBody UserCheckNameRequestDto userCheckNameRequestDto, HttpServletRequest request) {
         if(userService.checkName(userCheckNameRequestDto.getUsername()) != 0) {
             request.getSession().setAttribute("usernameCheckStatus", false); // 중복 확인을 위한 세션 추가
             return new ResponseDto<String>(HttpStatus.BAD_REQUEST.value(), "중복입니다.");

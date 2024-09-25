@@ -1,2 +1,8 @@
-[2024-09-25 23:38:39:21676][http-nio-8080-exec-6] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.UserApiController.update() -> 필드: password, 메세지: 비밀번호가 없습니다.
-[2024-09-25 23:39:04:46746][http-nio-8080-exec-7] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.BoardApiController.replySave() -> 필드: content, 메세지: 댓글 내용을 입력하세요.
+[2024-09-26 00:01:02:21706][http-nio-8080-exec-2] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.AdminApiController.noticeSave() -> 필드: content, 메세지: 공지사항 내용을 입력하세요.
+[2024-09-26 00:01:02:21709][http-nio-8080-exec-2] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.AdminApiController.noticeSave() -> 필드: title, 메세지: 공지사항 제목 글자 수는 5~100자 이내로 작성하세요.
+[2024-09-26 00:01:02:21709][http-nio-8080-exec-2] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.AdminApiController.noticeSave() -> 필드: title, 메세지: 공지사항 제목을 입력하세요.
+[2024-09-26 00:01:25:44501][http-nio-8080-exec-6] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.AdminApiController.noticeSave() -> 필드: title, 메세지: 공지사항 제목 글자 수는 5~100자 이내로 작성하세요.
+[2024-09-26 00:46:42:8844][http-nio-8080-exec-3] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.handler.GlobalExceptionHandler.handleValidationExceptions() -> 필드: username, 메세지: 유저네임을 입력하세요.
+[2024-09-26 00:48:16:102081][http-nio-8080-exec-1] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.AdminApiController.noticeSave() -> 필드: content, 메세지: 공지사항 내용을 입력하세요.
+[2024-09-26 00:48:16:102081][http-nio-8080-exec-1] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.AdminApiController.noticeSave() -> 필드: title, 메세지: 공지사항 제목을 입력하세요.
+[2024-09-26 00:48:16:102081][http-nio-8080-exec-1] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.AdminApiController.noticeSave() -> 필드: title, 메세지: 공지사항 제목 글자 수는 5~100자 이내로 작성하세요.

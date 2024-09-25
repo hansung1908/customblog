@@ -253,3 +253,8 @@
 - 이를 방지하기 위해 post, put, delete 요청을 보내는 ajax에 csrf 토큰을 헤더에 추가
 - ajax에 csrf 토큰 정보를 전달하기 위해 모든 form에 spring security에서 제공하는 csrf 토큰값 입력
 - SecurityConfig에 비활성화되어 있던 csrf 방어 설정 활성화
+
+##### 유효성 검사 어노테이션 추가 및 관련 오류 핸들러 추가
+- 기능 추가에 따라 @Vaild와 BindingResult를 활용 가능한 메소드에 유효성 검사 + 로깅
+- BindingResult가 작동하지 않아 생기는 MethodArgumentNotValidException이 발생하는 경우 존재 (게시물 + 이름 중복)
+- 해당 경우에는 GlobalExceptionHandler로 가져와 오류 내용을 추출하여 따로 처리

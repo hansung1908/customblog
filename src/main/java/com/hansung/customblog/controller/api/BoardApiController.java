@@ -27,7 +27,7 @@ public class BoardApiController {
     private FileService fileService;
 
     @PostMapping("/api/board")
-    public ResponseDto<String> save(@RequestPart("board") BoardSaveRequestDto boardSaveRequestDto,
+    public ResponseDto<String> save(@Valid @RequestPart("board") BoardSaveRequestDto boardSaveRequestDto,
                                     @RequestPart(value = "file", required = false) MultipartFile file,
                                     @AuthenticationPrincipal PrincipalDetail principalDetail) throws IOException {
         boardService.save(boardSaveRequestDto, file, principalDetail.getUser());
@@ -42,7 +42,7 @@ public class BoardApiController {
     }
 
     @PutMapping("/api/board/{id}")
-    public ResponseDto<String> update(@PathVariable int id, @RequestBody BoardUpdateRequestDto boardUpdateRequestDto) {
+    public ResponseDto<String> update(@PathVariable int id, @Valid @RequestBody BoardUpdateRequestDto boardUpdateRequestDto) {
         boardService.update(id, boardUpdateRequestDto);
         return new ResponseDto<String>(HttpStatus.OK.value(), "게시글 수정이 완료되었습니다.");
     }
