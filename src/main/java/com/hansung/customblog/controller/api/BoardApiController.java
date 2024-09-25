@@ -7,9 +7,11 @@ import com.hansung.customblog.dto.request.ReplySaveRequestDto;
 import com.hansung.customblog.dto.response.ResponseDto;
 import com.hansung.customblog.service.BoardService;
 import com.hansung.customblog.service.FileService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -46,7 +48,7 @@ public class BoardApiController {
     }
 
     @PostMapping("/api/board/{boardId}/reply")
-    public ResponseDto<String> replySave(@RequestBody ReplySaveRequestDto replySaveRequestDto) {
+    public ResponseDto<String> replySave(@Valid @RequestBody ReplySaveRequestDto replySaveRequestDto, BindingResult bindingResult) {
         boardService.replySave(replySaveRequestDto);
         return new ResponseDto<String>(HttpStatus.OK.value(), "댓글 쓰기가 완료되었습니다.");
     }

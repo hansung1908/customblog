@@ -17,7 +17,7 @@ public class UserSaveRequestDto {
     @NotBlank(message = "비밀번호가 없습니다.")
     private String password;
 
-    @NotBlank(message = "이메일이 없습니다.")
+    @NotBlank(message = "이메일을 입력하세요.")
     @Email(message = "유효한 이메일 주소를 입력해 주세요.")
     private String email;
 
