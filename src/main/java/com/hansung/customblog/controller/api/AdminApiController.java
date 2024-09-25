@@ -6,8 +6,10 @@ import com.hansung.customblog.service.BoardService;
 import com.hansung.customblog.service.FileService;
 import com.hansung.customblog.service.NoticeService;
 import com.hansung.customblog.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -45,7 +47,7 @@ public class AdminApiController {
     }
 
     @PostMapping("api/admin/notice")
-    public ResponseDto<String> noticeSave(@RequestBody NoticeSaveRequestDto noticeSaveRequestDto) {
+    public ResponseDto<String> noticeSave(@Valid @RequestBody NoticeSaveRequestDto noticeSaveRequestDto, BindingResult bindingResult) {
         noticeService.save(noticeSaveRequestDto);
         return new ResponseDto<String>(HttpStatus.OK.value(), "공지사항 저장이 완료되었습니다.");
     }

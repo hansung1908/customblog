@@ -31,7 +31,7 @@ public class UserApiController {
     private SecurityContextLogoutHandler securityContextLogoutHandler;
 
     @PostMapping("/auth/joinProc")
-    public ResponseDto<String> save(@Valid @RequestBody UserSaveRequestDto userSaveRequestDto, BindingResult bindingResult, HttpServletRequest request) {
+    public ResponseDto<String> save(@Valid @RequestBody UserSaveRequestDto userSaveRequestDto, HttpServletRequest request, BindingResult bindingResult) {
         // 세션이 없거나 false면 회원가입 막음
         if(request.getSession().getAttribute("usernameCheckStatus") != null) {
             if((boolean) request.getSession().getAttribute("usernameCheckStatus")) {
@@ -59,7 +59,7 @@ public class UserApiController {
     }
 
     @PostMapping("/auth/joinProc/checkName")
-    public ResponseDto<String> checkName(@RequestBody UserCheckNameRequestDto userCheckNameRequestDto, HttpServletRequest request) {
+    public ResponseDto<String> checkName(@Valid @RequestBody UserCheckNameRequestDto userCheckNameRequestDto, HttpServletRequest request, BindingResult bindingResult) {
         if(userService.checkName(userCheckNameRequestDto.getUsername()) != 0) {
             request.getSession().setAttribute("usernameCheckStatus", false); // 중복 확인을 위한 세션 추가
             return new ResponseDto<String>(HttpStatus.BAD_REQUEST.value(), "중복입니다.");
