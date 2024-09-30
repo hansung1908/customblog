@@ -43,22 +43,36 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div>
-        <ul class="pagination justify-content-center">
-            <li class="page-item" th:class="${noticeList.first} ? 'disabled'">
-                <a class="page-link" th:href="@{/admin/dashboard(page=${noticeList.number - 1}, boardKeyword=${noticeKeyword})}" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li class="page-item" th:class="${noticeList.last} ? 'disabled'">
-                <a class="page-link" th:href="@{/admin/dashboard(page=${noticeList.number + 1}, boardKeyword=${noticeKeyword})}" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:class="${noticeList.first} ? 'disabled'">
+                    <a class="page-link" th:href="@{/admin/dashboard(page=${noticeList.number - 1}, boardKeyword=${noticeKeyword})}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" th:class="${noticeList.last} ? 'disabled'">
+                    <a class="page-link" th:href="@{/admin/dashboard(page=${noticeList.number + 1}, boardKeyword=${noticeKeyword})}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+
+            <hr class="my-4">
+
+            <div class="bd-example-snippet bd-code-snippet">
+                <h4 class="mb-3">log</h4>
+
+                <div class="bd-example m-0 border-0">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr th:each="log : ${logs}">
+                                <td th:text="${log}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div th:insert="~{layout/footer}"></div>

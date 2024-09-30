@@ -86,3 +86,6 @@ hansung:
 
 upload:
   path: C:/upload
+
+log:
+  path: C:/Spring/customblog/logs/logback.log
