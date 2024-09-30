@@ -6,3 +6,6 @@
 [2024-09-26 00:48:16:102081][http-nio-8080-exec-1] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.AdminApiController.noticeSave() -> 필드: content, 메세지: 공지사항 내용을 입력하세요.
 [2024-09-26 00:48:16:102081][http-nio-8080-exec-1] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.AdminApiController.noticeSave() -> 필드: title, 메세지: 공지사항 제목을 입력하세요.
 [2024-09-26 00:48:16:102081][http-nio-8080-exec-1] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.controller.api.AdminApiController.noticeSave() -> 필드: title, 메세지: 공지사항 제목 글자 수는 5~100자 이내로 작성하세요.
+[2024-09-26 00:56:28:16721][http-nio-8080-exec-3] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.handler.GlobalExceptionHandler.handleValidationExceptions() -> 필드: title, 메세지: 제목 글자 수는 5~100자 이내로 작성하세요.
+[2024-09-26 00:56:28:16721][http-nio-8080-exec-3] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.handler.GlobalExceptionHandler.handleValidationExceptions() -> 필드: title, 메세지: 제목을 입력하세요.
+[2024-09-26 00:56:28:16722][http-nio-8080-exec-3] WARN  c.h.customblog.config.BindingAdvice - com.hansung.customblog.handler.GlobalExceptionHandler.handleValidationExceptions() -> 필드: content, 메세지: 내용을 입력하세요.
