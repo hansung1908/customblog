@@ -29,14 +29,6 @@ public class Notice {
     protected Notice() {
     }
 
-    public Notice(int id, NoticeType noticeType, String title, String content, Timestamp createDate) {
-        this.id = id;
-        this.noticeType = noticeType;
-        this.title = title;
-        this.content = content;
-        this.createDate = createDate;
-    }
-
     private Notice(Builder builder) {
         this.id = builder.id;
         this.noticeType = builder.noticeType;

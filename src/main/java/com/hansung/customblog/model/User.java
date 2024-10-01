@@ -36,17 +36,6 @@ public class User {
     protected User() {
     }
 
-    public User(int id, String username, String password, String email, RoleType role, String provider, String providerId, Timestamp createDate) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.role = role;
-        this.provider = provider;
-        this.providerId = providerId;
-        this.createDate = createDate;
-    }
-
     private User(Builder builder) {
         this.id = builder.id;
         this.username = builder.username;
@@ -56,6 +45,19 @@ public class User {
         this.provider = builder.provider;
         this.providerId = builder.providerId;
         this.createDate = builder.createDate;
+    }
+
+    // toBuilder 메서드
+    public Builder toBuilder() {
+        return new Builder()
+                .id(this.id)
+                .username(this.username)
+                .password(this.password)
+                .email(this.email)
+                .role(this.role)
+                .provider(this.provider)
+                .providerId(this.providerId)
+                .createDate(this.createDate);
     }
 
     public static class Builder {
@@ -129,33 +131,5 @@ public class User {
         public User build() {
             return new User(this);
         }
-    }
-
-    // 비밀번호 업데이트 메서드
-    public User updatePassword(String password) {
-        return new Builder()
-                .id(this.id)
-                .username(this.username)
-                .password(password)
-                .email(this.email)
-                .role(this.role)
-                .provider(this.provider)
-                .providerId(this.providerId)
-                .createDate(this.createDate)
-                .build();
-    }
-
-    // 이메일 업데이트 메서드
-    public User updateEmail(String email) {
-        return new Builder()
-                .id(this.id)
-                .username(this.username)
-                .password(this.password)
-                .email(email)
-                .role(this.role)
-                .provider(this.provider)
-                .providerId(this.providerId)
-                .createDate(this.createDate)
-                .build();
     }
 }

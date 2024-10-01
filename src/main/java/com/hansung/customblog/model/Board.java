@@ -42,16 +42,6 @@ public class Board {
     protected Board() {
     }
 
-    public Board(int id, String title, String content, int count, Timestamp createDate, User user, List<Reply> reply) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.count = count;
-        this.createDate = createDate;
-        this.user = user;
-        this.reply = reply;
-    }
-
     private Board(Builder builder) {
         this.id = builder.id;
         this.title = builder.title;
@@ -60,6 +50,17 @@ public class Board {
         this.createDate = builder.createDate;
         this.user = builder.user;
         this.reply = builder.reply;
+    }
+    // toBuilder 메서드
+    public Builder toBuilder() {
+        return new Builder()
+                .id(this.id) // 현재 객체의 ID를 설정
+                .title(this.title)
+                .content(this.content)
+                .count(this.count)
+                .createDate(this.createDate)
+                .user(this.user)
+                .reply(this.reply);
     }
 
     public static class Builder {
