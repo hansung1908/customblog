@@ -36,16 +36,6 @@ public class File {
     protected File() {
     }
 
-    public File(int id, String fileName, String filePath, int fileSize, String fileContentType, Board board, Timestamp createDate) {
-        this.id = id;
-        this.fileName = fileName;
-        this.filePath = filePath;
-        this.fileSize = fileSize;
-        this.fileContentType = fileContentType;
-        this.board = board;
-        this.createDate = createDate;
-    }
-
     private File(Builder builder) {
         this.id = builder.id;
         this.fileName = builder.fileName;

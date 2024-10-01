@@ -38,15 +38,18 @@ public class UserService {
 
     @Transactional
     public void update(UserUpdateRequestDto userUpdateRequestDto) {
-        User updateUser = userRepository.findById(userUpdateRequestDto.getId()).orElseThrow(() -> new IllegalArgumentException("회원 찾기 실패"));
+        User tmpUser = userRepository.findById(userUpdateRequestDto.getId()).orElseThrow(() -> new IllegalArgumentException("회원 찾기 실패"));
+        String updatePassword = tmpUser.getPassword();
 
-        if(updateUser.getProvider() == null || updateUser.getProvider().equals("")) {
+        if(tmpUser.getProvider() == null || tmpUser.getProvider().equals("")) {
             String rawPassword = userUpdateRequestDto.getPassword();
-            String encPassword = passwordEncoder.encode(rawPassword);
-            updateUser = updateUser.updatePassword(encPassword);
+            updatePassword = passwordEncoder.encode(rawPassword);
         }
 
-        updateUser = updateUser.updateEmail(userUpdateRequestDto.getEmail());
+        User updateUser = tmpUser.toBuilder()
+                .password(updatePassword)
+                .email(userUpdateRequestDto.getEmail())
+                .build();
 
         userRepository.save(updateUser);
     }

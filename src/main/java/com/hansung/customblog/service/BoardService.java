@@ -74,14 +74,9 @@ public class BoardService {
         Board tmpBoard = boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("글 찾기 실패: 아이디를 찾을 수 없습니다."));
 
-        Board updateBoard = new Board.Builder()
-                .id(tmpBoard.getId())
+        Board updateBoard = tmpBoard.toBuilder()
                 .title(boardUpdateRequestDto.getTitle())
                 .content(boardUpdateRequestDto.getContent())
-                .count(tmpBoard.getCount())
-                .createDate(tmpBoard.getCreateDate())
-                .user(tmpBoard.getUser())
-                .reply(tmpBoard.getReply())
                 .build();
 
         boardRepository.save(updateBoard);
