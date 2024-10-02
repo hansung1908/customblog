@@ -262,3 +262,8 @@
 - 기능 추가에 따라 @Vaild와 BindingResult를 활용 가능한 메소드에 유효성 검사 + 로깅
 - BindingResult가 작동하지 않아 생기는 MethodArgumentNotValidException이 발생하는 경우 존재 (게시물 + 이름 중복)
 - 해당 경우에는 GlobalExceptionHandler로 가져와 오류 내용을 추출하여 따로 처리
+
+##### 모델 레이어 일부 수정
+- 빌더 사용으로 필요없어진 모든 필드를 초기화하는 생성자 삭제
+- board와 user 데이터를 업데이트할 때 해당 객체의 정보를 빌더로 불러와서 수정할 수 있는 toBuilder 메소드 추가
+- toBuilder 메소드 추가로 기존 서비스 레이어에서 진행하던 데이터 업데이터에서 toBuilder 활용으로 변경
