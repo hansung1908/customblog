@@ -17,9 +17,13 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String targetBoardId;
+    private int targetBoardId;
 
-    private String reporterUserId;
+    private String targetBoardTitle;
+
+    private int reporterUserId;
+
+    private String reporterUsername;
 
     private String reason;
 
@@ -31,23 +35,37 @@ public class Report {
 
     private Report(Builder builder) {
         this.targetBoardId = builder.targetBoardId;
+        this.targetBoardTitle = builder.targetBoardTitle;
         this.reporterUserId = builder.reporterUserId;
+        this.reporterUsername = builder.reporterUsername;
         this.reason = builder.reason;
     }
 
     // Static Builder class
     public static class Builder {
-        private String targetBoardId;
-        private String reporterUserId;
+        private int targetBoardId;
+        private String targetBoardTitle;
+        private int reporterUserId;
+        private String reporterUsername;
         private String reason;
 
-        public Builder targetBoardId(String targetBoardId) {
+        public Builder targetBoardId(int targetBoardId) {
             this.targetBoardId = targetBoardId;
             return this;
         }
 
-        public Builder reporterUserId(String reporterUserId) {
+        public Builder targetBoardTitle(String targetBoardTitle) { // 추가된 메서드
+            this.targetBoardTitle = targetBoardTitle;
+            return this;
+        }
+
+        public Builder reporterUserId(int reporterUserId) {
             this.reporterUserId = reporterUserId;
+            return this;
+        }
+
+        public Builder reporterUsername(String reporterUsername) { // 추가된 메서드
+            this.reporterUsername = reporterUsername;
             return this;
         }
 

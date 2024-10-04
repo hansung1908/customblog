@@ -37,16 +37,12 @@ public class BoardController {
             model.addAttribute("keyword", keyword); // 키워드 값을 유지하여 페이징 처리하기 위한 keyword 값 설정
         }
 
+        // 최신 공지사항 조회
         Notice notice = noticeService.findLatestNotice();
-
         String noticeType = null;
-        if(notice != null) {
-            if(notice.getNoticeType().toString().equals("IMPORTANT")) {
-                noticeType = "중요";
-            } else {
-                noticeType = "일반";
-            }
 
+        if (notice != null) {
+            noticeType = notice.getNoticeType().toString().equals("IMPORTANT") ? "중요" : "일반";
             model.addAttribute("notice", notice);
         }
 
