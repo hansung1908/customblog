@@ -28,7 +28,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
                             <button class="btn btn-sm btn-outline-secondary" onclick="history.back()">Back</button>
-                            <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#reportModal">report</button>
+                            <button class="btn btn-sm btn-outline-secondary" th:if="${boardDetail.user.id} != ${#authentication.principal.user.id}" data-bs-toggle="modal" data-bs-target="#reportModal" >report</button>
                             <a class="btn btn-sm btn-outline-secondary" th:href="@{|/board/${boardDetail.id}/updateForm|}" th:if="${boardDetail.user.id} == ${#authentication.principal.user.id}">Edit</a>
                             <form>
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

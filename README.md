@@ -127,6 +127,7 @@
 - pageable을 사용하기 위해 jpql을 사용하여 쿼리 생성 + 페이징을 이용하기 위한 page 타입 반환
 - BoardService의 boardListByKeyword 메소드를 만들어 keyword와 pageable을 받아 repository로 넘겨줌
 - BoardController의 index 메소드에 keyword 값을 추가로 받아 service로 넘기는 코드 추가
+---
 
 ##### 유저네임 중복 체크 기능 추가
 - 유저네임 중복 체크를 위한 button 추가
@@ -267,3 +268,7 @@
 - 빌더 사용으로 필요없어진 모든 필드를 초기화하는 생성자 삭제
 - board와 user 데이터를 업데이트할 때 해당 객체의 정보를 빌더로 불러와서 수정할 수 있는 toBuilder 메소드 추가
 - toBuilder 메소드 추가로 기존 서비스 레이어에서 진행하던 데이터 업데이터에서 toBuilder 활용으로 변경
+
+##### 검색 기능 오류 수정
+- js에서 redirect시 이중 호출로 model 내용이 사라지는 오류 발견
+- redirct를 제거하여 해당 에러 해결
