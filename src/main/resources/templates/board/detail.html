@@ -34,6 +34,7 @@
                                 <button class="btn btn-sm btn-outline-secondary" id="btn-delete" th:if="${boardDetail.user.id} == ${#authentication.principal.user.id}">Delete</button>
                             </form>
                         </div>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#reportModal">report</button>
                         <small class="text-body-secondary" th:utext="${boardDetail.user.username}"></small>
                     </div>
                 </div>
@@ -99,6 +100,32 @@
                             </div>
                         </li>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="reportModalLabel">Report</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="reportForm">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <input type="hidden" id="reporterUserId" th:value="${#authentication.principal.user.id}"/>
+                        <input type="hidden" id="targetBoardId" th:value="${boardDetail.id}"/>
+                        <div class="mb-3">
+                            <label for="report-reason" class="col-form-label">reason:</label>
+                            <textarea class="form-control" id="report-reason"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="btn-report" class="btn btn-primary">Send report</button>
                 </div>
             </div>
         </div>

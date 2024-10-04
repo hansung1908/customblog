@@ -15,6 +15,10 @@ let index = {
         $("#btn-reply-save").on("click", ()=>{
             this.replySave();
         });
+
+        $("#btn-report").on("click", ()=>{
+            this.report();
+        });
     },
 
     save: function(){
@@ -175,7 +179,37 @@ let index = {
                 alert(JSON.stringify(resp.data));
             }
         });
-    }
+    },
+
+    report: function() {
+        const csrfToken = $('input[name="_csrf"]').val();
+
+        let data = {
+            let reporterUserId: $("#reporterUserId").val(),
+            let targetBoardId = $("#targetBoardId").val(),
+            let reason = $("#report-reason").text();
+        }
+
+            $.ajax({
+                type: "POST",
+                url: "api/report",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken // CSRF 토큰 추가
+                }
+            }).always(function(resp) {
+                console.log("HTTP Status Code: " + resp.status);
+                console.log("Response Text: ", resp.data);
+
+                if (resp.status === 200) {
+                    alert(JSON.stringify(resp.data));
+                } else {
+                    alert(JSON.stringify(resp.data));
+                }
+            });
+        }
 }
 
 index.init();

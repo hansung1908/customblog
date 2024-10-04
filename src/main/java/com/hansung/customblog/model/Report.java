@@ -17,9 +17,9 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String targetUsername;
+    private String targetBoardId;
 
-    private String reporterUsername;
+    private String reporterUserId;
 
     private String reason;
 
@@ -30,24 +30,24 @@ public class Report {
     }
 
     private Report(Builder builder) {
-        this.targetUsername = builder.targetUsername;
-        this.reporterUsername = builder.reporterUsername;
+        this.targetBoardId = builder.targetBoardId;
+        this.reporterUserId = builder.reporterUserId;
         this.reason = builder.reason;
     }
 
     // Static Builder class
     public static class Builder {
-        private String targetUsername;
-        private String reporterUsername;
+        private String targetBoardId;
+        private String reporterUserId;
         private String reason;
 
-        public Builder targetUsername(String targetUsername) {
-            this.targetUsername = targetUsername;
+        public Builder targetBoardId(String targetBoardId) {
+            this.targetBoardId = targetBoardId;
             return this;
         }
 
-        public Builder reporterUsername(String reporterUsername) {
-            this.reporterUsername = reporterUsername;
+        public Builder reporterUserId(String reporterUserId) {
+            this.reporterUserId = reporterUserId;
             return this;
         }
 
