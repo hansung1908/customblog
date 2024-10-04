@@ -106,10 +106,7 @@ let index = {
             console.log("HTTP Status Code: " + resp.status);
             console.log("Response Text: ", resp.data);
 
-            if (resp.status === 200) {
-                alert(JSON.stringify(resp.data));
-                location.href = "/admin/boards";
-            } else {
+            if (resp.status !== 200) {
                 alert(JSON.stringify(resp.data));
             }
         });
@@ -151,10 +148,7 @@ let index = {
             console.log("HTTP Status Code: " + resp.status);
             console.log("Response Text: ", resp.data);
 
-            if (resp.status === 200) {
-                alert(JSON.stringify(resp.data));
-                location.href = "/admin/users";
-            } else {
+            if (resp.status !== 200) {
                 alert(JSON.stringify(resp.data));
             }
         });
@@ -204,10 +198,7 @@ let index = {
             console.log("HTTP Status Code: " + resp.status);
             console.log("Response Text: ", resp.data);
 
-            if (resp.status === 200) {
-                alert(JSON.stringify(resp.data));
-                location.href = "/admin/dashboard";
-            } else {
+            if (resp.status !== 200) {
                 alert(JSON.stringify(resp.data));
             }
         });
