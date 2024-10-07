@@ -1,13 +1,13 @@
 package com.hansung.customblog.service;
 
-import com.hansung.customblog.dto.request.NoticeSaveRequestDto;
 import com.hansung.customblog.dto.request.ReportSaveRequestDto;
-import com.hansung.customblog.model.Notice;
 import com.hansung.customblog.model.Report;
 import com.hansung.customblog.repository.ReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class ReportService {
@@ -26,5 +26,10 @@ public class ReportService {
                 .build();
 
         reportRepository.save(report);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Report> reportList() {
+        return reportRepository.findAll();
     }
 }

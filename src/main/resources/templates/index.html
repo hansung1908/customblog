@@ -6,17 +6,17 @@
 <body>
     <div th:insert="~{layout/navbar}"></div>
 
-    <div class="container py-5" th:if="${noticeType} != null">
+    <div class="container py-5" th:if="${LatestNotice.title} != null">
         <div class="accordion">
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                        <span th:utext="'<' + ${noticeType} + '> ' + ${notice.title}">noticeTitle</span>
+                        <span th:utext="'<' + ${LatestNotice.noticeType} + '> ' + ${LatestNotice.title}">noticeTitle</span>
                     </button>
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse">
                     <div class="accordion-body">
-                        <div th:utext="${notice.content}">noticeContent</div>
+                        <div th:utext="${LatestNotice.content}">noticeContent</div>
                     </div>
                 </div>
             </div>
