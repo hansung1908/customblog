@@ -38,15 +38,8 @@ public class BoardController {
         }
 
         // 최신 공지사항 조회
-        Notice notice = noticeService.findLatestNotice();
-        String noticeType = null;
+        model.addAttribute("LatestNotice", noticeService.findLatestNotice());
 
-        if (notice != null) {
-            noticeType = notice.getNoticeType().toString().equals("IMPORTANT") ? "중요" : "일반";
-            model.addAttribute("notice", notice);
-        }
-
-        model.addAttribute("noticeType", noticeType);
 
         return "index";
     }

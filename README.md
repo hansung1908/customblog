@@ -49,6 +49,10 @@
 - html 뷰 렌더링 vs rest api 생성 + 데이터(보통 json) 반환
 - @Controller에서도 데이터를 반환하고 싶으면 메소드에 @ResponseBody 추가
 
+### enum
+- 상수 값의 집합, 특정 값만 허용하여 잘못된 값 입력 방지
+- db에서 값을 가져와 html에 표시할때 toString을 구현해야 표시됨
+
 ### 기능 추가
 
 ##### 조회수 기능 추가
