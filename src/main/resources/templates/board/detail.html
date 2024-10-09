@@ -28,14 +28,14 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
                             <button class="btn btn-sm btn-outline-secondary" onclick="history.back()">Back</button>
-                            <button class="btn btn-sm btn-outline-secondary" th:if="${boardDetail.user.id} != ${#authentication.principal.user.id}" data-bs-toggle="modal" data-bs-target="#reportModal" >report</button>
-                            <a class="btn btn-sm btn-outline-secondary" th:href="@{|/board/${boardDetail.id}/updateForm|}" th:if="${boardDetail.user.id} == ${#authentication.principal.user.id}">Edit</a>
+                            <button class="btn btn-sm btn-outline-secondary" th:if="${boardDetail.userId} != ${#authentication.principal.user.id}" data-bs-toggle="modal" data-bs-target="#reportModal" >report</button>
+                            <a class="btn btn-sm btn-outline-secondary" th:href="@{|/board/${boardDetail.id}/updateForm|}" th:if="${boardDetail.userId} == ${#authentication.principal.user.id}">Edit</a>
                             <form>
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                <button class="btn btn-sm btn-outline-secondary" id="btn-delete" th:if="${boardDetail.user.id} == ${#authentication.principal.user.id}">Delete</button>
+                                <button class="btn btn-sm btn-outline-secondary" id="btn-delete" th:if="${boardDetail.userId} == ${#authentication.principal.user.id}">Delete</button>
                             </form>
                         </div>
-                        <small class="text-body-secondary" th:utext="${boardDetail.user.username}"></small>
+                        <small class="text-body-secondary" th:utext="${boardDetail.username}"></small>
                     </div>
                 </div>
             </div>
@@ -90,12 +90,12 @@
                         <li th:id="'reply-'+${reply.id}" class="list-group-item d-flex justify-content-between align-items-center" th:each="reply : ${boardDetail.reply}">
                             <div th:utext="${reply.content}"></div>
                             <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-body-secondary" th:utext="${reply.user.username}"></small>
+                                <small class="text-body-secondary" th:utext="${reply.username}"></small>
                                 &nbsp;
                                 <form>
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                     <button type="submit" th:onclick="index.replyDelete([[${boardDetail.id}]], [[${reply.id}]])"
-                                            th:if="${reply.user.id} == ${#authentication.principal.user.id}" class="btn btn-sm btn-outline-secondary">Delete</button>
+                                            th:if="${reply.userId} == ${#authentication.principal.user.id}" class="btn btn-sm btn-outline-secondary">Delete</button>
                                 </form>
                             </div>
                         </li>

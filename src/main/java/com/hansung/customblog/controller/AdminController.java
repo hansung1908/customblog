@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-
 @Controller
 public class AdminController {
 
@@ -60,9 +58,9 @@ public class AdminController {
                         @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                         @RequestParam(name = "boardKeyword", required = false, defaultValue = "") String boardKeyword) {
         if(boardKeyword.equals("")) { // 키워드가 없으면 모든 게시물 반환
-            model.addAttribute("boardList", boardService.boardList(pageable));
+            model.addAttribute("boardList", boardService.findBoardList(pageable));
         } else { // 키워드가 포함된 게시물 반환
-            model.addAttribute("boardList", boardService.boardListByKeyword(boardKeyword, pageable));
+            model.addAttribute("boardList", boardService.findBoardListByKeyword(boardKeyword, pageable));
             model.addAttribute("boardKeyword", boardKeyword); // 키워드 값을 유지하여 페이징 처리하기 위한 keyword 값 설정
         }
 
@@ -71,7 +69,7 @@ public class AdminController {
 
     @GetMapping("/admin/board/{id}")
     public String boardDetail(@PathVariable int id, Model model) {
-        model.addAttribute("boardDetail", boardService.boardDetail(id));
+        model.addAttribute("boardDetail", boardService.findBoardDetail(id));
         model.addAttribute("fileName", fileService.findFileName(id));
         return "admin/boardDetail";
     }
