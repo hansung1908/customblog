@@ -1,5 +1,7 @@
 package com.hansung.customblog.repository;
 
+import com.hansung.customblog.dto.response.BoardDetailResponseDto;
+import com.hansung.customblog.dto.response.BoardListResponseDto;
 import com.hansung.customblog.model.Board;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +17,14 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     void countUpById(int id);
 
     // 작성자와 키워드 값 비교는 서브 쿼리를 사용하여 일치하는 작성자 id와 게시물 작성자 id를 비교
-    @Query("SELECT b FROM Board b WHERE b.title LIKE %:boardKeyword% OR b.user.id IN (SELECT u.id FROM User u WHERE u.username LIKE %:boardKeyword%)")
-    Page<Board> findBoardByKeyword(@Param("boardKeyword") String boardKeyword, Pageable pageable);
+    @Query("SELECT new com.hansung.customblog.dto.response.BoardListResponseDto(b.id, b.title, b.count, u.username)" +
+            "FROM Board b JOIN b.user u WHERE b.title LIKE %:boardKeyword% OR b.user.id IN (SELECT u.id FROM User u WHERE u.username LIKE %:boardKeyword%)")
+    Page<BoardListResponseDto> findBoardListByKeyword(@Param("boardKeyword") String boardKeyword, Pageable pageable);
+
+    @Query("SELECT new com.hansung.customblog.dto.response.BoardListResponseDto(b.id, b.title, b.count, u.username) FROM Board b JOIN b.user u")
+    Page<BoardListResponseDto> findBoardList(Pageable pageable);
+
+    @Query("SELECT new com.hansung.customblog.dto.response.BoardDetailResponseDto(b.id, b.title, b.content, b.count, u.id, u.username)" +
+            "FROM Board b JOIN b.user u WHERE b.id = :boardId")
+    BoardDetailResponseDto findBoardDetail(@Param("boardId") int id);
 }
