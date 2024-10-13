@@ -63,8 +63,9 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true) // 읽기 전용을 설정해 속도 올림
-    public BoardDetailResponseDto findBoardDetail(int id) {
-        BoardDetailResponseDto boardDetail = boardRepository.findBoardDetail(id);
+    public BoardDetailResponseDto findBoardDetail(int id) { // 각각의 repository에서 값을 반환, 순환 참조 해결
+        BoardDetailResponseDto boardDetail = boardRepository.findBoardDetail(id)
+                .orElseThrow(() -> new IllegalArgumentException("글 찾기 실패: 아이디를 찾을 수 없습니다."));
         List<ReplyResponseDto> replyList = replyRepository.findReplyListByBoardId(id);
         boardDetail.setReply(replyList);
         return boardDetail;

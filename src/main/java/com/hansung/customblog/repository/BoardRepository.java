@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
+
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     @Modifying
@@ -26,5 +28,5 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     @Query("SELECT new com.hansung.customblog.dto.response.BoardDetailResponseDto(b.id, b.title, b.content, b.count, u.id, u.username)" +
             "FROM Board b JOIN b.user u WHERE b.id = :boardId")
-    BoardDetailResponseDto findBoardDetail(@Param("boardId") int id);
+    Optional<BoardDetailResponseDto> findBoardDetail(@Param("boardId") int id);
 }

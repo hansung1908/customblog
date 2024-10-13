@@ -32,10 +32,11 @@ public class Board {
     @JoinColumn(name = "userId")
     private User user; // foreign key
 
-    // foreign key 아님, 컬럼 생성 x, select 시 join을 통해 값만 얻어옴, mappedby에 리스트 기준 foreign key가 들어갈 테이블 이름 넣음 (양방향 매핑)
-    // CascadeType.REMOVE는 부모 엔티티가 삭제되면 연관된 자식 엔티티도 함께 삭제
+    // 이 관계는 Reply 테이블에 외래 키가 존재하지만, Board 테이블에는 컬럼이 생성되지 않음.
+    // 조회 시, JOIN을 통해 연관된 Reply 데이터만 얻어옴.
+    // mappedBy에는 Reply 엔티티에서 부모 Board를 참조하는 필드 이름이 들어감.
+    // CascadeType.REMOVE는 부모 엔티티가 삭제되면 연관된 자식 엔티티도 함께 삭제됨.
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
-    @JsonIgnoreProperties({"board"}) // 순환 참조 방지
     @OrderBy("id desc") // 자식 엔티티의 정렬 방식
     private List<Reply> reply;
 
