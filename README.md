@@ -34,6 +34,26 @@
 ### jpa
 - board 호출시 참조하고 있는 reply가 board를 참조하여 무한 참조 발생시 @jsonignoreproperties({"board"})를 board에 참조하는 reply에 설정하여 reply에서 참조하는 board가 다시 참조되는 것을 막아줌
 
+### jpa n+1
+- 즉시로딩
+  - jpql을 우선적으로 select하기 때문에 즉시로딩을 이후에 보고 또다른 쿼리가 날아가 N+1
+- 지연로딩
+  - 지연로딩된 값을 select할 때 따로 쿼리가 날아가 N+1
+- fetch join
+  - 지연로딩의 해결책
+  - 사용될 때 확정된 값을 한번에 join에서 select해서 가져옴
+  - Pagination이나 2개 이상의 collection join에서 문제가 발생
+- Pagination
+  - fetch join 시 limit, offset을 통한 쿼리가 아닌 인메모리에 모두 가져와 application단에서 처리하여 OOM 발생
+  - BatchSize를 통해 필요 시 배치쿼리로 원하는 만큼 쿼리를 날림 > 쿼리는 날아가지만 N번 만큼의 무수한 쿼리는 발생되지 않음
+- 2개 이상의 Collection join
+  - List 자료구조의 2개 이상의 Collection join(~ToMany관계)에서 fetch join 할 경우 MultipleBagFetchException 예외 발생
+  - Set자료구조를 사용한다면 해결가능 (Pagination은 여전히 발생)
+  - BatchSize를 사용한다면 해결가능 (Pagination 해결)
+- 위 모든 해결책으론 말끔히 해결할 수 없다 생각
+- response dto projection + jpql 쿼리 직접 작성(일반 조인 사용) 적용
+- pagenation 사용, sql의 실행 횟수를 1번으로 최소화, 필요한 데이터만 반환하여 보안 유지
+
 ### oauth2
 - 각 사이트별로 제공되는 attribute가 다르므로 oauth2userinfo 인터페이스를 만들어 각 사이트의 userinfo가 implements하여 각 사이트가 제공하는 attribute에 맞게 정보를 넣어 저장
 - oauth2를 통해 카카오 로그인 서비스를 개발할 때 secret키를 따로 설정하지 않으면 yml에서도 secret키를 제외하고 설정
