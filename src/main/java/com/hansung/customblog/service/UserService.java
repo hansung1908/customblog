@@ -2,6 +2,7 @@ package com.hansung.customblog.service;
 
 import com.hansung.customblog.dto.request.UserSaveRequestDto;
 import com.hansung.customblog.dto.request.UserUpdateRequestDto;
+import com.hansung.customblog.dto.response.UserListResponseDto;
 import com.hansung.customblog.model.RoleType;
 import com.hansung.customblog.model.User;
 import com.hansung.customblog.repository.UserRepository;
@@ -60,12 +61,12 @@ public class UserService {
     }
 
     @Transactional(readOnly = true) // 읽기 전용을 설정해 속도 올림
-    public Page<User> userList(Pageable pageable) {
-        return userRepository.findAll(pageable);
+    public Page<UserListResponseDto> getUserList(Pageable pageable) {
+        return userRepository.findUserList(pageable);
     }
 
     @Transactional(readOnly = true) // 읽기 전용을 설정해 속도 올림
-    public Page<User> userListByKeyword(String userKeyword, Pageable pageable) {
+    public Page<UserListResponseDto> getUserListByKeyword(String userKeyword, Pageable pageable) {
         return userRepository.findUserByKeyword(userKeyword, pageable);
     }
 

@@ -1,5 +1,6 @@
 package com.hansung.customblog.repository;
 
+import com.hansung.customblog.dto.response.UserListResponseDto;
 import com.hansung.customblog.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,8 +19,12 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "SELECT EXISTS (SELECT 1 FROM user WHERE username = ?1)", nativeQuery = true)
     long existsByName(String username);
 
-    @Query("SELECT u FROM User u WHERE u.username LIKE %:userKeyword%")
-    Page<User> findUserByKeyword(@Param("userKeyword") String userKeyword, Pageable pageable);
+    @Query("SELECT new com.hansung.customblog.dto.response.UserListResponseDto(u.id, u.username, u.email, u.role, u.createDate) FROM User u")
+    Page<UserListResponseDto> findUserList(Pageable pageable);
+
+    @Query("SELECT new com.hansung.customblog.dto.response.UserListResponseDto(u.id, u.username, u.email, u.role, u.createDate)" +
+            "FROM User u WHERE u.username LIKE %:userKeyword%")
+    Page<UserListResponseDto> findUserByKeyword(@Param("userKeyword") String userKeyword, Pageable pageable);
 
     void deleteByUsername(String username);
 }
