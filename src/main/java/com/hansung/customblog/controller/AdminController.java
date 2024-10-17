@@ -43,11 +43,11 @@ public class AdminController {
         if(noticeKeyword.equals("")) { // 키워드가 없으면 모든 게시물 반환
             model.addAttribute("noticeList", noticeService.noticeList(pageable));
         } else { // 키워드가 포함된 게시물 반환
-            model.addAttribute("noticeList", noticeService.noticeListByKeyword(noticeKeyword, pageable));
+            model.addAttribute("noticeList", noticeService.getNoticeListByKeyword(noticeKeyword, pageable));
             model.addAttribute("noticeKeyword", noticeKeyword); // 키워드 값을 유지하여 페이징 처리하기 위한 keyword 값 설정
         }
 
-        model.addAttribute("logs", logService.readTodayLog(logPath));
+        model.addAttribute("logs", logService.readLatestLog(logPath));
         model.addAttribute("reportList", reportService.reportList());
 
         return "admin/dashboard";
@@ -79,9 +79,9 @@ public class AdminController {
                            @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                            @RequestParam(name = "userKeyword", required = false, defaultValue = "") String userKeyword) {
         if(userKeyword.equals("")) { // 키워드가 없으면 모든 게시물 반환
-            model.addAttribute("userList", userService.userList(pageable));
+            model.addAttribute("userList", userService.getUserList(pageable));
         } else { // 키워드가 포함된 게시물 반환
-            model.addAttribute("userList", userService.userListByKeyword(userKeyword, pageable));
+            model.addAttribute("userList", userService.getUserListByKeyword(userKeyword, pageable));
             model.addAttribute("userKeyword", userKeyword); // 키워드 값을 유지하여 페이징 처리하기 위한 keyword 값 설정
         }
 

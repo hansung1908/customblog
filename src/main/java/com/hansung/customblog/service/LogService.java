@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class LogService {
 
-    public List<String> readTodayLog(String filePath) {
+    public List<String> readLatestLog(String filePath) {
         List<String> logLines = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {

@@ -1,6 +1,7 @@
 package com.hansung.customblog.service;
 
 import com.hansung.customblog.dto.request.NoticeSaveRequestDto;
+import com.hansung.customblog.dto.response.NoticeListResponseDto;
 import com.hansung.customblog.model.Notice;
 import com.hansung.customblog.repository.NoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +29,16 @@ public class NoticeService {
 
     @Transactional(readOnly = true)
     public Notice findLatestNotice() {
-        return noticeRepository.findLatestNotice();
+        return noticeRepository.findLatestNotice().orElseThrow(() -> new IllegalArgumentException("마지막 공지를 찾을 수 없습니다."));
     }
 
     @Transactional(readOnly = true)
-    public Page<Notice> noticeList(Pageable pageable) {
-        return noticeRepository.findAll(pageable);
+    public Page<NoticeListResponseDto> noticeList(Pageable pageable) {
+        return noticeRepository.findNoticeList(pageable);
     }
 
     @Transactional(readOnly = true)
-    public Page<Notice> noticeListByKeyword(String noticeKeyword, Pageable pageable) {
+    public Page<NoticeListResponseDto> getNoticeListByKeyword(String noticeKeyword, Pageable pageable) {
         return noticeRepository.findNoticeByKeyword(noticeKeyword, pageable);
     }
 
