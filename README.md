@@ -296,3 +296,9 @@
 ##### 검색 기능 오류 수정
 - js에서 redirect시 이중 호출로 model 내용이 사라지는 오류 발견
 - redirct를 제거하여 해당 에러 해결
+
+##### response dto + jpql 쿼리를 사용에 따른 전체 로직 수정
+- 모든 select문을 사용하는 repository 메소드를 response dto + jpql 쿼리를 사용하여 최적화
+- 쿼리문을 직접 작성하여 n+1 문제 해결과 함께 성능 향상
+- 필요한 데이터만 받아 반환하여 보안성 향상 + db 부담 축소
+- page 객체 그대로 사용하여 보수유지

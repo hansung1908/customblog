@@ -61,12 +61,12 @@
 
                         <ul class="pagination justify-content-center">
                             <li class="page-item" th:class="${noticeList.first} ? 'disabled'">
-                                <a class="page-link" th:href="@{/admin/dashboard(page=${noticeList.number - 1}, boardKeyword=${noticeKeyword})}" aria-label="Previous">
+                                <a class="page-link" th:href="@{/admin/dashboard(noticePage=${noticeList.number - 1}, noticeKeyword=${noticeKeyword})}" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
                             <li class="page-item" th:class="${noticeList.last} ? 'disabled'">
-                                <a class="page-link" th:href="@{/admin/dashboard(page=${noticeList.number + 1}, boardKeyword=${noticeKeyword})}" aria-label="Next">
+                                <a class="page-link" th:href="@{/admin/dashboard(noticePage=${noticeList.number + 1}, noticeKeyword=${noticeKeyword})}" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
@@ -74,9 +74,18 @@
 
                         <hr class="my-4">
 
-                        <div class="accordion" id="reportList">
+                        <div class="d-flex justify-content-between">
                             <h4 class="mb-3" id="report-item">report</h4>
 
+                            <div class="form-group col-3">
+                                <form class="form-inline d-flex">
+                                    <input type="text" name="reportKeyword" class="form-control" id="reportKeyword" placeholder="keyword" th:value="${reportKeyword}">
+                                    <button class="btn btn-primary btn-lg" id="btn-admin-report-search">Search</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="accordion" id="reportList">
                             <div th:each="report, iterStat : ${reportList}" class="accordion-item">
                                 <h2 class="accordion-header" th:id="'heading' + ${iterStat.index}">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" th:data-bs-target="'#report' + ${iterStat.index}" aria-expanded="false" th:aria-controls="'report' + ${iterStat.index}">
@@ -91,6 +100,19 @@
                                 </div>
                             </div>
                         </div>
+
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" th:class="${reportList.first} ? 'disabled'">
+                                <a class="page-link" th:href="@{/admin/dashboard(reportPage=${reportList.number - 1}, reportKeyword=${reportKeyword})}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item" th:class="${reportList.last} ? 'disabled'">
+                                <a class="page-link" th:href="@{/admin/dashboard(reportPage=${reportList.number + 1}, reportKeyword=${reportKeyword})}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
 
                         <hr class="my-4">
 
