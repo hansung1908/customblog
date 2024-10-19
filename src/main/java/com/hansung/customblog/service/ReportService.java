@@ -1,9 +1,13 @@
 package com.hansung.customblog.service;
 
 import com.hansung.customblog.dto.request.ReportSaveRequestDto;
+import com.hansung.customblog.dto.response.NoticeListResponseDto;
+import com.hansung.customblog.dto.response.ReportListResponseDto;
 import com.hansung.customblog.model.Report;
 import com.hansung.customblog.repository.ReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +33,12 @@ public class ReportService {
     }
 
     @Transactional(readOnly = true)
-    public List<Report> reportList() {
-        return reportRepository.findAll();
+    public Page<ReportListResponseDto> reportList(Pageable pageable) {
+        return reportRepository.findReportList(pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ReportListResponseDto> getReportListByKeyword(String reportKeyword, Pageable pageable) {
+        return reportRepository.findReportByKeyword(reportKeyword, pageable);
     }
 }

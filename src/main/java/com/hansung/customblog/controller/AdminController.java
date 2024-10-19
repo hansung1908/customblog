@@ -3,6 +3,7 @@ package com.hansung.customblog.controller;
 import com.hansung.customblog.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -38,17 +39,25 @@ public class AdminController {
 
     @GetMapping("/admin/dashboard")
     public String dashboard(Model model,
-                            @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
-                            @RequestParam(name = "noticeKeyword", required = false, defaultValue = "") String noticeKeyword) {
+                            @RequestParam(defaultValue = "0") int reportPage,
+                            @RequestParam(defaultValue = "0") int noticePage,
+                            @RequestParam(name = "noticeKeyword", required = false, defaultValue = "") String noticeKeyword,
+                            @RequestParam(name = "reportKeyword", required = false, defaultValue = "") String reportKeyword) {
+        Pageable noticePageable = PageRequest.of(noticePage, 5, Sort.by(Sort.Direction.DESC, "id"));
+        Pageable reportPageable = PageRequest.of(reportPage, 5, Sort.by(Sort.Direction.DESC, "id"));
+
         if(noticeKeyword.equals("")) { // 키워드가 없으면 모든 게시물 반환
-            model.addAttribute("noticeList", noticeService.noticeList(pageable));
+            model.addAttribute("noticeList", noticeService.noticeList(noticePageable));
+            model.addAttribute("reportList", reportService.reportList(reportPageable));
         } else { // 키워드가 포함된 게시물 반환
-            model.addAttribute("noticeList", noticeService.getNoticeListByKeyword(noticeKeyword, pageable));
+            model.addAttribute("noticeList", noticeService.getNoticeListByKeyword(noticeKeyword, noticePageable));
+            model.addAttribute("noticeList", reportService.getReportListByKeyword(reportKeyword, reportPageable));
             model.addAttribute("noticeKeyword", noticeKeyword); // 키워드 값을 유지하여 페이징 처리하기 위한 keyword 값 설정
+            model.addAttribute("reportKeyword", reportKeyword);
         }
 
         model.addAttribute("logs", logService.readLatestLog(logPath));
-        model.addAttribute("reportList", reportService.reportList());
+
 
         return "admin/dashboard";
     }
