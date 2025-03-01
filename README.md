@@ -51,7 +51,7 @@ JPA N+1 문제 해결, 보안 강화 등 실무에서 중요시되는 기술적 
 
 # ERD
 
-![ERD.pdf](https://github.com/user-attachments/files/19039433/ERD.pdf)
+![Image](https://github.com/user-attachments/assets/b940d492-44b1-4478-91b2-53d0dfd28bdd)
 
 # 주요 기능
 
