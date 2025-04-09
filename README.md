@@ -212,7 +212,6 @@ boardRepository.delete(board); // Reply도 함께 삭제됨
 <details>
     <summary><strong>보안 강화</strong></summary>
 
-- Spring Security 활용: 인증 및 권한 관리를 위한 체계적인 구현
 - CSRF 방어 활성화: 토큰 기반의 Cross-Site Request Forgery 방어 메커니즘 구현
 - OAuth2 통합: 카카오 로그인 등 외부 인증 서비스 연동
 - 자동 로그인 기능: Remember-me 기능 구현 및 토큰 관리
